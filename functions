@@ -1,0 +1,59 @@
+# Image width
+width () {
+  echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
+}
+
+# Image height
+height () {
+  echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
+}
+
+# All the dig info
+digga () {
+  dig +nocmd $1 any +multiline +noall +answer
+}
+
+# Copy w/ progress
+cp_p () {
+  rsync -WavP --human-readable --progress $1 $2
+}
+
+# Pretty print JSON
+cjson () {
+  local url=$(echo $1)
+  if [[ "http" == $url[0,4] ]] ; then
+    curl --silent $url | python -mjson.tool | pygmentize -O style=monokai -f console256 -g
+  else
+    cat $url | python -mjson.tool | pygmentize -O style=monokai -f console256 -g
+  fi
+}
+
+# Curl pretty print with underscore
+function curlJsonPrettyPrint() {
+  local url="${1}"
+  curl "$url" | underscore print --color | less -R
+}
+
+# Simple server
+function server() {
+  local port="${1:-8000}"
+  #open "http://localhost:${port}/"
+  python -m SimpleHTTPServer "$port"
+}
+
+# display Ip
+function ip() {
+	# ifconfig getifaddr en0
+	ifconfig | grep inet | grep broad | awk {'print $2'}
+}
+
+# List port procceses
+function listPortProcceses() {
+	lsof -i tcp:"${1}"
+}
+
+# Git push shortcut
+function gitAddCommitPush() {
+  local msg="${1}"
+  git add . && git commit -m "$msg" && git push;
+}
