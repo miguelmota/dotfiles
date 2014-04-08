@@ -13,7 +13,7 @@ digga () {
   dig +nocmd $1 any +multiline +noall +answer
 }
 
-# Copy w/ progress
+# Copy with progress
 cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
@@ -41,7 +41,7 @@ function server() {
   python -m SimpleHTTPServer "$port"
 }
 
-# display Ip
+# Display local IP
 function ip() {
 	# ifconfig getifaddr en0
 	ifconfig | grep inet | grep broad | awk {'print $2'}
