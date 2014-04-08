@@ -127,7 +127,7 @@ export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #export PS2="\[\033[0;32m\]>\[\033[00m\] "
 ####
 
-export PS1="\n\n\[\033[0;36m\]\u@$(ifconfig | grep "inet " | grep -v 127.0.0. | awk '{print $2}')\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]→\[\033[00m\] "
+export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]→\[\033[00m\] "
 export PS2="\[\033[0;32m\]>\[\033[00m\] "
 
 # z - jump around

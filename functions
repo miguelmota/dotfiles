@@ -57,3 +57,9 @@ function gitAddCommitPush() {
   local msg="${1}"
   git add . && git commit -m "$msg" && git push;
 }
+
+# Get load average
+
+function loadAverage() {
+	uptime | awk '{ s = ""; for (i = 10; i <= NF; i++) s = s $i " "; print s }' 
+}

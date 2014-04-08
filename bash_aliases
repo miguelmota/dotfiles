@@ -70,6 +70,7 @@ alias muxat='tmux attach -t'
 alias tmuxat='muxat'
 alias muxls='tmux list-sessions'
 alias tmuxls='muxls'
+alias rtmux='tmux source-file ~/.tmux.conf'
 
 # Curl aliases
 
@@ -98,7 +99,7 @@ alias rsap='sudo apache2ctl restart'
 # System aliases
 
 alias lsp=listPortProcceses # Ex. lsp 3000
-alias speedtest="~/Dropbox/Development/workspace/speedtest/./speedtest-cli"
+alias loadavg=loadAverage
 alias fw='lsof -p 1 -r 10'
 
 # Shortcut aliases
