@@ -10,7 +10,7 @@ The files you might find useful are:
 
 My vim config is on a seperate repo [vim-config](https://github.com/miguelmota/vim-config).
 
-Reference
+**Reference**
 
 [Tmux](http://tmux.sourceforge.net/)
 
@@ -21,35 +21,32 @@ brew install tmux
 ```bash
 ~/.tmux.conf
 
-\# Prefix
+# Prefix
 Ctrl + b
 
-\# Paste
+# Paste
 Prefix + ]
 
-\# Copy mode
+# Copy mode
 Prefix + [
 
-\# Select mode
+# Select mode
 v
 
-\# Yank
+# Yank
 y
 ```
-
-" macvim
-brew install macvim --override-system-vim && brew linkapps"
 
 Terminal
 
 ```bash
-\# Delete to left
+# Delete to left
 ctr u 
 
-\# Delete to right
+# Delete to right
 ctr k 
 
-\# Delete word backwards
+# Delete word backwards
 esc delete 
 ```
 
@@ -62,10 +59,10 @@ brew install mc
 ```bash
 ~/.config/mc/hotlist
 
-\# open hotlist
+# open hotlist
 Ctr + \
 
-\# Search
+# Search
 Ctr + s
 ```
 
@@ -79,38 +76,44 @@ brew install s3cmd
 ```bash
 ~/.s3cfg
 
-\# List Buckets
+# List Buckets
 s3cmd ls
 
-\# Create Bucket
+# Create Bucket
 s3cmd mb s3://foo
 
-\# Upload File and make public
+# Upload File and make public
 s3cmd put --acl-public qux.txt s3://foo/
 
-\# Make all public
+# Make all public
 s3cmd setacl --acl-public --recursive
 
-\# Upload Directory
+# Upload Directory
 s3cmd put -r qux s3://foo/
 
-\# List bucket files
+# List bucket files
 s3cmd ls s3://foo/
 
-\# Download file
+# Download file
 s3cmd get s3://foo/qux.txt
 
-\# Delete file
+# Delete file
 s3cmd del s3://foo/qux.txt
 
-\# Delete directory
+# Delete directory
 s3cmd del s3://foo/qux
 
-\# Delete bucket
+# Delete bucket
 s3cmd rb s3://foo
 
-\# File url
+# File url
 http://[bucket].s3.amazonaws.com/[filename]
+```
+
+[MacVim](https://code.google.com/p/macvim/)
+
+```bash
+brew install macvim --override-system-vim && brew linkapps
 ```
 
 [Pygments](http://pygments.org/)

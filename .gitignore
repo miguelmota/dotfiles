@@ -95,6 +95,7 @@ install.sh
 
 aliases
 apache
+apache2
 config/*
 filezilla/*
 gem/*
