@@ -25,6 +25,7 @@ alias cddb='cd ~/Dropbox/'
 alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
 alias cddot='cd ~/Dropbox/dotfiles'
+alias cdmux='cd ~/.tmuxinator'
 
 # Directory listing aliases
 
@@ -51,10 +52,11 @@ alias watchcss='sass --watch css:css --style compressed'
 
 alias vim='/usr/local/Cellar/vim/7.4.161/bin/./vim'
 alias vp='vim -p'
-alias vimaliases='vim ~/aliases'
+alias vimaliases='vim ~/.aliases'
 alias vimbashaliases='vim ~/.bash_aliases'
 alias vimbashrc='vim ~/.bashrc'
 alias vimvimrc='vim ~/.vimrc'
+alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +BundleInstall'
 alias vimclean='vim +BundleClean'
 alias vimupdate='vim +BundleUpdate'
@@ -84,12 +86,19 @@ alias gita='git add .'
 alias gitc='git commit -m'
 alias gitp='git push'
 alias pa='php artisan'
-alias gp=gitAddCommitPush # Ex. gp "my commit"
+alias ga='git add .'
+alias gm='git commit -m '
+alias gam='git add . && git commit -m '
+alias gamp=gitAddCommitPush # Ex. gmp "my commit"
+alias gp='git push'
+alias gch='git checkout '
+alias gme='git merge '
 
 # Network aliases
 
 alias ip=ip
 alias publicip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
+
 # Server aliases
 
 alias server=server # Ex. server 3000
@@ -101,6 +110,7 @@ alias rsap='sudo apache2ctl restart'
 alias lsp=listPortProcceses # Ex. lsp 3000
 alias loadavg=loadAverage
 alias fw='lsof -p 1 -r 10'
+alias cputop='ps -eo pcpu,pid,user,args | sort -k 1 -r | head -11'
 
 # Shortcut aliases
 
@@ -109,6 +119,10 @@ alias c='clear'
 alias h='history'
 alias s3='s3cmd'
 alias webstorm='open -b com.jetbrains.webstorm'
+alias imgm='imagemin'
+alias sprite='spritemapper'
+alias jtest='jasmine-node'
+alias phan='phantomjs'
 
 # Misc aliases
 

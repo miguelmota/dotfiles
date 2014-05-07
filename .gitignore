@@ -97,6 +97,8 @@ aliases
 apache
 apache2
 config/*
+!config/powerline
+!config/fontconfig
 filezilla/*
 gem/*
 mongo

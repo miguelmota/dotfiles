@@ -35,20 +35,32 @@ v
 
 # Yank
 y
+
+# Rename session
+Prefix + $
+
+# Rename window
+Prefix + ,
 ```
 
 Terminal
 
 ```bash
 # Delete to left
-ctr u 
+ctr u
 
 # Delete to right
-ctr k 
+ctr k
 
 # Delete word backwards
-esc delete 
+esc delete
 ```
+
+[Tmux powerline](https://github.com/erikw/tmux-powerline)
+
+```bash
+brew install --use-gcc fontforge
+ ```
 
 [Midnight Commander](https://www.midnight-commander.org/)
 
