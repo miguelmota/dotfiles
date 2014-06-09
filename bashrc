@@ -156,3 +156,4 @@ if [ -d "$HOME/Library/Python/2.7/bin" ]; then
 fi
 
 source ~/.powerline/powerline/bindings/bash/powerline.sh
+export HOMEBREW_GITHUB_API_TOKEN=9b41ade10f5a3abfec06b115c2c0b332d63ee115
