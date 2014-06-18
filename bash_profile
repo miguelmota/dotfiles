@@ -47,3 +47,6 @@ ulimit -n 2048
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 source ~/.profile
 eval "$(rbenv init -)"
+
+[ -s "/Users/moogs/.nvm/nvm.sh" ] && . "/Users/moogs/.nvm/nvm.sh" # This loads nvm
+

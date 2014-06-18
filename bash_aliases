@@ -26,15 +26,21 @@ alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
 alias cddot='cd ~/Dropbox/dotfiles'
 alias cdmux='cd ~/.tmuxinator'
+alias cddesktop='cd ~/Desktop'
+alias cdtrash='cd ~/.Trash/'
 
 # Directory listing aliases
 
+alias ls='ls'
 alias lsa='ls -al'
 alias lshidden='ls -ld .??*'
 alias l='ls -lah'
 alias ll='tree --dirsfirst -ChFupDaLg 1'
 alias df='df -h'
+alias disksize='df -h'
 alias dirsize='du -sh * | sort -n'
+alias dirsize2='du -bsh .'
+alias topmem='top -o mem'
 
 # Search aliases
 
@@ -112,10 +118,13 @@ alias loadavg=loadAverage
 alias fw='lsof -p 1 -r 10'
 alias cputop='ps -eo pcpu,pid,user,args | sort -k 1 -r | head -11'
 alias unixmemtop='ps -eo pmem,pcpu,vsize,pid,cmd | sort -k 1 -nr | head -10';
+alias vmstat='vm_stat'
 
 # Shortcut aliases
 
 alias rsb='. ~/.bashrc'
+alias rsz='. ~/.zshrc'
+alias rm='rm -r'
 alias c='clear'
 alias h='history'
 alias s3='s3cmd'
@@ -124,6 +133,8 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
+alias nodeh='node --use_strict --harmony --harmony_proxies --harmony_generators'
+alias mkdp='mkdir -p'
 
 # Misc aliases
 
