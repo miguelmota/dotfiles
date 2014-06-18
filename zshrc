@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="ys"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -81,4 +81,9 @@ fi
 # Personalized aliases
 if [ -f ~/.aliases ]; then
 	. ~/.aliases
+fi
+
+# Functions
+if [ -f ~/.functions ]; then
+   . ~/.functions
 fi

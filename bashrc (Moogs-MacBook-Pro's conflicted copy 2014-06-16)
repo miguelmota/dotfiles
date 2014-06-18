@@ -127,7 +127,14 @@ export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #export PS2="\[\033[0;32m\]>\[\033[00m\] "
 ####
 
-export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\[\033[0;31m\]$(parse_git_branch)\n\[\033[00;32m\]\$\[\033[00m\] "
 export PS2="\[\033[0;32m\]>\[\033[00m\] "
 
 # z - jump around
@@ -156,3 +163,14 @@ if [ -d "$HOME/Library/Python/2.7/bin" ]; then
 fi
 
 source ~/.powerline/powerline/bindings/bash/powerline.sh
+export HOMEBREW_GITHUB_API_TOKEN=9b41ade10f5a3abfec06b115c2c0b332d63ee115
+
+# Gets rid of "bash: update_terminal_cwd: command not found" error
+unset PROMPT_COMMAND
+
+# Git branch prompt
+source ~/.bin/git-prompt.sh
+
+# Ansible SSH
+export ANSIBLE_TRANSPORT="ssh"
+export  ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
