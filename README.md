@@ -56,6 +56,19 @@ ctr k
 esc delete
 ```
 
+Terminal Solarized
+
+https://github.com/tomislav/osx-terminal.app-colors-solarized
+
+brew install python
+brew install reattach-to-user-namespace
+make reattach-to-user-namespace &&
+cp reattach-to-user-namespace ~/bin
+
+Powerline
+
+
+
 [Tmux powerline](https://github.com/erikw/tmux-powerline)
 
 ```bash
