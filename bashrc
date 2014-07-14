@@ -134,7 +134,7 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
-export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\[\033[0;31m\]$(parse_git_branch)\n\[\033[00;32m\]\$\[\033[00m\] "
+export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
 export PS2="\[\033[0;32m\]>\[\033[00m\] "
 
 # z - jump around
@@ -173,4 +173,10 @@ source ~/.bin/git-prompt.sh
 
 # Ansible SSH
 export ANSIBLE_TRANSPORT="ssh"
-export  ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
+export ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
+
+# Bin path
+export PATH="~/.bin:$PATH"
+
+# ClosureScript
+export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
