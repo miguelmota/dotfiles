@@ -134,7 +134,9 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
-export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
+#export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
+#export PS1='\u@\h \[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$ '
+export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\] \[\033[00;36m\]$(parse_git_branch)\n\[\033[00;32m\]\$\[\033[00m\] '
 export PS2="\[\033[0;32m\]>\[\033[00m\] "
 
 # z - jump around
