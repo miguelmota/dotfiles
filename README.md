@@ -56,6 +56,8 @@ ctr k
 esc delete
 ```
 
+<--
+```
 Terminal Solarized
 
 https://github.com/tomislav/osx-terminal.app-colors-solarized
@@ -66,7 +68,13 @@ make reattach-to-user-namespace &&
 cp reattach-to-user-namespace ~/bin
 
 Powerline
-
+sudo port selfupdate
+sudo port install python27
+brew install vim
+sudo easy_install pip
+sudo pip install --user git+git://github.com/Lokaltog/powerline
+```
+-->
 
 
 [Tmux powerline](https://github.com/erikw/tmux-powerline)

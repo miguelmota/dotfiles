@@ -109,7 +109,7 @@ NERDTreeBookmarks
 redis
 s3cfg
 ssh
-themes
+/themes
 tmuxinator/*
 webstorm
 vim
