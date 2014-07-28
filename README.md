@@ -73,6 +73,8 @@ sudo port install python27
 brew install vim
 sudo easy_install pip
 sudo pip install --user git+git://github.com/Lokaltog/powerline
+
+https://github.com/milkbikis/powerline-shell
 ```
 -->
 

@@ -187,3 +187,11 @@ export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
 
 export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+# . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+
+function _update_ps1() {
+    export PS1="$(~/Dropbox/dotfiles/powerline-shell/powerline-shell.py $? 2> /dev/null)"
+}
+
+export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
