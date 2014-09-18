@@ -99,6 +99,10 @@ apache2
 config/*
 !config/powerline
 !config/fontconfig
+elinks/globhist
+elinks/gotohist
+elinks/cookies
+elinks/cookies
 filezilla/*
 gem/*
 mongo
