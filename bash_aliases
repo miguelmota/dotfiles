@@ -79,11 +79,13 @@ alias tmuxat='muxat'
 alias muxls='tmux list-sessions'
 alias tmuxls='muxls'
 alias rtmux='tmux source-file ~/.tmux.conf'
+alias muxnew='tmux new -s'
 
 # Curl aliases
 
 alias curlt='curl -o /dev/null -s -w %{time_total}\\n'
 alias curljson=curlJsonPrettyPrint # Ex. curljson <url>
+alias curlheaders=headers # curlheaders <url>
 
 # Git aliases
 
@@ -135,6 +137,7 @@ alias jtest='jasmine-node'
 alias phan='phantomjs'
 alias nodeh='node --use_strict --harmony --harmony_proxies --harmony_generators'
 alias mkdp='mkdir -p'
+alias openp=openp
 
 # Misc aliases
 

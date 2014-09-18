@@ -108,9 +108,12 @@ muttrc
 NERDTreeBookmarks
 redis
 s3cfg
+stickies
 ssh
 /themes
 tmuxinator/*
 webstorm
 vim
 viminfo
+ec2
+aws

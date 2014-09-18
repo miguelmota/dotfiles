@@ -59,7 +59,20 @@ function gitAddCommitPush() {
 }
 
 # Get load average
-
 function loadAverage() {
-	uptime | awk '{ s = ""; for (i = 10; i <= NF; i++) s = s $i " "; print s }' 
+	uptime | awk '{ s = ""; for (i = 10; i <= NF; i++) s = s $i " "; print s }'
+}
+
+# Get HTTP Headers only
+function headers() {
+  curl -s -D - "${1}" -o /dev/null
+}
+
+# Open local server
+function openp() {
+  if [[ ${1} =~ ^[0-9]{4}$ ]]; then
+    open "http://localhost:$1"
+  else
+    open ${1}
+  fi
 }

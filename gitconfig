@@ -52,7 +52,7 @@
   log = true
 
 [push]
-  default = simple
+	default = simple
 
 [rerere]
   enabled = 1
