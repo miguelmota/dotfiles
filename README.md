@@ -160,3 +160,7 @@ brew install macvim --override-system-vim && brew linkapps
 ```bash
 sudo easy_install Pygments
 ```
+
+# License
+
+MIT
