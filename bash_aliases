@@ -49,6 +49,7 @@ alias egrep='grep --color=always'
 alias grep='grep --color=always'
 alias a='ack -iR'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
+alias gs='grep -nrHoEa'
 
 # Sass aliases
 
@@ -66,6 +67,10 @@ alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +BundleInstall'
 alias vimclean='vim +BundleClean'
 alias vimupdate='vim +BundleUpdate'
+
+# Emacs aliases
+alias emacs='/usr/local/Cellar/emacs/24.3/bin/emacs'
+alias e='emacs'
 
 # Tmux aliases
 
@@ -138,6 +143,8 @@ alias phan='phantomjs'
 alias nodeh='node --use_strict --harmony --harmony_proxies --harmony_generators'
 alias mkdp='mkdir -p'
 alias openp=openp
+alias prettyjson='python -m json.tool'
+alias bs='browser-sync start --server'
 
 # Misc aliases
 

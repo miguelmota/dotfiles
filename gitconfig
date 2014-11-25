@@ -76,3 +76,10 @@
 [url "git@heroku.com:"]
   insteadOf = "heroku:"
 
+[core]
+	editor = vim
+[github]
+	user = miguelmota
+[ghi]
+[ghi]
+	token = !security find-internet-password -a miguelmota -s github.com -l 'ghi token' -w

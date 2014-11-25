@@ -54,7 +54,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -136,8 +136,8 @@ function parse_git_branch {
 
 #export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
 #export PS1='\u@\h \[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$ '
-export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\] \[\033[00;36m\]$(parse_git_branch)\n\[\033[00;32m\]\$\[\033[00m\] '
-export PS2="\[\033[0;32m\]>\[\033[00m\] "
+export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;96m\] : \w\[\033[00m\] \[\033[00;96m\]$(parse_git_branch)\n\[\033[00;96m\]\$\[\033[00m\] '
+export PS2="\[\033[0;96m\]>\[\033[00m\] "
 
 # z - jump around
 . ~/.z.sh
@@ -195,3 +195,8 @@ function _update_ps1() {
 }
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+
+# RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
+source $(rvm default do rvm env --path)

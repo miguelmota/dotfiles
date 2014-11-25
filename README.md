@@ -15,6 +15,10 @@ My vim config is on a seperate repo [vim-config](https://github.com/miguelmota/v
 [Tmux](http://tmux.sourceforge.net/)
 
 ```bash
+:resize-pane -D 10
+```
+
+```bash
 brew install tmux
 ```
 
@@ -56,7 +60,7 @@ ctr k
 esc delete
 ```
 
-<--
+<!--
 ```
 Terminal Solarized
 
