@@ -121,3 +121,4 @@ vim
 viminfo
 ec2
 aws
+tmux/resurrect/*
