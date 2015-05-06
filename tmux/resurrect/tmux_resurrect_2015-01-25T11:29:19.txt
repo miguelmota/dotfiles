@@ -1,3 +1,0 @@
-pane	0	1	:bash	1	:*	1	:/Users/moogs	1	bash	:
-window	0	1	1	:*	cf5d,272x77,0,0,0
-state	0	
