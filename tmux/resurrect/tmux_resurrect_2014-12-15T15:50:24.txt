@@ -1,0 +1,20 @@
+pane	acorns-webapp	1	:editor	1	:*	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	1	:editor	1	:*	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	node	:ember   
+pane	acorns-webapp	1	:editor	1	:*	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns-webapp	1	:editor	1	:*	4	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:node
+pane	acorns-webapp	2	:bash	0	:-	1	:/Users/moogs/Dropbox/Development/workspace	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	2	:bash	0	:-	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns-webapp	2	:bash	0	:-	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	1	bash	:
+pane	acorns-webapp	3	:bash	0	:#	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	1	bash	:
+pane	defaul	1	:getprop	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/getprop	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	1	:getprop	0	:-	2	:/Users/moogs/Dropbox/Development/workspace/getprop	0	bash	:
+pane	defaul	1	:getprop	0	:-	3	:/Users/moogs/Dropbox/Development/workspace/hasprop	0	bash	:
+pane	defaul	2	:interview	1	:*	1	:/Users/moogs/Dropbox/Development/workspace/coding-interview	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	2	:interview	1	:*	2	:/Users/moogs/Dropbox/Development/workspace/coding-interview	0	bash	:
+pane	defaul	2	:interview	1	:*	3	:/Users/moogs/Dropbox/Development/workspace	1	node	:node
+window	acorns-webapp	1	1	:*	658a,364x94,0,0{241x94,0,0,0,122x94,242,0[122x36,242,0,1,122x37,242,37,2,122x19,242,75,3]}
+window	acorns-webapp	2	0	:-	21cf,272x77,0,0{136x77,0,0,4,135x77,137,0[135x38,137,0,5,135x38,137,39,6]}
+window	acorns-webapp	3	0	:#	67e6,272x77,0,0,17
+window	defaul	1	0	:-	a1dc,272x77,0,0{136x77,0,0,7,135x77,137,0[135x38,137,0,8,135x38,137,39,9]}
+window	defaul	2	1	:*	4c27,364x94,0,0{182x94,0,0,13,181x94,183,0[181x47,183,0,14,181x46,183,48,16]}
+state	defaul	acorns-webapp

@@ -45,6 +45,14 @@ Prefix + $
 
 # Rename window
 Prefix + ,
+
+# Install plugins
+prefix + I
+# Update plugins
+prefix + U
+# Resurrect
+prefix + Ctrl-s - save
+prefix + Ctrl-r - restore
 ```
 
 Terminal

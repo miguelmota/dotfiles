@@ -1,0 +1,7 @@
+pane	0	1	:bash	0	:-	1	:/Users/moogs	1	bash	:
+pane	0	1	:bash	0	:-	2	:/Users/moogs/Dropbox/dotfiles	0	bash	:
+pane	0	1	:bash	0	:-	3	:/Users/moogs/Dropbox/dotfiles/vim	0	bash	:
+pane	0	2	:bash	1	:*	1	:/Users/moogs	1	bash	:
+window	0	1	0	:-	ed58,272x75,0,0{136x75,0,0,0,135x75,137,0[135x37,137,0,1,135x37,137,38,2]}
+window	0	2	1	:*	c760,272x75,0,0,3
+state	0	0

@@ -1,0 +1,4 @@
+pane	0	1	:bash	1	:*	1	:/Users/moogs/Downloads	1	bash	:
+pane	0	1	:bash	1	:*	2	:/Users/moogs/Dropbox/dotfiles	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim README.md
+window	0	1	1	:*	4bd8,272x77,0,0{136x77,0,0,0,135x77,137,0,1}
+state	0	0

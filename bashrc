@@ -196,7 +196,14 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
+export NVM_DIR="/Users/moogs/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
 source $(rvm default do rvm env --path)
+rvm get stable --auto-dotfiles
+
+# ctrl-r reverse
+stty -ixon

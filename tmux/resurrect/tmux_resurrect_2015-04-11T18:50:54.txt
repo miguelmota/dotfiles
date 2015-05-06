@@ -1,0 +1,77 @@
+pane	2	1	:juliusdemo	1	:*	1	:/Users/moogs/Dropbox/Development/workspace/juliusjs-demo	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	2	1	:juliusdemo	1	:*	2	:/Users/moogs/Dropbox/Development/workspace/juliusjs-demo	0	bash	:
+pane	2	1	:juliusdemo	1	:*	3	:/Users/moogs/Dropbox/Development/workspace/juliusjs-demo	0	bash	:
+pane	2	1	:juliusdemo	1	:*	4	:/Users/moogs/Dropbox/Development/workspace/juliusjs-demo/client	1	bash	:
+pane	2	1	:juliusdemo	1	:*	5	:/Users/moogs/Dropbox/Development/workspace/juliusjs-demo/server	0	bash	:
+pane	acorns	1	:webapp	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	1	:webapp	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	1	bash	:
+pane	acorns	1	:webapp	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns	1	:webapp	0	: 	4	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns	2	:markv2	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-Marketing-Site-v2	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	2	:markv2	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-Marketing-Site-v2	1	bash	:
+pane	acorns	2	:markv2	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-Marketing-Site-v2	0	bash	:
+pane	acorns	3	:feed	0	:#	1	:/Users/moogs/Dropbox/Development/workspace/acorns-feed	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	3	:feed	0	:#	2	:/Users/moogs/Dropbox/Development/workspace/acorns-feed/client	0	node	:node /usr/local/bin/browser-sync start --server
+pane	acorns	3	:feed	0	:#	3	:/Users/moogs/Dropbox/Development/workspace/acorns-feed	0	node	:gulp 
+pane	acorns	3	:feed	0	:#	4	:/Users/moogs/Dropbox/Development/workspace/acorns-feed	0	bash	:
+pane	acorns	3	:feed	0	:#	5	:/Users/moogs/Dropbox/Development/workspace/acorns-feed	1	bash	:
+pane	acorns	4	:brain	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/neural-network	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim index.js
+pane	acorns	4	:brain	0	:-	2	:/Users/moogs/Downloads	0	bash	:
+pane	acorns	5	:pdfjs	1	:*	1	:/Users/moogs/Dropbox/Development/acorns/pdfjs	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	5	:pdfjs	1	:*	2	:/Users/moogs/Dropbox/Development/acorns/pdfjs/pdfjs	1	bash	:
+pane	acorns	5	:pdfjs	1	:*	3	:/Users/moogs/Dropbox/Development/acorns/pdfjs/pdfjs	0	bash	:
+pane	acorns	6	:bash	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/compact-object	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim package.json
+pane	acorns	6	:bash	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/compact-object	1	bash	:
+pane	acorns	7	:cli	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/acorns-cli	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	7	:cli	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/acorns-cli	1	bash	:
+pane	acorns	7	:cli	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/acorns-cli	0	bash	:
+pane	acorns	8	:accounts	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-Accounts-Site	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	8	:accounts	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-Accounts-Site	0	bash	:
+pane	acorns	8	:accounts	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-Accounts-Site	0	bash	:
+pane	acorns	9	:graph	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph/public	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns	9	:graph	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph/public	0	node	:node /usr/local/bin/browser-sync start --server
+pane	acorns	9	:graph	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph/public	0	bash	:
+pane	default	1	:mm	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/miguelmota.github.com	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	1	:mm	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/miguelmota.github.com	1	bash	:
+pane	default	1	:mm	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/miguelmota.github.com	0	bash	:
+pane	default	1	:mm	0	: 	4	:/Users/moogs/Dropbox/Development/workspace/miguelmota.github.com	0	bash	:
+pane	default	2	:zep	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/zepjs	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	2	:zep	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/zepjs	0	bash	:
+pane	default	2	:zep	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/zepjs	1	bash	:
+pane	default	3	:cond	1	:*	1	:/Users/moogs/Dropbox/Development/workspace	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim asdfadsf
+pane	default	3	:cond	1	:*	2	:/Users/moogs/Dropbox/Development/workspace	1	bash	:
+pane	default	4	:log/js	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/javascript-questions	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	4	:log/js	0	:-	2	:/Users/moogs/Dropbox/Documents/logs	0	bash	:
+pane	default	4	:log/js	0	:-	3	:/Users/moogs/Downloads	1	bash	:
+pane	default	5	:podcast	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/podcast-manager	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	5	:podcast	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/podcast-manager	0	bash	:
+pane	default	5	:podcast	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/podcast-manager	0	bash	:sqlite3 database.sqlite
+pane	default	5	:podcast	0	: 	4	:/Users/moogs/Dropbox/Development/workspace/podcast-manager/podcast-manager	0	node	:ember   
+pane	default	5	:podcast	0	: 	5	:/Users/moogs/Dropbox/Development/workspace/podcast-manager/podcast-manager	0	bash	:
+pane	default	6	:otehr	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/test/object-store	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	6	:otehr	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/test/functional-programming	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	6	:otehr	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/test/gmapcity	0	bash	:
+pane	default	7	:python	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/python-programming-book	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	default	7	:python	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/python-programming-book	0	bash	:
+pane	default	7	:python	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/python-programming-book/chapter-01	1	bash	:
+pane	default	8	:glitmage	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/glitmage	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim readme.md
+pane	default	8	:glitmage	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/glitmage	1	bash	:
+window	2	1	1	:*	85bd,272x77,0,0{136x77,0,0,142,135x77,137,0[135x18,137,0,143,135x18,137,19,146,135x19,137,38,144,135x19,137,58,145]}
+window	acorns	1	0	: 	0b94,238x67,0,0{153x67,0,0,13,84x67,154,0[84x34,154,0,58,84x14,154,35,141,84x17,154,50,154]}
+window	acorns	2	0	: 	29a8,238x67,0,0{119x67,0,0,32,118x67,120,0[118x54,120,0,33,118x12,120,55,230]}
+window	acorns	3	0	:#	41b0,238x67,0,0{143x67,0,0,156,94x67,144,0[94x13,144,0,157,94x19,144,14,220,94x15,144,34,158,94x17,144,50,226]}
+window	acorns	4	0	:-	a16a,238x67,0,0{119x67,0,0,181,118x67,120,0,182}
+window	acorns	5	1	:*	0f31,238x67,0,0{119x67,0,0,187,118x67,120,0[118x33,120,0,188,118x33,120,34,189]}
+window	acorns	6	0	: 	fba1,318x83,0,0{159x83,0,0,204,158x83,160,0,205}
+window	acorns	7	0	: 	c0d4,318x83,0,0{159x83,0,0,211,158x83,160,0[158x41,160,0,212,158x41,160,42,213]}
+window	acorns	8	0	: 	98d5,318x83,0,0{159x83,0,0,214,158x83,160,0[158x41,160,0,221,158x41,160,42,223]}
+window	acorns	9	0	: 	c59f,238x67,0,0{152x67,0,0,227,85x67,153,0[85x32,153,0,228,85x34,153,33,229]}
+window	default	1	0	: 	5ad9,272x77,0,0{136x77,0,0,0,135x77,137,0[135x19,137,0,131,135x18,137,20,133,135x38,137,39,132]}
+window	default	2	0	: 	27a6,272x77,0,0{136x77,0,0,2,135x77,137,0[135x40,137,0,3,135x36,137,41,6]}
+window	default	3	1	:*	5956,238x67,0,0{119x67,0,0,22,118x67,120,0,85}
+window	default	4	0	:-	1ec8,272x77,0,0{136x77,0,0,24,135x77,137,0[135x38,137,0,25,135x38,137,39,28]}
+window	default	5	0	: 	3cae,272x77,0,0{135x77,0,0,38,136x77,136,0[136x18,136,0,39,136x18,136,19,43,136x18,136,38,40,136x20,136,57,44]}
+window	default	6	0	: 	b691,272x77,0,0[272x37,0,0,71,272x19,0,38,74,272x19,0,58,75]
+window	default	7	0	: 	a2cb,272x77,0,0{136x77,0,0,83,135x77,137,0[135x39,137,0,88,135x37,137,40,89]}
+window	default	8	0	: 	1083,272x77,0,0{136x77,0,0,134,135x77,137,0,135}
+state	acorns	default

@@ -55,7 +55,7 @@ function listPortProcceses() {
 # Git push shortcut
 function gitAddCommitPush() {
   local msg="${1}"
-  git add . && git commit -m "$msg" && git push;
+  git add . && git commit -m "$msg" && git push -u;
 }
 
 # Get load average
@@ -75,4 +75,9 @@ function openp() {
   else
     open ${1}
   fi
+}
+
+# File search. Pass path and regex
+function fileSearch() {
+  find ${2} -name ${1}
 }

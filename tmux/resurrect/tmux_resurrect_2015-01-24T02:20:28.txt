@@ -1,0 +1,64 @@
+pane	0	1	:lisp	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/common-lisp-book	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	0	1	:lisp	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/common-lisp-book	0	lisp.run	:/usr/local/Cellar/clisp/2.49/lib/clisp-2.49/base/lisp.run -B /usr/local/Cellar/clisp/2.49/lib/clisp-2.49 -M /usr/local/Cellar/clisp/2.49/lib/clisp-2.49/base/lispinit.mem -N 
+pane	0	1	:lisp	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/common-lisp-book	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim notes.md
+pane	0	2	:motion	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/canvas-motion-detection	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	0	2	:motion	0	:-	2	:/Users/moogs/Dropbox/Development/workspace/canvas-motion-detection	0	node	:node /usr/local/bin/browser-sync start --server
+pane	0	2	:motion	0	:-	3	:/Users/moogs/Dropbox/Development/workspace/canvas-motion-detection	0	bash	:
+pane	0	2	:motion	0	:-	4	:/Users/moogs	0	bash	:
+pane	0	3	:pixelate	1	:*	1	:/Users/moogs/Dropbox/Development/workspace/pixelate	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	0	3	:pixelate	1	:*	2	:/Users/moogs/Dropbox/Development/workspace/pixelate	0	bash	:
+pane	0	3	:pixelate	1	:*	3	:/Users/moogs/Dropbox/Development/workspace/pixelate	0	bash	:
+pane	acorns-webapp	1	:editor	1	:*	1	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	1	:editor	1	:*	2	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	node	:ember  
+pane	acorns-webapp	1	:editor	1	:*	3	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns-webapp	1	:editor	1	:*	4	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns-webapp	2	:graph	0	: 	1	:/Users/moogs/Dropbox/Development/acorns/d3-graphs	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	2	:graph	0	: 	2	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph/public	1	bash	:
+pane	acorns-webapp	2	:graph	0	: 	3	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim notes
+pane	acorns-webapp	2	:graph	0	: 	4	:/Users/moogs/Dropbox/Development/acorns/d3-graphs/projection-graph	0	bash	:
+pane	acorns-webapp	3	:twitter-stats	0	:#	1	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	3	:twitter-stats	0	:#	2	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	0	node	:node /usr/local/bin/browser-sync start --server
+pane	acorns-webapp	3	:twitter-stats	0	:#	3	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	0	node	:node /usr/local/bin/supervisor server/server.js
+pane	acorns-webapp	3	:twitter-stats	0	:#	4	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	0	node	:node /usr/local/bin/jsx --watch jsx jsx-compiled/
+pane	acorns-webapp	3	:twitter-stats	0	:#	5	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	1	bash	:
+pane	acorns-webapp	3	:twitter-stats	0	:#	6	:/Users/moogs/Dropbox/Development/workspace/acorns-dashboard	0	ruby	:ruby /Users/moogs/.rvm/gems/ruby-2.1.2/bin/compass watch   
+pane	acorns-webapp	4	:earth	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/threejs-earth	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	4	:earth	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/threejs-earth	0	bash	:
+pane	acorns-webapp	4	:earth	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/threejs-earth	0	bash	:
+pane	acorns-webapp	4	:earth	0	: 	4	:/Users/moogs/Dropbox/Development/acorns/Acorns-ember	0	bash	:
+pane	acorns-webapp	5	:streamlet	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/streamlet	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	acorns-webapp	5	:streamlet	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/streamlet	1	bash	:
+pane	acorns-webapp	6	:alarm	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/node-twitter-alarm	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	1	:getprop	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/getprop	1	bash	:
+pane	defaul	1	:getprop	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/getprop	0	bash	:
+pane	defaul	1	:getprop	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/hasprop	0	bash	:
+pane	defaul	2	:interview	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/coding-interview	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	2	:interview	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/coding-interview	0	bash	:
+pane	defaul	2	:interview	0	: 	3	:/Users/moogs/Dropbox/Development/workspace	0	bash	:
+pane	defaul	3	:webrtc	0	:-	1	:/Users/moogs/Dropbox/Development/workspace/webrtc-demo	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	3	:webrtc	0	:-	2	:/Users/moogs/Dropbox/Development/workspace/webrtc-demo	0	node	:node /usr/local/bin/browser-sync start --server
+pane	defaul	3	:webrtc	0	:-	3	:/Users/moogs/Dropbox/Development/workspace/webrtc-demo	0	bash	:
+pane	defaul	3	:webrtc	0	:-	4	:/Users/moogs/Dropbox/Development/workspace/getprop	0	bash	:
+pane	defaul	3	:webrtc	0	:-	5	:/Users/moogs/Dropbox/Development/workspace/webrtc	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	4	:airdrome	1	:*	1	:/Users/moogs/Dropbox/Development/workspace/airdrome	0	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	4	:airdrome	1	:*	2	:/Users/moogs/Dropbox/Development/workspace/airdrome	0	bash	:
+pane	defaul	4	:airdrome	1	:*	3	:/Users/moogs/Dropbox/Development/workspace/airdrome	1	bash	:
+pane	defaul	4	:airdrome	1	:*	4	:/Users/moogs/Dropbox/Development/workspace/airdrome	0	bash	:
+pane	defaul	5	:randomdate	0	: 	1	:/Users/moogs/Dropbox/Development/workspace/random-date	1	vim	:/usr/local/Cellar/vim/7.4.161/bin/./vim .
+pane	defaul	5	:randomdate	0	: 	2	:/Users/moogs/Dropbox/Development/workspace/random-date	0	bash	:
+pane	defaul	5	:randomdate	0	: 	3	:/Users/moogs/Dropbox/Development/workspace/random-date	0	node	:node
+window	0	1	0	: 	e406,272x77,0,0{136x77,0,0,0,135x77,137,0[135x38,137,0,45,135x38,137,39,46]}
+window	0	2	0	:-	57d1,272x77,0,0{137x77,0,0,48,134x77,138,0[134x38,138,0,49,134x19,138,39,50,134x18,138,59,51]}
+window	0	3	1	:*	d6cc,272x77,0,0{136x77,0,0,58,135x77,137,0[135x38,137,0,59,135x38,137,39,60]}
+window	acorns-webapp	1	1	:*	a4bd,272x77,0,0{166x77,0,0,1,105x77,167,0[105x31,167,0,2,105x19,167,32,41,105x25,167,52,4]}
+window	acorns-webapp	2	0	: 	2709,272x77,0,0{137x77,0,0,5,134x77,138,0[134x40,138,0,6,134x17,138,41,7,134x18,138,59,52]}
+window	acorns-webapp	3	0	:#	079f,272x77,0,0{150x77,0,0,8,121x77,151,0[121x23,151,0,42,121x8,151,24,43,121x11,151,33,56,121x11,151,45,57,121x20,151,57,55]}
+window	acorns-webapp	4	0	: 	1952,272x77,0,0{136x77,0,0,15,135x77,137,0[135x39,137,0,19,135x37,137,40{67x37,137,40,20,67x37,205,40,22}]}
+window	acorns-webapp	5	0	: 	f7a4,272x77,0,0{136x77,0,0,23,135x77,137,0,24}
+window	acorns-webapp	6	0	:-	e7e0,272x77,0,0,40
+window	defaul	1	0	: 	740d,272x77,0,0{136x77,0,0,9,135x77,137,0[135x38,137,0,10,135x38,137,39,11]}
+window	defaul	2	0	: 	24c4,272x77,0,0{136x77,0,0,12,135x77,137,0[135x38,137,0,13,135x38,137,39,14]}
+window	defaul	3	0	:-	3e9f,272x77,0,0{135x77,0,0,25,136x77,136,0[136x18,136,0{68x18,136,0,26,67x18,205,0,30},136x18,136,19,29,136x39,136,38,27]}
+window	defaul	4	1	:*	e5c4,272x77,0,0{146x77,0,0,32,125x77,147,0[125x19,147,0,33,125x38,147,20,36,125x18,147,59,35]}
+window	defaul	5	0	: 	76cc,272x77,0,0{136x77,0,0,37,135x77,137,0[135x38,137,0,38,135x38,137,39,39]}
+state	acorns-webapp	0

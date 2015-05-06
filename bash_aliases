@@ -28,6 +28,7 @@ alias cddot='cd ~/Dropbox/dotfiles'
 alias cdmux='cd ~/.tmuxinator'
 alias cddesktop='cd ~/Desktop'
 alias cdtrash='cd ~/.Trash/'
+alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
 # Directory listing aliases
 
@@ -50,6 +51,8 @@ alias grep='grep --color=always'
 alias a='ack -iR'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
 alias gs='grep -nrHoEa'
+alias gsl='grep -nrHEa'
+alias fs=fileSearch
 
 # Sass aliases
 
@@ -57,7 +60,7 @@ alias watchcss='sass --watch css:css --style compressed'
 
 # Vim aliases
 
-alias vim='/usr/local/Cellar/vim/7.4.161/bin/./vim'
+alias vim='/usr/local/Cellar/vim/7.4.488/bin/./vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
 alias vimbashaliases='vim ~/.bash_aliases'
@@ -140,11 +143,16 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
+alias node='node'
 alias nodeh='node --use_strict --harmony --harmony_proxies --harmony_generators'
 alias mkdp='mkdir -p'
+alias cp='cp -r'
 alias openp=openp
 alias prettyjson='python -m json.tool'
 alias bs='browser-sync start --server'
+alias brightness='screenbrightness'
+alias untar='tar -zxvf'
+alias irc='irssi'
 
 # Misc aliases
 
