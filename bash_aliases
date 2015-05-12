@@ -53,6 +53,7 @@ alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
 alias gs='grep -nrHoEa'
 alias gsl='grep -nrHEa'
 alias fs=fileSearch
+alias sr=searchReplace
 
 # Sass aliases
 
@@ -143,8 +144,8 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
-alias node='node'
-alias nodeh='node --use_strict --harmony --harmony_proxies --harmony_generators'
+alias node='iojs'
+alias nodeh='node --use_strict --harmony_proxies --harmony_generators'
 alias mkdp='mkdir -p'
 alias cp='cp -r'
 alias openp=openp
