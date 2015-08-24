@@ -81,15 +81,15 @@ def cwd(pl, segment_info, dir_shorten_len=None, dir_limit_depth=None, use_path_s
 	Returns a segment list to create a breadcrumb-like effect.
 
 	:param int dir_shorten_len:
-		shorten parent directory names to this length (e.g. 
+		shorten parent directory names to this length (e.g.
 		:file:`/long/path/to/powerline` → :file:`/l/p/t/powerline`)
 	:param int dir_limit_depth:
-		limit directory depth to this number (e.g. 
+		limit directory depth to this number (e.g.
 		:file:`/long/path/to/powerline` → :file:`⋯/to/powerline`)
 	:param bool use_path_separator:
 		Use path separator in place of soft divider.
 	:param str ellipsis:
-		Specifies what to use in place of omitted directories. Use None to not 
+		Specifies what to use in place of omitted directories. Use None to not
 		show this subsegment at all.
 
 	Divider highlight group used: ``cwd:divider``.
@@ -168,7 +168,7 @@ def fuzzy_time(pl, unicode_text=True):
 	'''Display the current time as fuzzy time, e.g. "quarter past six".
 
 	:param bool unicode_text:
-		If true then hyphenminuses (regular ASCII ``-``) and single quotes are 
+		If true then hyphenminuses (regular ASCII ``-``) and single quotes are
 		replaced with unicode dashes and apostrophes.
 	'''
 	hour_str = ['twelve', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
@@ -1102,6 +1102,43 @@ class NowPlayingSegment(object):
 			'elapsed': now_playing[3],
 			'total': now_playing[4],
 		}
+
+	def player_rdio(self, pl):
+		status_delimiter = '-~`/='
+		ascript = '''
+			tell application "System Events"
+				set rdio_active to the count(every process whose name is "Rdio")
+				if rdio_active is 0 then
+					return
+				end if
+			end tell
+			tell application "Rdio"
+				set rdio_name to the name of the current track
+				set rdio_artist to the artist of the current track
+				set rdio_album to the album of the current track
+				set rdio_duration to the duration of the current track
+				set rdio_state to the player state
+				set rdio_elapsed to the player position
+				return rdio_name & "{0}" & rdio_artist & "{0}" & rdio_album & "{0}" & rdio_elapsed & "{0}" & rdio_duration & "{0}" & rdio_state
+			end tell
+		'''.format(status_delimiter)
+		now_playing = asrun(pl, ascript)
+		if not now_playing:
+			return
+		now_playing = now_playing.split(status_delimiter)
+		if len(now_playing) != 6:
+			return
+		state = _convert_state(now_playing[5])
+		total = _convert_seconds(now_playing[4])
+		elapsed = _convert_seconds(float(now_playing[3]) * float(now_playing[4]) / 100)
+		return {
+			'title': now_playing[0],
+			'artist': now_playing[1],
+			'album': now_playing[2],
+			'elapsed': elapsed,
+			'total': total,
+			'state': state,
+		}
 now_playing = NowPlayingSegment()
 
 
@@ -1166,3 +1203,4 @@ def battery(pl, format='{capacity:3.0%}', steps=5, gamify=False, full_heart='♥
 			'gradient_level': capacity,
 		})
 	return ret
+

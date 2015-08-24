@@ -49,6 +49,7 @@ alias g='GREP_COLOR="1;37;45" LANG=C grep --color=auto'
 alias egrep='grep --color=always'
 alias grep='grep --color=always'
 alias a='ack -iR'
+alias xml='xmllint --format -'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
 alias gs='grep -nrHoEa'
 alias gsl='grep -nrHEa'
@@ -102,7 +103,6 @@ alias g='git'
 alias gita='git add .'
 alias gitc='git commit -m'
 alias gitp='git push'
-alias pa='php artisan'
 alias ga='git add .'
 alias gm='git commit -m '
 alias gam='git add . && git commit -m '
@@ -110,6 +110,8 @@ alias gamp=gitAddCommitPush # Ex. gmp "my commit"
 alias gp='git push'
 alias gch='git checkout '
 alias gme='git merge '
+alias gchanged='git whatchanged -n 1'
+alias gtag="git tag -a"
 
 # Network aliases
 
@@ -144,8 +146,8 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
-alias node='iojs'
-alias nodeh='node --use_strict --harmony_proxies --harmony_generators'
+alias node='node --harmony --harmony_arrow_functions'
+alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
 alias mkdp='mkdir -p'
 alias cp='cp -r'
 alias openp=openp
@@ -154,6 +156,19 @@ alias bs='browser-sync start --server'
 alias brightness='screenbrightness'
 alias untar='tar -zxvf'
 alias irc='irssi'
+alias copy='pbcopy'
+alias paste='pbpaste'
+alias inkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+alias gcal='gcalcli'
+alias define='dict'
+alias dockerrm='docker rm $(docker ps -aq)'
+alias dockerrmi='docker rmi -f $(docker images -aq)'
+alias since_epoch='date +%s'
+alias scan='sudo nmap -sP 10.1.0.0/24'
+alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
+
+# Node/NPM
+alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
 
 # Misc aliases
 

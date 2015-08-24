@@ -1,37 +1,54 @@
 {
-	"default_module": "powerline.segments.common",
-	"segment_data": {
-		"uptime": {
-			"before": "⇑  "
-		},
-		"date": {
-			"before": "⌚ "
-		}
-	},
-	"segments": {
-		"left": [
-			{
-				"name": "external_ip"
-			}
-		],
-		"right": [
-			{
-				"name": "battery"
-			},
-			{
-				"name": "system_load",
-				"priority": 50
-			},
-			{
-				"name": "date",
-				"args": {
-					"format": "%H:%M",
-					"istime": true
-				}
-			},
-			{
-				"name": "hostname"
-			}
-		]
-	}
+  "default_module": "powerline.segments.common",
+  "segment_data": {
+    "uptime": {
+      "before": "⇑  "
+    }
+  },
+  "segments": {
+    "left": [
+      {
+        "function": "powerline.segments.common.net.external_ip",
+        "name": "external_ip",
+        "priority": 50
+      },
+      {
+        "function": "powerline.segments.common.net.internal_ip",
+        "name": "internal_ip",
+        "priority": 30
+      }
+    ],
+    "right": [
+      {
+        "function": "powerline.segments.common.sys.uptime",
+        "name": "uptime"
+      },
+      {
+        "function": "powerline.segments.common.bat.battery",
+        "name": "battery"
+      },
+      {
+				"function": "powerline.segments.common.sys.system_load",
+        "name": "system_load",
+        "priority": 50
+      },
+      {
+				"function": "powerline.segments.common.time.date",
+        "name": "date",
+        "args": {
+          "format": "%H:%M",
+          "istime": true
+        }
+      },
+      {
+        "function": "powerline.segments.common.players.spotify",
+        "name": "player",
+        "priority": 30
+      },
+      {
+				"function": "powerline.segments.common.net.hostname",
+        "name": "hostname"
+      }
+    ]
+  }
 }

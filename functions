@@ -82,13 +82,28 @@ function fileSearch() {
   find ${2} -name ${1}
 }
 
-sr ./ *.js temp foo
-
 # Recursive search and replace text
+# sr ./ *.js temp foo
 function searchReplace() {
   replace_or_print='-pi';
   if [ "$5" == "dry" ]; then
     replace_or_print='-p';
   fi
   find ${1} -name ${2} -print0 | xargs -0 perl ${replace_or_print} -e ${5} "s/${3}/${4}/g"
+
+  #perl -pi -w -e 's/foolate/template/g;' bower_components/**/*.js
+}
+
+# Confirm dialog
+confirm () {
+  # call with a prompt string or use a default
+  read -r -p "${1:-Are you sure? [y/N]} " response
+  case $response in
+      [yY][eE][sS]|[yY])
+          true
+          ;;
+      *)
+          false
+          ;;
+  esac
 }
