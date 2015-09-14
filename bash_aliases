@@ -26,6 +26,7 @@ alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
 alias cddot='cd ~/Dropbox/dotfiles'
 alias cdmux='cd ~/.tmuxinator'
+alias cdtmux='cd ~/.tmux'
 alias cddesktop='cd ~/Desktop'
 alias cdtrash='cd ~/.Trash/'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
@@ -147,7 +148,8 @@ alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
 alias node='node --harmony --harmony_arrow_functions'
-alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
+#alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
+alias iojs='iojs --harmony --harmony_arrow_functions'
 alias mkdp='mkdir -p'
 alias cp='cp -r'
 alias openp=openp
@@ -166,6 +168,8 @@ alias dockerrmi='docker rmi -f $(docker images -aq)'
 alias since_epoch='date +%s'
 alias scan='sudo nmap -sP 10.1.0.0/24'
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
+alias speedtest='speedtest-cli'
+alias macversion='sw_vers'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
