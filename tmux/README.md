@@ -23,7 +23,11 @@ N - prev match
 
 tmux-urlview
 
-dependencies
+Dependencies
+
+```bash
+brew install reattach-to-user-namespace
+```
 
 ```bash
 brew install urlview

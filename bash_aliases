@@ -43,6 +43,7 @@ alias disksize='df -h'
 alias dirsize='du -sh * | sort -n'
 alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
+alias topcpu='top -o cpu'
 
 # Search aliases
 
@@ -63,7 +64,8 @@ alias watchcss='sass --watch css:css --style compressed'
 
 # Vim aliases
 
-alias vim='/usr/local/Cellar/vim/7.4.488/bin/./vim'
+alias vim='/usr/local/Cellar/vim/7.4.865/bin/./vim'
+alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
 alias vimbashaliases='vim ~/.bash_aliases'
@@ -113,6 +115,12 @@ alias gch='git checkout '
 alias gme='git merge '
 alias gchanged='git whatchanged -n 1'
 alias gtag="git tag -a"
+alias gtagd="git tag -d"
+alias gtagdr="git push origin :refs/tags/"
+alias gtagp="git push origin refs/tags/"
+alias gitsub='git submodule update --init --recursive'
+# gitdiff <revision>
+alias gitdiff='git diff-tree --no-commit-id --name-status -r '
 
 # Network aliases
 
@@ -151,12 +159,18 @@ alias node='node --harmony --harmony_arrow_functions'
 #alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
 alias iojs='iojs --harmony --harmony_arrow_functions'
 alias mkdp='mkdir -p'
+alias mkdirg=mkdirg
 alias cp='cp -r'
+alias cpg=cpg
+alias mvg=mvg
+alias cp_p=cp_p
 alias openp=openp
 alias prettyjson='python -m json.tool'
 alias bs='browser-sync start --server'
 alias brightness='screenbrightness'
+alias volume=volume
 alias untar='tar -zxvf'
+alias extract=extract
 alias irc='irssi'
 alias copy='pbcopy'
 alias paste='pbpaste'
@@ -170,9 +184,20 @@ alias scan='sudo nmap -sP 10.1.0.0/24'
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
 alias speedtest='speedtest-cli'
 alias macversion='sw_vers'
+alias diskusage='sudo iotop'
+alias vtop='vtop --theme monokai'
+alias activity='glances'
+alias web='w3m google.com'
+alias base54encode=base64encode
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
+
+# Utils
+alias width=width
+alias height=height
+alias confirm=confirm
+alias digga=digga
 
 # Misc aliases
 

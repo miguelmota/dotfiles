@@ -1,20 +1,20 @@
 # Image width
-width () {
+function width () {
   echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
 # Image height
-height () {
+function height () {
   echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
 # All the dig info
-digga () {
+function diga () {
   dig +nocmd $1 any +multiline +noall +answer
 }
 
 # Copy with progress
-cp_p () {
+function cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
 
@@ -95,7 +95,7 @@ function searchReplace() {
 }
 
 # Confirm dialog
-confirm () {
+function confirm () {
   # call with a prompt string or use a default
   read -r -p "${1:-Are you sure? [y/N]} " response
   case $response in
@@ -106,4 +106,52 @@ confirm () {
           false
           ;;
   esac
+}
+
+# Encode base64 string
+function base64encode () {
+  #echo -n ${1} | openssl base64
+  node -e "process.stdout.write(new Buffer(process.argv[1]).toString('base64'))" ${1}
+}
+
+# Unarchive files
+function extract () {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+ }
+
+# Copy and go to directory
+function cpg () {
+  cp $1 $2 && cd $2
+}
+
+# Move and go to directory
+function mvg () {
+  mv $1 $2 && cd $2
+}
+
+# Make directory and go to it
+function mkdirg () {
+  command mkdir $1 && cd $1
+}
+
+# Set output volume
+volume() {
+  osascript -e "set Volume $1"
 }
