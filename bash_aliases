@@ -189,6 +189,7 @@ alias vtop='vtop --theme monokai'
 alias activity='glances'
 alias web='w3m google.com'
 alias base54encode=base64encode
+alias ferment='brew up && brew upgrade --all'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
