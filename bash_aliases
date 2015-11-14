@@ -121,6 +121,7 @@ alias gtagp="git push origin refs/tags/"
 alias gitsub='git submodule update --init --recursive'
 # gitdiff <revision>
 alias gitdiff='git diff-tree --no-commit-id --name-status -r '
+alias gcherrypick='git cherry-pick' # gcherrypick <commit hash>
 
 # Network aliases
 
