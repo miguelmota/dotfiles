@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Exports
+if [ -f ~/.exports ]; then
+   . ~/.exports
+fi
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -95,13 +100,14 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
-fi
-
-# Personalized aliases
+# Aliases
 if [ -f ~/.aliases ]; then
 	. ~/.aliases
+fi
+
+# Bash Aliases
+if [ -f ~/.bash_aliases ]; then
+	. ~/.bash_aliases
 fi
 
 #if [ -f ~/.bash_profile ]; then
@@ -114,12 +120,6 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 fi
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
-export TERM=screen-256color       # for a tmux -2 session (also for screen)
-#export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
 
 ###
 # Prompt display current directory only in green
@@ -142,51 +142,16 @@ export PS2="\[\033[0;96m\]>\[\033[00m\] "
 # z - jump around
 . ~/.z.sh
 
-# Android SDK
-ANDROID_PATH="~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools"
-export PATH="$PATH:$ANDROID_PATH"
-
 # /usr/local/bin/tmux list-sessions
 if [ $? -ne 0 ]; then
 	/usr/local/bin/tmux
 fi
-
-# Midnight Commander theme
-export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
-export EDITOR="/usr/bin/vim"
-
-# dircolors
-export CLICOLOR=YES
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-
-# Powerline
-if [ -d "$HOME/Library/Python/2.7/bin" ]; then
-	PATH="$HOME/Library/Python/2.7/bin:$PATH"
-fi
-
-source ~/.powerline/powerline/bindings/bash/powerline.sh
-export HOMEBREW_GITHUB_API_TOKEN=9b41ade10f5a3abfec06b115c2c0b332d63ee115
 
 # Gets rid of "bash: update_terminal_cwd: command not found" error
 unset PROMPT_COMMAND
 
 # Git branch prompt
 source ~/.bin/git-prompt.sh
-
-# Ansible SSH
-export ANSIBLE_TRANSPORT="ssh"
-export ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
-
-# Bin path
-export PATH="~/.bin:$PATH"
-
-# ClosureScript
-export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
-
-# Sublime Text Link
-# ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
-
-export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 # . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
 
@@ -195,15 +160,6 @@ function _update_ps1() {
 }
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-
-export NVM_DIR="/Users/moogs/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-source $(rvm default do rvm env --path)
-rvm get stable --auto-dotfiles
 
 # ctrl-r reverse
 stty -ixon

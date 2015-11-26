@@ -1,5 +1,10 @@
+# Exports
+if [ -f ~/.exports ]; then
+   . ~/.exports
+fi
+
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -48,13 +53,13 @@ ZSH_THEME="ys"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git gitfast git-extras github jsontools node npm bower brew celery coffee common-aliases osx perl redis-cli repo ssh-agent sublime sudo supervisor terminalapp tmux tmuxinator urltools vagrant web-search yii wd autojump)
+#plugins=(git gitfast git-extras github jsontools node npm bower brew celery coffee common-aliases osx perl redis-cli repo ssh-agent sublime sudo supervisor terminalapp tmux tmuxinator urltools vagrant web-search yii wd autojump)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Users/moogs/.rbenv/shims:/Users/moogs/Library/Python/2.7/bin:/usr/local/heroku/bin:/Users/moogs/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/moogs/.rbenv/shims:/Users/moogs/Library/Python/2.7/bin:/usr/local/heroku/bin:/Users/moogs/bin:~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools:~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools:/Users/moogs/.rvm/bin:/Users/moogs/.rvm/bin:/Users/moogs/.rvm/bin"
+#export PATH="/Users/moogs/.rbenv/shims:/Users/moogs/Library/Python/2.7/bin:/usr/local/heroku/bin:/Users/moogs/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/moogs/.rbenv/shims:/Users/moogs/Library/Python/2.7/bin:/usr/local/heroku/bin:/Users/moogs/bin:~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools:~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools:/Users/moogs/.rvm/bin:/Users/moogs/.rvm/bin:/Users/moogs/.rvm/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -73,19 +78,20 @@ export PATH="/Users/moogs/.rbenv/shims:/Users/moogs/Library/Python/2.7/bin:/usr/
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Aliases
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
-fi
-
-# Personalized aliases
-if [ -f ~/.aliases ]; then
-	. ~/.aliases
-fi
-
 # Functions
 if [ -f ~/.functions ]; then
    . ~/.functions
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Aliases
+if [ -f ~/.aliases ]; then
+	. ~/.aliases
+fi
+
+# z - jump around
+. ~/.z.sh
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi

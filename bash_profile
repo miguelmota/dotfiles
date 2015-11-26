@@ -38,13 +38,4 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-# Ulimit
-ulimit -n 2048
-
 [[ -s ~/.bashrc ]] && source ~/.bashrc
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-source ~/.profile
-eval "$(rbenv init -)"
-
-[ -s "/Users/moogs/.nvm/nvm.sh" ] && . "/Users/moogs/.nvm/nvm.sh" # This loads nvm
