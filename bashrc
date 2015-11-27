@@ -2,17 +2,14 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Exports
-if [ -f ~/.exports ]; then
-   . ~/.exports
-fi
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+# Show timestamp in history
+HISTTIMEFORMAT='%F %T %t'
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -100,14 +97,13 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-# Aliases
-if [ -f ~/.aliases ]; then
-	. ~/.aliases
-fi
-
-# Bash Aliases
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
+fi
+
+# Personalized aliases
+if [ -f ~/.aliases ]; then
+	. ~/.aliases
 fi
 
 #if [ -f ~/.bash_profile ]; then
@@ -120,6 +116,12 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 fi
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
+export TERM=screen-256color       # for a tmux -2 session (also for screen)
+#export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
 
 ###
 # Prompt display current directory only in green
@@ -136,16 +138,40 @@ function parse_git_branch {
 
 #export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
 #export PS1='\u@\h \[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$ '
-export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;96m\] : \w\[\033[00m\] \[\033[00;96m\]$(parse_git_branch)\n\[\033[00;96m\]\$\[\033[00m\] '
-export PS2="\[\033[0;96m\]>\[\033[00m\] "
+#export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;96m\] : \w\[\033[00m\] \[\033[00;96m\]$(parse_git_branch)\n\[\033[00;96m\]\$\[\033[00m\] '
+export PS1='\n\n\[\[\033[0;95m\]┌─\][\033[0;96m\]\u:\[\033[0;36m\]\w\[\033[0;95m\]]\[\033[0;36m\]\[\033[0;96m\]\[\033[00m\]$(git-radar --bash --fetch --no-remote-status)\n\[\033[0;95m\]└─❯\[\033[0;36m\]❯\[\033[0;92m\]❯\[\033[00m\] '
+export PS2="\[\033[0;92m\]❯\[\033[00m\] "
 
 # z - jump around
 . ~/.z.sh
+
+# Android SDK
+ANDROID_PATH="~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools"
+export PATH="$PATH:$ANDROID_PATH"
 
 # /usr/local/bin/tmux list-sessions
 if [ $? -ne 0 ]; then
 	/usr/local/bin/tmux
 fi
+
+# Midnight Commander theme
+export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
+export EDITOR="/usr/bin/vim"
+
+# dircolors
+export CLICOLOR=YES
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+# Powerline
+if [ -d "$HOME/Library/Python/2.7/bin" ]; then
+	PATH="$HOME/Library/Python/2.7/bin:$PATH"
+fi
+
+source ~/.powerline/powerline/bindings/bash/powerline.sh
+# . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+
+# Homebrew Github API Token
+export HOMEBREW_GITHUB_API_TOKEN=$(cat ~/.homebrew/github_api_token)
 
 # Gets rid of "bash: update_terminal_cwd: command not found" error
 unset PROMPT_COMMAND
@@ -153,7 +179,20 @@ unset PROMPT_COMMAND
 # Git branch prompt
 source ~/.bin/git-prompt.sh
 
-# . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+# Ansible SSH
+export ANSIBLE_TRANSPORT="ssh"
+export ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
+
+# Bin path
+export PATH="~/.bin:$PATH"
+
+# ClosureScript
+export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
+
+# Sublime Text Link
+# ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+
+export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 function _update_ps1() {
     export PS1="$(~/Dropbox/dotfiles/powerline-shell/powerline-shell.py $? 2> /dev/null)"
@@ -161,5 +200,33 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
+export NVM_DIR="/Users/moogs/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # ctrl-r reverse
 stty -ixon
+
+# Docker exports
+export DOCKER_CERT_PATH=/Users/moogs/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+export DOCKER_HOST=tcp://192.168.59.103:2376
+
+# JDK
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+# Pebble exports
+export PEBBLE_PHONE=192.168.0.2
+
+# Artifactory exports
+export ARTIFACTORY_HOME=/Users/moogs/Dropbox/Development/acorns/artifactory-3.9.2
+
+# Alexa Voice Service
+export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
+export VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins
+
+# go path
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+
+# Fortune quote
+fortune
