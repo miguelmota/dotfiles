@@ -103,8 +103,11 @@ elinks/globhist
 elinks/gotohist
 elinks/cookies
 elinks/cookies
+docker/*
 filezilla/*
+gcalcali/*
 gem/*
+homebrew/*
 mongo
 mutt/*
 mutt/mutt-colors-solarized
@@ -116,6 +119,8 @@ stickies
 ssh
 /themes
 tmuxinator/*
+twitter-alarm/config.json
+w3m/history
 webstorm
 vim
 viminfo

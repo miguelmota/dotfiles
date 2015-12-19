@@ -85,4 +85,5 @@ alias mongotrac='mongo --host 162.242.150.100 --port 27017'
 
 # Calendar
 
-alias gcalwork='gcalcli --configFolder ~/.gcalcli_work/'
+alias gcal='gcalcli --configFolder ~/.gcalcli/'
+alias gcalwork='gcalcli --configFolder ~/.gcalcli/work/'
