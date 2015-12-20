@@ -155,3 +155,8 @@ function mkdirg () {
 volume() {
   osascript -e "set Volume $1"
 }
+
+# Kill processes based on regular expression
+killRegex() {
+  kill $(ps aux | grep $1 | awk '{print $2}')
+}
