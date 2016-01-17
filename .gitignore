@@ -93,7 +93,7 @@ serve
 
 install.sh
 
-aliases
+*.local
 apache
 apache2
 config/*
