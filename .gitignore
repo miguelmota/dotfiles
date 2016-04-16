@@ -90,9 +90,6 @@ serve
 
 # Personalized files #
 ######################
-
-install.sh
-
 *.local
 apache
 apache2
