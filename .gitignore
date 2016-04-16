@@ -118,6 +118,7 @@ s3cfg
 stickies
 ssh
 /themes
+!/config/powerline/themes
 tmuxinator/*
 twitter-alarm/config.json
 w3m/history
