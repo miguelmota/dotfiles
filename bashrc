@@ -130,13 +130,7 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
-export GIT_RADAR_FORMAT="\\033[95m─[\\x01\\033[1;30m\\x02\\x01\\033[0m\\x02%{remote: }%{branch}%{ :local}\\x01\\033[1;30m\\x02\\033[95m]\\x01\\033[0m\\x02%{ :stash}%{ :changes}"
-export GIT_RADAR_COLOR_BRANCH='\033[0;37m'
-export GIT_RADAR_COLOR_REMOTE_NOT_UPSTREAM='\033[0;33m'
-export GIT_RADAR_COLOR_LOCAL_AHEAD='\033[0;32m'
-export GIT_RADAR_COLOR_LOCAL_BEHIND='\033[0;31m'
-
-source ~/.PS1
+source ~/.promptrc
 
 # z - jump around
 . ~/.z.sh
