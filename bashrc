@@ -123,12 +123,6 @@ export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-t
 export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
 
-###
-# Prompt display current directory only in green
-#export PS1="\n\n\[\033[0;32m\]\W\[\033[00m\]: "
-#export PS2="\[\033[0;32m\]>\[\033[00m\] "
-####
-
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
@@ -142,11 +136,7 @@ export GIT_RADAR_COLOR_REMOTE_NOT_UPSTREAM='\033[0;33m'
 export GIT_RADAR_COLOR_LOCAL_AHEAD='\033[0;32m'
 export GIT_RADAR_COLOR_LOCAL_BEHIND='\033[0;31m'
 
-#export PS1="\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;32m\] : \w\[\033[00m\]\n\[\033[00;32m\]\$\[\033[00m\] "
-#export PS1='\u@\h \[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$ '
-#export PS1='\n\n\[\033[0;36m\]\u@$(hostname)\[\033[00m\]\[\033[0;96m\] : \w\[\033[00m\] \[\033[00;96m\]$(parse_git_branch)\n\[\033[00;96m\]\$\[\033[00m\] '
-export PS1='\n\n\[\[\033[0;95m\]┌─\][\033[0;96m\]\u:\[\033[0;36m\]\w\[\033[0;95m\]]\[\033[0;36m\]\[\033[0;96m\]\[\033[00m\]$(git-radar --bash --fetch)\n\[\033[0;95m\]└─❯\[\033[0;36m\]❯\[\033[0;92m\]❯\[\033[00m\] '
-export PS2="\[\033[0;92m\]❯\[\033[00m\] "
+source ~/.PS1
 
 # z - jump around
 . ~/.z.sh
