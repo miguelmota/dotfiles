@@ -29,6 +29,7 @@ alias cdprezto='cd ~/.zprezto'
 alias cdmux='cd ~/.tmuxinator'
 alias cdtmux='cd ~/.tmux'
 alias cddesktop='cd ~/Desktop'
+alias cdsandbox='cd ~/Sandbox'
 alias cdtrash='cd ~/.Trash/'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
@@ -66,7 +67,7 @@ alias watchcss='sass --watch css:css --style compressed'
 
 # Vim aliases
 
-alias vim='/usr/local/Cellar/vim/7.4.865/bin/./vim'
+alias vim='/usr/local/Cellar/vim/7.4.1795/bin/./vim'
 alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
