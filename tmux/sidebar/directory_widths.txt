@@ -1,3 +1,0 @@
-/Users/moogs/Dropbox/dotfiles/vim	40
-/Users/moogs/Dropbox/Development/acorns/Acorns-ember	40
-/Users/moogs/Dropbox/Development/workspace/cmusphinxdict	40

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ -z $1 ]; then
-    printf 'Error: specify html file\nExample:\n\n'
-    printf  'console index.html\n\n'
-    exit
-fi
-$(which phantomjs) ~/.bin/console.js $1
