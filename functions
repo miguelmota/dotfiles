@@ -1,0 +1,167 @@
+# Image width
+function width () {
+  echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
+}
+
+# Image height
+function height () {
+  echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
+}
+
+# All the dig info
+function diga () {
+  dig +nocmd $1 any +multiline +noall +answer
+}
+
+# Copy with progress
+function cp_p () {
+  rsync -WavP --human-readable --progress $1 $2
+}
+
+# Pretty print JSON
+cjson () {
+  local url=$(echo $1)
+  if [[ "http" == $url[0,4] ]] ; then
+    curl --silent $url | python -mjson.tool | pygmentize -O style=monokai -f console256 -g
+  else
+    cat $url | python -mjson.tool | pygmentize -O style=monokai -f console256 -g
+  fi
+}
+
+# Curl pretty print with underscore
+function curlJsonPrettyPrint() {
+  local url="${1}"
+  curl "$url" | underscore print --color | less -R
+}
+
+# Simple server
+function server() {
+  local port="${1:-8000}"
+  #open "http://localhost:${port}/"
+  python -m SimpleHTTPServer "$port"
+}
+
+# Display local IP
+function ip() {
+	# ifconfig getifaddr en0
+	ifconfig | grep inet | grep broad | awk {'print $2'}
+}
+
+# List port procceses
+function listPortProcceses() {
+	lsof -i tcp:"${1}"
+}
+
+# Git push shortcut
+function gitAddCommitPush() {
+  local msg="${1}"
+  git add . && git commit -m "$msg" && git push -u;
+}
+
+# Get load average
+function loadAverage() {
+	uptime | awk '{ s = ""; for (i = 10; i <= NF; i++) s = s $i " "; print s }'
+}
+
+# Get HTTP Headers only
+function headers() {
+  curl -s -D - "${1}" -o /dev/null
+}
+
+# Open local server
+function openp() {
+  if [[ ${1} =~ ^[0-9]{4}$ ]]; then
+    open "http://localhost:$1"
+  else
+    open ${1}
+  fi
+}
+
+# File search. Pass path and regex
+function fileSearch() {
+  find ${2} -name ${1}
+}
+
+# Recursive search and replace text
+# sr ./ *.js temp foo
+function searchReplace() {
+  replace_or_print='-pi';
+  if [ "$5" == "dry" ]; then
+    replace_or_print='-p';
+  fi
+  find ${1} -name ${2} -print0 | xargs -0 perl ${replace_or_print} -e ${5} "s/${3}/${4}/g"
+
+  #perl -pi -w -e 's/foolate/template/g;' bower_components/**/*.js
+}
+
+# Confirm dialog
+function confirm () {
+  # call with a prompt string or use a default
+  read -r -p "${1:-Are you sure? [y/N]} " response
+  case $response in
+      [yY][eE][sS]|[yY])
+          true
+          ;;
+      *)
+          false
+          ;;
+  esac
+}
+
+# Encode base64 string
+function base64encode () {
+  #echo -n ${1} | openssl base64
+  node -e "process.stdout.write(new Buffer(process.argv[1]).toString('base64'))" ${1}
+}
+
+# Unarchive files
+function extract () {
+   if [ -f $1 ] ; then
+       case $1 in
+           *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.gz)    tar xvzf $1    ;;
+           *.bz2)       bunzip2 $1     ;;
+           *.rar)       unrar x $1       ;;
+           *.gz)        gunzip $1      ;;
+           *.tar)       tar xvf $1     ;;
+           *.tbz2)      tar xvjf $1    ;;
+           *.tgz)       tar xvzf $1    ;;
+           *.zip)       unzip $1       ;;
+           *.Z)         uncompress $1  ;;
+           *.7z)        7z x $1        ;;
+           *)           echo "don't know how to extract '$1'..." ;;
+       esac
+   else
+       echo "'$1' is not a valid file!"
+   fi
+ }
+
+# Copy and go to directory
+function cpg () {
+  cp $1 $2 && cd $2
+}
+
+# Move and go to directory
+function mvg () {
+  mv $1 $2 && cd $2
+}
+
+# Make directory and go to it
+function mkdirg () {
+  command mkdir $1 && cd $1
+}
+
+# Set output volume
+volume() {
+  osascript -e "set Volume $1"
+}
+
+# Kill processes based on regular expression
+killRegex() {
+  kill $(ps aux | grep $1 | awk '{print $2}')
+}
+
+# Grep search count
+grepSearchCount() {
+  grep -ohr $1 $2 | wc -l
+}
