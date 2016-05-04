@@ -190,25 +190,26 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
-export NVM_DIR="/Users/moogs/.nvm"
+export NVM_DIR=$(echo $HOME)/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # ctrl-r reverse
 stty -ixon
 
 # Docker exports
-export DOCKER_CERT_PATH=/Users/moogs/.boot2docker/certs/boot2docker-vm
+export DOCKER_CERT_PATH=$(echo $HOME)/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 export DOCKER_HOST=tcp://192.168.59.103:2376
 
 # JDK
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+#export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Pebble exports
 export PEBBLE_PHONE=192.168.0.2
 
 # Artifactory exports
-export ARTIFACTORY_HOME=/Users/moogs/Dropbox/Development/acorns/artifactory-3.9.2
+export ARTIFACTORY_HOME=$(echo $HOME)/Dropbox/Development/acorns/artifactory-3.9.2
 
 # Alexa Voice Service
 export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
