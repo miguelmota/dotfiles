@@ -22,14 +22,15 @@ alias cdh='cd ~/'
 alias cddocs='cd ~/Documents/'
 alias cdd='cd ~/Downloads/'
 alias cddb='cd ~/Dropbox/'
+alias cddev='cd ~/Development/'
+alias cddesktop='cd ~/Desktop'
+alias cdsandbox='cd ~/Sandbox'
 alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
 alias cddot='cd ~/Dropbox/dotfiles'
 alias cdprezto='cd ~/.zprezto'
 alias cdmux='cd ~/.tmuxinator'
 alias cdtmux='cd ~/.tmux'
-alias cddesktop='cd ~/Desktop'
-alias cdsandbox='cd ~/Sandbox'
 alias cdtrash='cd ~/.Trash/'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
@@ -165,7 +166,8 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
-alias node='node --harmony --harmony_arrow_functions'
+alias node='$(which node)';
+#alias node='node --harmony --harmony_arrow_functions'
 #alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
 alias iojs='iojs --harmony --harmony_arrow_functions'
 alias mkdp='mkdir -p'
@@ -204,6 +206,7 @@ alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
 alias killregex=killRegex
+alias json='python -m json.tool'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"

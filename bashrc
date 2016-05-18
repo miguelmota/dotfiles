@@ -130,10 +130,14 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
-source ~/.promptrc
+if [ -f ~/.promptrc ]; then
+  source ~/.promptrc
+fi
 
 # z - jump around
-. ~/.z.sh
+if [ -f ~/.z.sh ]; then
+  . ~/.z.sh
+fi
 
 # Android SDK
 ANDROID_PATH="~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools"
@@ -157,17 +161,23 @@ if [ -d "$HOME/Library/Python/2.7/bin" ]; then
 	PATH="$HOME/Library/Python/2.7/bin:$PATH"
 fi
 
-source ~/.powerline/powerline/bindings/bash/powerline.sh
-# . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+if [ -f ~/.powerline/powerline/bindings/bash/powerline.sh ]; then
+  source ~/.powerline/powerline/bindings/bash/powerline.sh
+  # . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+fi
 
 # Homebrew Github API Token
-export HOMEBREW_GITHUB_API_TOKEN=$(cat ~/.homebrew/github_api_token)
+if [ -f ~/.homebrew/github_api_token ]; then
+  export HOMEBREW_GITHUB_API_TOKEN=$(cat ~/.homebrew/github_api_token)
+fi
 
 # Gets rid of "bash: update_terminal_cwd: command not found" error
 unset PROMPT_COMMAND
 
 # Git branch prompt
-source ~/.bin/git-prompt.sh
+if [ -f ~/.bin/git-prompt.sh ]; then
+  source ~/.bin/git-prompt.sh
+fi
 
 # Ansible SSH
 export ANSIBLE_TRANSPORT="ssh"
@@ -190,20 +200,25 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
-export NVM_DIR=$(echo $HOME)/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+if [ -e ~/.nvm ]; then
+  export NVM_DIR=$(echo $HOME)/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
 
 # ctrl-r reverse
 stty -ixon
 
 # Docker exports
-export DOCKER_CERT_PATH=$(echo $HOME)/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
-export DOCKER_HOST=tcp://192.168.59.103:2376
+if [ -d ~/.docker/machine/certs/ ]; then
+  export DOCKER_CERT_PATH=$(echo $HOME)/.docker/machine/certs/
+  export DOCKER_TLS_VERIFY=1
+  export DOCKER_HOST=tcp://192.168.59.103:2376
+fi
 
 # JDK
-#export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
-export JAVA_HOME=$(/usr/libexec/java_home)
+if [ -e /usr/libexec/java_home ]; then
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+fi
 
 # Pebble exports
 export PEBBLE_PHONE=192.168.0.2
@@ -221,3 +236,5 @@ export PATH=$PATH:$GOPATH/bin
 
 # Fortune quote
 fortune
+
+export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox

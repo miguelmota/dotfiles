@@ -23,7 +23,10 @@ ln -snf ~/Dropbox/dotfiles/elinks ~/.elinks
 ln -snf ~/Dropbox/dotfiles/emacs.d ~/.emacs.d
 ln -snf ~/Dropbox/dotfiles/filezilla ~/.filezilla
 ln -snf ~/Dropbox/dotfiles/functions ~/.functions
+
+# run ./install in ./fonts afterwards
 ln -snf ~/Dropbox/dotfiles/fonts ~/.fonts
+
 ln -snf ~/Dropbox/dotfiles/gcalcli ~/.gcalcli
 ln -snf ~/Dropbox/dotfiles/gemrc ~/.gemrc
 ln -snf ~/Dropbox/dotfiles/gitattributes ~/.gitattributes
@@ -77,3 +80,19 @@ ln -snf ~/Dropbox/dotfiles/zshenv ~/.zprofile
 ln -snf ~/Dropbox/dotfiles/zprofile ~/.zprofile
 
 # ln -snf ~/Dropbox/dotfiles/stickies/StickiesDatabase ~/Library/StickiesDatabase
+
+# Packages
+brew install vim
+brew install tmux
+brew install wget
+brew install michaeldfallen/formula/git-radar
+brew install tree
+brew install fortune
+brew install reattach-to-user-namespace
+brew install hub
+brew install python # installs pip
+pip install powerline
+
+# For powerline
+pip install psutil
+pip install --upgrade pip
