@@ -238,3 +238,4 @@ export PATH=$PATH:$GOPATH/bin
 fortune
 
 export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
+export PATH=$PATH:/Users/mota/Sandbox/reportal-e2e/slimerjs-0.10.0

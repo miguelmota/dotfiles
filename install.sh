@@ -45,6 +45,7 @@ ln -snf ~/Dropbox/dotfiles/NERDTreeBookmarks ~/.NERDTreeBookmarks
 ln -snf ~/Dropbox/dotfiles/powerline ~/.powerline
 ln -snf ~/Dropbox/dotfiles/profile ~/.profile
 ln -snf ~/Dropbox/dotfiles/promptrc ~/.promptrc
+ln -snf ~/Dropbox/dotfiles/pyhn ~/.pyhn
 ln -snf ~/Dropbox/dotfiles/redis ~/.redis
 ln -snf ~/Dropbox/dotfiles/s3cfg ~/.s3cfg
 ln -snf ~/Dropbox/dotfiles/ssh ~/.ssh

@@ -47,6 +47,7 @@ alias dirsize='du -sh * | sort -n'
 alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
 alias topcpu='top -o cpu'
+alias psmem='ps aux | sort -rn -k 6'
 
 # Search aliases
 
@@ -137,6 +138,9 @@ alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanhost='sudo nmap -O -v -sV' # ip
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
 alias scannet='arp -a' # show IPs and MACs
+alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
+alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
+alias http80='sudo httpry -i en0'
 
 # Server aliases
 
