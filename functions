@@ -165,3 +165,9 @@ killRegex() {
 grepSearchCount() {
   grep -ohr $1 $2 | wc -l
 }
+
+# Rotate Tmux windows every n seconds
+rotateTmux() {
+  TIME=${2:-30}
+  watch -n$TIME tmux next-window -t $1
+}

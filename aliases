@@ -99,6 +99,7 @@ alias muxls='tmux list-sessions'
 alias tmuxls='muxls'
 alias rtmux='tmux source-file ~/.tmux.conf'
 alias muxnew='tmux new -s'
+alias tmuxrotate=rotateTmux
 
 # Curl aliases
 
