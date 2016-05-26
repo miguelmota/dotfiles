@@ -211,6 +211,8 @@ alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
 alias killregex=killRegex
 alias json='python -m json.tool'
+alias reddit='cortex'
+alias hn='pyhn'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"

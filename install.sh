@@ -17,6 +17,7 @@ ln -snf ~/Dropbox/dotfiles/bashrc ~/.bashrc
 ln -snf ~/Dropbox/dotfiles/bin ~/.bin
 ln -snf ~/Dropbox/dotfiles/coffeelint.json ~/.coffeelint.json
 ln -snf ~/Dropbox/dotfiles/config ~/.config
+ln -snf ~/Dropbox/dotfiles/cortex ~/.cortex
 ln -snf ~/Dropbox/dotfiles/dircolors ~/.dircolors
 ln -snf ~/Dropbox/dotfiles/docker ~/.docker
 ln -snf ~/Dropbox/dotfiles/elinks ~/.elinks

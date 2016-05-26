@@ -1,0 +1,53 @@
+### Put this in ~/.cortex/config for configuration.
+[config]
+## Frontpage json url, substitute your personal one here if you want
+## cortex to display your own subreddit subscriptions.
+#frontpage=http://reddit.com/.json
+## Unread messages json url, put your personal one here if you want
+## cortex to display your unread message count
+#inbox=
+## The field to sort the entries by. A "-" in front indicated a reverse sort order.
+#sort=-read
+sort=-ups
+## Format used in the application title bar
+### See cortex(1) for the format specification.
+#title-format= Cortex -- Reddit/{title}: {total} articles, {new} new
+## Format used for an entry in minimal mode
+### See cortex(1) for the format specification.
+#entry-format-minimal= {title} %> {subreddit:<13} | {num_comments:4}
+## Format used for an entry in full mode
+### See cortex(1) for the format specification.
+#entry-format-full= {title} %n  [{score:4}] {read} {nsfw} %> {domain:30}   {subreddit:<13}   {num_comments:4} comments
+## Amount of articles to save seen/read status for
+#seen-size=500
+## Command to invoke the webbrowser
+## If left empty will try to autodetect the system default browser
+##browser-command=firefox '{0}'
+#browser-command=
+## Whether to background the command that runs the browser
+## Defaults to 1, should be set to 0 if running a console browser such as lynx or w3m
+##browser-background=0
+## Amount of minutes between automatic updates/refreshes
+#update-interval=10
+###Whether to start in minimal mode.
+minimal=1
+###Whether to hide old links on start.
+##hideold=0
+##What useragent to use when requesting the JSON pages
+#user-agent=Cortex for /u/{username}
+##Whether to use http. Make sure to use https://pay.reddit.com in frontpage url too.
+#https=0
+
+[color]
+## Item=Foreground,Background
+#title=brightyellow,blue
+#normal=white,black
+#entry=white,black
+#entry-data=yellow,black
+#entry-selected=brightyellow,magenta
+#entry-data-selected=brightyellow,magenta
+#entry-bottom=green,black
+#entry-bottom-selected=brightyellow,magenta
+#entry-bottom-data=yellow,black
+#entry-bottom-data-selected=brightyellow,magenta
+#messages=brightgreen,blue
