@@ -61,6 +61,7 @@ nbproject
 *.vi
 *~
 *.sass-cache
+*.cache
 
 # Dreamweaver added files #
 ###########################
