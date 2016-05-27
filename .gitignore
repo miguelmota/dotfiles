@@ -89,6 +89,10 @@ _archive
 _test
 serve
 
+# Files to ignore #
+######################
+*.autosave
+
 # Personalized files #
 ######################
 *.local

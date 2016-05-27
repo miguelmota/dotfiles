@@ -37,7 +37,12 @@ function curlJsonPrettyPrint() {
 # Simple server
 function server() {
   local port="${1:-8000}"
-  #open "http://localhost:${port}/"
+
+
+  if [[ $* == *-o* ]]; then
+    open "http://localhost:$port"
+  fi
+
   python -m SimpleHTTPServer "$port"
 }
 
