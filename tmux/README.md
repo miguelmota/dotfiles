@@ -55,6 +55,24 @@ prefix + y (copy command line)
 selection then y (copy selection)
 ```
 
+Unbind all keys
+
+```bash
+:unbind-key -a
+```
+
+Reload tmux conf
+
+```
+$ tmux source-file ~/.tmux.conf
+```
+
+Send commands to inner window (ie when SSHing)
+
+```
+C-b b <keys>
+```
+
 # License
 
 MIT

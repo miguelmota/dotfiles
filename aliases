@@ -214,6 +214,7 @@ alias killregex=killRegex
 alias json='python -m json.tool'
 alias reddit='cortex'
 alias hn='pyhn'
+alias python='python3'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
