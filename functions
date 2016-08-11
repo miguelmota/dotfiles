@@ -176,3 +176,8 @@ rotateTmux() {
   TIME=${2:-30}
   watch -n$TIME tmux next-window -t $1
 }
+
+# Check if command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}

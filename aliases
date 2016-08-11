@@ -69,7 +69,9 @@ alias watchcss='sass --watch css:css --style compressed'
 
 # Vim aliases
 
-alias vim='/usr/local/Cellar/vim/7.4.1795/bin/./vim'
+# Check if on mac
+#alias vim='/usr/local/Cellar/vim/7.4.1795/bin/./vim'
+alias vim='/usr/bin/vim'
 alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'

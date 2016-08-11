@@ -21,21 +21,19 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 # Set Ulimit
 ulimit -n 2048
 
-# Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.rvm/bin
-source ~/.profile
-eval "$(rbenv init -)"
-
 # RVM
+# Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-source $(rvm default do rvm env --path)
-rvm get stable --auto-dotfiles
+[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
+[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+# Source if rvm exists
+command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
+
+# Eval if rbenv exists
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
  # Load NVM
-[ -s "/Users/moogs/.nvm/nvm.sh" ] && . "/Users/moogs/.nvm/nvm.sh"
+[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"

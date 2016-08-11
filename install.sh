@@ -25,7 +25,10 @@ ln -snf ~/Dropbox/dotfiles/emacs.d ~/.emacs.d
 ln -snf ~/Dropbox/dotfiles/filezilla ~/.filezilla
 ln -snf ~/Dropbox/dotfiles/functions ~/.functions
 
+# Mac
 # run ./install in ./fonts afterwards
+# Linux
+# fc-cache -f -v ~/.fonts
 ln -snf ~/Dropbox/dotfiles/fonts ~/.fonts
 
 ln -snf ~/Dropbox/dotfiles/gcalcli ~/.gcalcli

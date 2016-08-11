@@ -134,6 +134,9 @@ if [ -f ~/.promptrc ]; then
   source ~/.promptrc
 fi
 
+# Git radar
+export PATH=$PATH:$HOME/.git-radar
+
 # z - jump around
 if [ -f ~/.z.sh ]; then
   . ~/.z.sh
