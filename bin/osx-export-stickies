@@ -1,0 +1,33 @@
+osascript <<'APPLESCRIPT'
+
+set theName to ""
+set i to 0
+set n to {}
+set L to {}
+
+set destFldr to "/Users/mota/Dropbox/shared/stickies/" as text
+set mydestFldr to POSIX path of destFldr
+
+tell application "Stickies"
+    activate
+    tell application "System Events"
+        tell application process "Stickies"
+            set L to name of every window
+            try
+                repeat with awindow in L
+                    set m to value of text area 1 of scroll area 1 of window awindow
+                    set i to i + 1
+                    set theName to "stickies" & "_" & i & ".txt" as string
+                    set theFile to mydestFldr & theName
+                    do shell script "/bin/echo " & quoted form of m & " > " & quoted form of theFile
+                end repeat
+            end try
+        end tell
+    end tell
+    # display dialog "done"
+    tell application "Finder"
+        activate
+        open destFldr
+    end tell
+end tell
+APPLESCRIPT

@@ -43,7 +43,13 @@ function server() {
     open "http://localhost:$port"
   fi
 
-  python -m SimpleHTTPServer "$port"
+  python --version | grep 'Python 3' &> /dev/null
+
+  if [ $? -eq 0 ]; then
+    python -m http.server --bind localhost "$port"
+  else
+    python -m SimpleHTTPServer "$port"
+  fi
 }
 
 # Display local IP
