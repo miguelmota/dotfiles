@@ -1,3 +1,23 @@
+# Copy to clipboard
+function copy() {
+  unamestr=`uname`
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    pbcopy
+  else
+    xclip -selection c
+  fi
+}
+
+# Paste from clipboard
+function paste() {
+  unamestr=`uname`
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    pbpaste
+  else
+    xclip -selection clipboard -o
+  fi
+}
+
 # Image width
 function width () {
   echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
@@ -184,6 +204,43 @@ rotateTmux() {
 }
 
 # Check if command exists
-command_exists() {
+function commandExists() {
   command -v "$1" >/dev/null 2>&1
+}
+
+# Vim specific to OS
+function vim() {
+  unamestr=`uname`
+  macvim="/usr/local/Cellar/vim/7.4.1795/bin/./vim"
+  linuxvim="/usr/bin/vim"
+
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    eval $macvim
+  else
+    eval $linuxvim
+  fi
+}
+
+# Sublime specific to OS
+function openSublime() {
+  unamestr=`uname`
+  macsubl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    eval $macsubl
+  else
+    eval $(which subl) $1
+  fi
+}
+
+# Inkscape specific to OS
+function openInkscape() {
+  unamestr=`uname`
+  macinkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    eval $macinkscape
+  else
+    eval $(which inkscape)
+  fi
 }

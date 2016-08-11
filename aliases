@@ -70,8 +70,7 @@ alias watchcss='sass --watch css:css --style compressed'
 # Vim aliases
 
 # Check if on mac
-#alias vim='/usr/local/Cellar/vim/7.4.1795/bin/./vim'
-alias vim='/usr/bin/vim'
+alias vim=vim
 alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
@@ -192,9 +191,7 @@ alias volume=volume
 alias untar='tar -zxvf'
 alias extract=extract
 alias irc='irssi'
-alias copy='pbcopy'
-alias paste='pbpaste'
-alias inkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+alias inkscape=openInkscape
 alias gcal='gcalcli'
 alias define='dict'
 alias dockerrm='docker rm $(docker ps -aq)'
@@ -209,7 +206,7 @@ alias activity='glances'
 alias web='w3m google.com'
 alias base54encode=base64encode
 alias ferment='brew up && brew upgrade --all'
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias subl=openSublime
 alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
 alias killregex=killRegex
@@ -226,6 +223,8 @@ alias width=width
 alias height=height
 alias confirm=confirm
 alias digga=digga
+alias copy=copy
+alias paste=paste
 
 # Misc aliases
 
