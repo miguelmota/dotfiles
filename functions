@@ -244,3 +244,12 @@ function openInkscape() {
     eval $(which inkscape)
   fi
 }
+
+# List permissions as octal
+octalPerms() {
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    stat -f '%A %a %N' *
+  else
+    stat -c "%a %n" *
+  fi
+}

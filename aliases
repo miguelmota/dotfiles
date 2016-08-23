@@ -48,6 +48,7 @@ alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
 alias topcpu='top -o cpu'
 alias psmem='ps aux | sort -rn -k 6'
+alias lsperm=octalPerms
 
 # Search aliases
 
