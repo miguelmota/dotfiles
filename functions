@@ -215,9 +215,9 @@ function vim() {
   linuxvim="/usr/bin/vim"
 
   if [[ "$unamestr" == 'Darwin' ]]; then
-    eval $macvim
+    eval $macvim $@
   else
-    eval $linuxvim
+    eval $linuxvim $@
   fi
 }
 
@@ -227,9 +227,9 @@ function openSublime() {
   macsubl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
   if [[ "$unamestr" == 'Darwin' ]]; then
-    eval $macsubl
+    eval $macsubl $@
   else
-    eval $(which subl) $1
+    eval $(which subl) $@
   fi
 }
 
