@@ -211,7 +211,7 @@ function commandExists() {
 # Vim specific to OS
 function vim() {
   unamestr=`uname`
-  macvim="/usr/local/Cellar/vim/7.4.1795/bin/./vim"
+  macvim="/usr/local/Cellar/vim/$(ls  /usr/local/Cellar/vim/ | tail -1)/bin/./vim"
   linuxvim="/usr/bin/vim"
 
   if [[ "$unamestr" == 'Darwin' ]]; then
