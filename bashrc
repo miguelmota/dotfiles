@@ -238,7 +238,7 @@ export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
 # Fortune quote
-fortune
+commandExists fortune && commandExists cowsay && commandExists lolcat && fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.03/share/cows | shuf | sed -n '1p') | lolcat
 
 export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
 export PATH=$PATH:/Users/mota/Sandbox/reportal-e2e/slimerjs-0.10.0

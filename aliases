@@ -215,6 +215,7 @@ alias json='python -m json.tool'
 alias reddit='cortex'
 alias hn='pyhn'
 alias python='python3'
+alias pipir='pip install -U -r requirements.txt'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"

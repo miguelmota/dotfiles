@@ -1,3 +1,5 @@
+# Ran once during login via console locally or remotely, with exeception in Mac OSX which runs it every bash shell
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH"
 
