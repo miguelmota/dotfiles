@@ -27,6 +27,8 @@ alias cddesktop='cd ~/Desktop'
 alias cdsandbox='cd ~/Sandbox'
 alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
+alias cdwiki='cd ~/.vimwiki'
+alias cdwikihtml='cd ~/.vimwiki_html'
 alias cddot='cd ~/Dropbox/dotfiles'
 alias cdprezto='cd ~/.zprezto'
 alias cdmux='cd ~/.tmuxinator'
@@ -85,7 +87,7 @@ alias vimclean='vim +BundleClean'
 alias vimupdate='vim +BundleUpdate'
 
 # Emacs aliases
-alias emacs='/usr/local/Cellar/emacs/24.3/bin/emacs'
+alias emacs='/usr/local/Cellar/emacs/25.1/bin/emacs'
 alias e='emacs'
 
 # Tmux aliases
@@ -197,6 +199,8 @@ alias gcal='gcalcli'
 alias define='dict'
 alias dockerrm='docker rm $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
+alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
+alias dockerip='docker-machine ip'
 alias since_epoch='date +%s'
 alias epoch2date='date -r'
 alias speedtest='speedtest-cli'
@@ -216,6 +220,9 @@ alias reddit='cortex'
 alias hn='pyhn'
 alias python='python3'
 alias pipir='pip install -U -r requirements.txt'
+alias populus='~/Library/Python/2.7/bin/populus'
+alias dnslookup='nslookup -type=soa'
+alias wiki='vim ~/vimwiki'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"

@@ -8,7 +8,7 @@
 #inbox=
 ## The field to sort the entries by. A "-" in front indicated a reverse sort order.
 #sort=-read
-sort=-ups
+sort=-score
 ## Format used in the application title bar
 ### See cortex(1) for the format specification.
 #title-format= Cortex -- Reddit/{title}: {total} articles, {new} new

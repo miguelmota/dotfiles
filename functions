@@ -66,7 +66,7 @@ function server() {
   python --version | grep 'Python 3' &> /dev/null
 
   if [ $? -eq 0 ]; then
-    python -m http.server --bind localhost "$port"
+    python -m http.server --bind 0.0.0.0 "$port"
   else
     python -m SimpleHTTPServer "$port"
   fi
@@ -114,13 +114,13 @@ function fileSearch() {
 }
 
 # Recursive search and replace text
-# sr ./ *.js temp foo
+# sr ./ "*.js" temp foo
 function searchReplace() {
   replace_or_print='-pi';
   if [ "$5" == "dry" ]; then
     replace_or_print='-p';
   fi
-  find ${1} -name ${2} -print0 | xargs -0 perl ${replace_or_print} -e ${5} "s/${3}/${4}/g"
+  find "${1}" -name "${2}" -print0 | xargs -0 perl ${replace_or_print} -e ${5} "s/${3}/${4}/g"
 
   #perl -pi -w -e 's/foolate/template/g;' bower_components/**/*.js
 }
@@ -257,4 +257,18 @@ octalPerms() {
 # Shuffle
 shuf() {
     awk 'BEGIN{srand();} {printf "%06d %s\n", rand()*1000000, $0;}' | sort -n | cut -c8-
+}
+
+# Random figlet font
+randfiglet() {
+  figlet -f $(ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | shuf | sed -n '1p') $1
+}
+
+# Display wifi SSID connected to
+ssid() {
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'
+  else
+    iwgetid
+  fi
 }

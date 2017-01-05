@@ -242,3 +242,7 @@ commandExists fortune && commandExists cowsay && commandExists lolcat && fortune
 
 export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
 export PATH=$PATH:/Users/mota/Sandbox/reportal-e2e/slimerjs-0.10.0
+
+if [ -f ~/.env ]; then
+  source ~/.env
+fi
