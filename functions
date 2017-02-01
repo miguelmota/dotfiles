@@ -272,3 +272,7 @@ ssid() {
     iwgetid
   fi
 }
+
+dnstxt() {
+  curl -X POST "https://mdxnorq9nj.execute-api.us-west-2.amazonaws.com/prod/txt" -d '{"domain": "'"$1"'"}'
+}

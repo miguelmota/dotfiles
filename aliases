@@ -49,6 +49,7 @@ alias dirsize='du -sh * | sort -n'
 alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
 alias topcpu='top -o cpu'
+alias diskusage='sudo iotop'
 alias psmem='ps aux | sort -rn -k 6'
 alias lsperm=octalPerms
 
@@ -60,6 +61,8 @@ alias grep='grep --color=always'
 alias a='ack -iR'
 alias xml='xmllint --format -'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
+alias json='python -m json.tool'
+alias prettyjson='python -m json.tool'
 alias gs='grep -nrHoEa'
 alias gsl='grep -nrHEa'
 alias gsc=grepSearchCount
@@ -85,6 +88,7 @@ alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +BundleInstall'
 alias vimclean='vim +BundleClean'
 alias vimupdate='vim +BundleUpdate'
+alias wiki='vim ~/vimwiki'
 
 # Emacs aliases
 alias emacs='/usr/local/Cellar/emacs/25.1/bin/emacs'
@@ -146,6 +150,7 @@ alias scannet='arp -a' # show IPs and MACs
 alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
 alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
 alias http80='sudo httpry -i en0'
+alias dnslookup='nslookup -type=soa'
 
 # Server aliases
 
@@ -162,6 +167,28 @@ alias cputop='ps -eo pcpu,pid,user,args | sort -k 1 -r | head -11'
 alias unixmemtop='ps -eo pmem,pcpu,vsize,pid,cmd | sort -k 1 -nr | head -10';
 alias vmstat='vm_stat'
 
+# Docker aliases
+
+alias dockerrm='docker rm $(docker ps -aq)'
+alias dockerrmi='docker rmi -f $(docker images -aq)'
+alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
+alias dockerip='docker-machine ip'
+
+# Node/NPM
+alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
+
+# Utils
+alias width=width
+alias height=height
+alias confirm=confirm
+alias digga=digga
+alias copy=copy
+alias paste=paste
+alias epoch2date='date -r'
+alias speedtest='speedtest-cli'
+alias since_epoch='date +%s'
+alias untar='tar -zxvf'
+
 # Shortcut aliases
 
 alias rsb='. ~/.bashrc'
@@ -175,39 +202,18 @@ alias imgm='imagemin'
 alias sprite='spritemapper'
 alias jtest='jasmine-node'
 alias phan='phantomjs'
-alias node='$(which node)';
-#alias node='node --harmony --harmony_arrow_functions'
-#alias iojs='iojs --use_strict --harmony --harmony_arrow_functions'
-alias iojs='iojs --harmony --harmony_arrow_functions'
-alias mkdp='mkdir -p'
-alias mkdirg=mkdirg
-alias cp='cp -r'
-alias cpg=cpg
-alias mvg=mvg
-alias cp_p=cp_p
 alias f='fortune'
-alias openp=openp
-alias prettyjson='python -m json.tool'
 alias bs='browser-sync start --server'
 alias brightness='screenbrightness'
 alias volume=volume
-alias untar='tar -zxvf'
 alias extract=extract
 alias irc='irssi'
 alias inkscape=openInkscape
 alias gcal='gcalcli'
 alias define='dict'
-alias dockerrm='docker rm $(docker ps -aq)'
-alias dockerrmi='docker rmi -f $(docker images -aq)'
-alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
-alias dockerip='docker-machine ip'
-alias since_epoch='date +%s'
-alias epoch2date='date -r'
-alias speedtest='speedtest-cli'
 alias macversion='sw_vers'
-alias diskusage='sudo iotop'
-alias vtop='vtop --theme monokai'
-alias activity='glances'
+alias vtop='vtop --theme monokai' # npm install -g vtop
+alias activity='glances' # pip install glances
 alias web='w3m google.com'
 alias base54encode=base64encode
 alias ferment='brew up && brew upgrade --all'
@@ -215,25 +221,18 @@ alias subl=openSublime
 alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
 alias killregex=killRegex
-alias json='python -m json.tool'
 alias reddit='cortex'
 alias hn='pyhn'
 alias python='python3'
 alias pipir='pip install -U -r requirements.txt'
 alias populus='~/Library/Python/2.7/bin/populus'
-alias dnslookup='nslookup -type=soa'
-alias wiki='vim ~/vimwiki'
-
-# Node/NPM
-alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
-
-# Utils
-alias width=width
-alias height=height
-alias confirm=confirm
-alias digga=digga
-alias copy=copy
-alias paste=paste
+alias mkdp='mkdir -p'
+alias mkdirg=mkdirg
+alias openp=openp
+alias cp='cp -r'
+alias cpg=cpg
+alias mvg=mvg
+alias cp_p=cp_p
 
 # Misc aliases
 
