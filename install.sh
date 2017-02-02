@@ -53,6 +53,7 @@ ln -snf ~/Dropbox/dotfiles/pyhn ~/.pyhn
 ln -snf ~/Dropbox/dotfiles/redis ~/.redis
 ln -snf ~/Dropbox/dotfiles/s3cfg ~/.s3cfg
 ln -snf ~/Dropbox/dotfiles/ssh ~/.ssh
+ln -snf ~/Dropbox/dotfiles/tern-config ~/.tern-config
 ln -snf ~/Dropbox/dotfiles/themes ~/.themes
 ln -snf ~/Dropbox/dotfiles/tmux ~/.tmux
 ln -snf ~/Dropbox/dotfiles/tmux.conf ~/.tmux.conf

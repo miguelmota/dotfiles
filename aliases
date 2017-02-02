@@ -63,7 +63,7 @@ alias xml='xmllint --format -'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
 alias json='python -m json.tool'
 alias prettyjson='python -m json.tool'
-alias gs='grep -nrHoEa'
+alias gs='grep -nrHoEal'
 alias gsl='grep -nrHEa'
 alias gsc=grepSearchCount
 alias fs=fileSearch
@@ -233,6 +233,7 @@ alias cp='cp -r'
 alias cpg=cpg
 alias mvg=mvg
 alias cp_p=cp_p
+alias phpserver='php -S 0.0.0.0:8080'
 
 # Misc aliases
 

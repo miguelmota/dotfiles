@@ -1,0 +1,19 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "jquery",
+    "underscore",
+    "ecma5",
+    "ecma6"
+  ],
+  "plugins": {
+    "node": {},
+    "es_modules": {},
+    "complete_strings": {},
+   "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+    }
+  }
+}
