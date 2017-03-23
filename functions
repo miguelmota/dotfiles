@@ -145,6 +145,12 @@ function base64encode () {
   node -e "process.stdout.write(new Buffer(process.argv[1]).toString('base64'))" ${1}
 }
 
+# Decode base64 string
+function base64decode () {
+  #echo -n ${1} | openssl base64
+  node -e "process.stdout.write(new Buffer(process.argv[1], 'base64').toString('utf8'))" ${1}
+}
+
 # Unarchive files
 function extract () {
    if [ -f $1 ] ; then
@@ -260,7 +266,7 @@ shuf() {
 }
 
 # Random figlet font
-randfiglet() {
+figlet-random() {
   figlet -f $(ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | shuf | sed -n '1p') $1
 }
 

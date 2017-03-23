@@ -88,7 +88,7 @@ alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +BundleInstall'
 alias vimclean='vim +BundleClean'
 alias vimupdate='vim +BundleUpdate'
-alias wiki='vim ~/vimwiki'
+alias wiki='cd ~/vimwiki && vim ~/vimwiki/'
 
 # Emacs aliases
 alias emacs='/usr/local/Cellar/emacs/25.1/bin/emacs'
@@ -151,6 +151,7 @@ alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
 alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
 alias http80='sudo httpry -i en0'
 alias dnslookup='nslookup -type=soa'
+alias flushdns='sudo killall -HUP mDNSResponder'
 
 # Server aliases
 
@@ -195,6 +196,7 @@ alias rsb='. ~/.bashrc'
 alias rsz='. ~/.zshrc'
 alias rm='rm -r'
 alias c='clear'
+alias cls='clear'
 alias h='history'
 alias s3='s3cmd'
 alias webstorm='open -b com.jetbrains.webstorm'
@@ -216,6 +218,7 @@ alias vtop='vtop --theme monokai' # npm install -g vtop
 alias activity='glances' # pip install glances
 alias web='w3m google.com'
 alias base54encode=base64encode
+alias base54decode=base64decode
 alias ferment='brew up && brew upgrade --all'
 alias subl=openSublime
 alias usebash='chsh -s /bin/bash'
