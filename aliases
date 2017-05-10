@@ -20,11 +20,13 @@ alias ....='cd ../../..'
 alias ~='cd ~'
 alias cdh='cd ~/'
 alias cddocs='cd ~/Documents/'
+alias cddownloads='cd ~/Downloads/'
 alias cdd='cd ~/Downloads/'
 alias cddb='cd ~/Dropbox/'
 alias cddev='cd ~/Development/'
 alias cddesktop='cd ~/Desktop'
 alias cdsandbox='cd ~/Sandbox'
+alias cds='cd ~/Sandbox'
 alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
 alias cdwiki='cd ~/.vimwiki'
@@ -206,7 +208,6 @@ alias jtest='jasmine-node'
 alias phan='phantomjs'
 alias f='fortune'
 alias bs='browser-sync start --server'
-alias brightness='screenbrightness'
 alias volume=volume
 alias extract=extract
 alias irc='irssi'
@@ -237,6 +238,8 @@ alias cpg=cpg
 alias mvg=mvg
 alias cp_p=cp_p
 alias phpserver='php -S 0.0.0.0:8080'
+alias resize=resize
+alias sha3=sha3
 
 # Misc aliases
 

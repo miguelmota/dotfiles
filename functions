@@ -279,6 +279,34 @@ ssid() {
   fi
 }
 
+# DNS TXT Record
 dnstxt() {
   curl -X POST "https://mdxnorq9nj.execute-api.us-west-2.amazonaws.com/prod/txt" -d '{"domain": "'"$1"'"}'
+}
+
+# Resize image (ex. resize input.jpg 200 output.png)
+resize() {
+  convert "$1" -resize "$2" "$3"
+}
+
+# Generate SHA3-256 hash
+sha3() {
+  echo -n "$1" | rhash --sha3-256 -
+}
+
+# capture stdout of process
+# capture <pid>
+capture() {
+    sudo dtrace -p "$1" -qn '
+        syscall::write*:entry
+        /pid == $target && arg0 == 1/ {
+            printf("%s", copyinstr(arg1, arg2));
+        }
+    '
+}
+
+# kill all processes returned by grep
+# grepkill "Chrome"
+grepkill() {
+  ps aux | grep $1 | awk '{print $2}' | xargs sudo kill
 }
