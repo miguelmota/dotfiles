@@ -65,8 +65,8 @@ alias xml='xmllint --format -'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
 alias json='python -m json.tool'
 alias prettyjson='python -m json.tool'
-alias gs='grep -nrHoEal'
-alias gsl='grep -nrHEa'
+alias gs='grep -nrHoEali'
+alias gsl='grep -nrHEai'
 alias gsc=grepSearchCount
 alias fs=fileSearch
 alias sr=searchReplace
@@ -120,6 +120,7 @@ alias curlheaders=headers # curlheaders <url>
 # Git aliases
 
 alias g='git'
+alias gc='git clone'
 alias gita='git add .'
 alias gitc='git commit -m'
 alias gitp='git push'
@@ -240,6 +241,7 @@ alias cp_p=cp_p
 alias phpserver='php -S 0.0.0.0:8080'
 alias resize=resize
 alias sha3=sha3
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 # Misc aliases
 

@@ -308,5 +308,5 @@ capture() {
 # kill all processes returned by grep
 # grepkill "Chrome"
 grepkill() {
-  ps aux | grep $1 | awk '{print $2}' | xargs sudo kill
+  ps aux | grep -i $1 | awk '{print $2}' | xargs sudo kill
 }
