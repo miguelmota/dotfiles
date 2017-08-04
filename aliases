@@ -242,6 +242,7 @@ alias phpserver='php -S 0.0.0.0:8080'
 alias resize=resize
 alias sha3=sha3
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+alias screenshot='screencapture -x out.png'
 
 # Misc aliases
 
