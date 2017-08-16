@@ -173,6 +173,7 @@ alias vmstat='vm_stat'
 
 # Docker aliases
 
+alias dockerstop='docker stop $(docker ps -a -q)'
 alias dockerrm='docker rm $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
 alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
@@ -243,6 +244,9 @@ alias resize=resize
 alias sha3=sha3
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias screenshot='screencapture -x out.png'
+alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
+alias digall='dig +nocmd any +multiline +answer'
+alias soma='somafm play'
 
 # Misc aliases
 

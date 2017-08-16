@@ -8,11 +8,6 @@
   "segments": {
     "left": [
       {
-        "function": "powerline.segments.common.net.external_ip",
-        "name": "external_ip",
-        "priority": 50
-      },
-      {
         "function": "powerline.segments.common.net.internal_ip",
         "name": "internal_ip",
         "priority": 30
