@@ -247,7 +247,8 @@ alias screenshot='screencapture -x out.png'
 alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
 alias digall='dig +nocmd any +multiline +answer'
 alias soma='somafm play'
-alias ff='/usr/local/bin/fzf'
+alias ff='fzf'
+alias vimf='vim $(fzf)'
 
 # Misc aliases
 

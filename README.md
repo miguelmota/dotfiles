@@ -97,6 +97,28 @@ https://github.com/milkbikis/powerline-shell
 brew install --use-gcc fontforge
  ```
 
+[fzf](https://github.com/junegunn/fzf) - fuzzy finder
+
+```
+Key bindings (CTRL-T, CTRL-R)
+
+sbtrkt	fuzzy-match	Items that match sbtrkt
+^music	prefix-exact-match	Items that start with music
+.mp3$	suffix-exact-match	Items that end with .mp3
+'wild	exact-match (quoted)	Items that include wild
+!fire	inverse-exact-match	Items that do not include fire
+!.mp3$	inverse-suffix-exact-match
+
+vim **<TAB>
+cd **<TAB>
+kill -9 <TAB>
+ssh **<TAB>
+telnet **<TAB>
+unset **<TAB>
+export **<TAB>
+unalias **<TAB>
+``
+
 [Midnight Commander](https://www.midnight-commander.org/)
 
 ```bash
