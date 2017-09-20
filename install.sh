@@ -64,6 +64,7 @@ ln -snf ~/Dropbox/dotfiles/vim ~/.vim
 ln -snf ~/Dropbox/dotfiles/vim/.vimrc ~/.vimrc
 ln -snf ~/Dropbox/dotfiles/vim/.viminfo ~/.viminfo
 
+ln -snf ~/Dropbox/dotfiles/wegorc ~/.wegorc
 ln -snf ~/Dropbox/dotfiles/w3m ~/.w3m
 
 ln -snf ~/Dropbox/dotfiles/webstorm ~/.webstorm

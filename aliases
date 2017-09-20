@@ -147,14 +147,17 @@ alias ip=ip
 alias publicip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
 alias gateway='route -n get default | grep gateway | rev | cut -d: -f -1 | rev'
 alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
+alias scanV='sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanhost='sudo nmap -O -v -sV' # ip
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
 alias scannet='arp -a' # show IPs and MACs
+alias arpflush='arp -d -a'
 alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
 alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
 alias http80='sudo httpry -i en0'
 alias dnslookup='nslookup -type=soa'
 alias flushdns='sudo killall -HUP mDNSResponder'
+alias portping='sudo nping --tcp -p <port> <host>'
 
 # Server aliases
 
@@ -250,9 +253,19 @@ alias soma='somafm play'
 alias ff='fzf'
 alias vimf='vim $(fzf)'
 
+# https://github.com/rtyley/bfg-repo-cleaner
+# example
+alias gitdeletecommitfile='bfg --delete-files id_{dsa,rsa}  my-repo.git'
+#alias sed='commandExists gsed && gsed || sed'
+
 # Misc aliases
 
 alias shorten="PS1='\u:\W\$ '"
+alias starwars='telnet towel.blinkenlights.nl'
+alias matrix='cmatrix'
+alias train='sl'
+alias weatherwego='wego -units imperial'
+alias wttr='curl -s wttr.in/Santa+Monica,CA?u'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local
