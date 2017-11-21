@@ -152,6 +152,7 @@ alias scanhost='sudo nmap -O -v -sV' # ip
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
 alias scannet='arp -a' # show IPs and MACs
 alias arpflush='arp -d -a'
+alias macs='sudo arp-scan -l'
 alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
 alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
 alias http80='sudo httpry -i en0'
@@ -233,6 +234,7 @@ alias killregex=killRegex
 alias reddit='cortex'
 alias hn='pyhn'
 alias python='python3'
+alias pip='pip3'
 alias pipir='pip install -U -r requirements.txt'
 alias populus='~/Library/Python/2.7/bin/populus'
 alias mkdp='mkdir -p'
@@ -251,7 +253,9 @@ alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
 alias digall='dig +nocmd any +multiline +answer'
 alias soma='somafm play'
 alias ff='fzf'
+alias how='howdoi'
 alias vimf='vim $(fzf)'
+alias gocover='go test -coverprofile=coverage.out'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
