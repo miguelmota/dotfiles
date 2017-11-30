@@ -129,5 +129,7 @@ vim
 viminfo
 ec2
 aws
+azure
+vnc
 tmux/resurrect/*
 wegorc

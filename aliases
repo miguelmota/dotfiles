@@ -256,6 +256,7 @@ alias ff='fzf'
 alias how='howdoi'
 alias vimf='vim $(fzf)'
 alias gocover='go test -coverprofile=coverage.out'
+alias sha256file='openssl sha -sha256'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example

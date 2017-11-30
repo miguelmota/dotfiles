@@ -33,14 +33,16 @@ ln -snf ~/Dropbox/dotfiles/fonts ~/.fonts
 
 ln -snf ~/Dropbox/dotfiles/gcalcli ~/.gcalcli
 ln -snf ~/Dropbox/dotfiles/gemrc ~/.gemrc
+ln -snf ~/Dropbox/dotfiles/ghci ~/.ghci
 ln -snf ~/Dropbox/dotfiles/gitattributes ~/.gitattributes
 ln -snf ~/Dropbox/dotfiles/gitconfig ~/.gitconfig
 ln -snf ~/Dropbox/dotfiles/gitmodules ~/.gitmodules
 ln -snf ~/Dropbox/dotfiles/gitradarrc ~/.gitradarrc
 ln -snf ~/Dropbox/dotfiles/homebrew ~/.homebrew
 ln -snf ~/Dropbox/dotfiles/httpie ~/.httpie
-ln -snf ~/Dropbox/dotfiles/irssi ~/.irssi
 ln -snf ~/Dropbox/dotfiles/hushlogin ~/.hushlogin
+ln -snf ~/Dropbox/dotfiles/irssi ~/.irssi
+ln -snf ~/Dropbox/dotfiles/jupyter ~/.jupyter
 ln -snf ~/Dropbox/dotfiles/mc ~/.mc
 ln -snf ~/Dropbox/dotfiles/mongo ~/.mongo
 ln -snf ~/Dropbox/dotfiles/mutt ~/.mutt
