@@ -21,6 +21,7 @@ alias ~='cd ~'
 alias cdh='cd ~/'
 alias cddocs='cd ~/Documents/'
 alias cddownloads='cd ~/Downloads/'
+alias cdgo='cd ~/go/'
 alias cdd='cd ~/Downloads/'
 alias cddb='cd ~/Dropbox/'
 alias cddev='cd ~/Development/'
@@ -137,9 +138,11 @@ alias gtagd="git tag -d"
 alias gtagdr="git push origin :refs/tags/"
 alias gtagp="git push origin refs/tags/"
 alias gitsub='git submodule update --init --recursive'
-alias gitdiff='git diff-tree --no-commit-id --name-status -r ' # gitdiff <revision>
+alias gitdiffrev='git diff-tree --no-commit-id --name-status -r ' # gitdiff <revision>
+alias gitdiff='git diff --cached'
 alias gcherrypick='git cherry-pick' # gcherrypick <commit hash>
 alias grebasei='git rebase -i HEAD~' # grebasei <number>
+alias gfilescommitted='git diff-tree --no-commit-id --name-only -r' # gfilescommitted <revision>
 
 # Network aliases
 
