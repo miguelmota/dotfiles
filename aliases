@@ -88,9 +88,9 @@ alias vimbashaliases='vim ~/.bash_aliases'
 alias vimbashrc='vim ~/.bashrc'
 alias vimvimrc='vim ~/.vimrc'
 alias vimtmux='vim ~/.tmux.conf'
-alias viminstall='vim +BundleInstall'
-alias vimclean='vim +BundleClean'
-alias vimupdate='vim +BundleUpdate'
+alias viminstall='vim +PlugInstall'
+alias vimclean='vim +PlugClean'
+alias vimupdate='vim +PlugUpdate'
 alias wiki='cd ~/vimwiki && vim ~/vimwiki/'
 
 # Emacs aliases
