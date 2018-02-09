@@ -203,6 +203,7 @@ alias untar='tar -zxvf'
 
 # Shortcut aliases
 
+alias sb='. ~/.bashrc'
 alias rsb='. ~/.bashrc'
 alias rsz='. ~/.zshrc'
 alias rm='rm -r'
