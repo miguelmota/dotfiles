@@ -149,6 +149,7 @@ alias gfilescommitted='git diff-tree --no-commit-id --name-only -r' # gfilescomm
 alias ip=ip
 alias publicip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
 alias gateway='route -n get default | grep gateway | rev | cut -d: -f -1 | rev'
+alias nameservers='scutil --dns | grep 'nameserver\[[0-9]*\]''
 alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanV='sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanhost='sudo nmap -O -v -sV' # ip
@@ -185,6 +186,7 @@ alias dockerrm='docker rm $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
 alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
 alias dockerip='docker-machine ip'
+alias dockerrestart='docker-machine restart default && eval "$(docker-machine env default)"'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
@@ -275,6 +277,9 @@ alias matrix='cmatrix'
 alias train='sl'
 alias weatherwego='wego -units imperial'
 alias wttr='curl -s wttr.in/Santa+Monica,CA?u'
+alias ngrok8000='ngrok http 8000'
+alias cols='tput cols'
+alias rows='tput lines'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local
