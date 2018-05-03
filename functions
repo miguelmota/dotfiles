@@ -319,6 +319,15 @@ cert_dates() {
   echo | openssl s_client -servername $1 -connect $1:443 2>/dev/null | openssl x509 -noout -dates
 }
 
+# kill process by name or port
+# example:
+# xkill someapp :8080 node :1111
+xkill() {
+  for i in $@;do export q=$i;if [[ $i == :* ]];then lsof -i$i|sed -n '1!p';
+  else ps aux|grep -i $i|grep -v grep;fi|awk '{print $2}'|\
+  xargs -I@ sh -c 'kill -9 @&&printf "X %s->%s\n" $q @';done
+}
+
 # Convert bytes to human readable format.
 # $ bytes2mb 511705088
 # 488 mb

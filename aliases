@@ -68,6 +68,7 @@ alias json='python -m json.tool'
 alias prettyjson='python -m json.tool'
 alias gs='grep -nrHoEali'
 alias gsl='grep -nrHEai'
+alias rg='rg -i' # ripgrep
 alias gsc=grepSearchCount
 alias fs=fileSearch
 alias sr=searchReplace
@@ -280,6 +281,8 @@ alias wttr='curl -s wttr.in/Santa+Monica,CA?u'
 alias ngrok8000='ngrok http 8000'
 alias cols='tput cols'
 alias rows='tput lines'
+# example: go test -v | gopretty
+alias gopretty='tee >(richgo testfilter)'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

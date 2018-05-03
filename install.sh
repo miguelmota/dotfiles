@@ -38,6 +38,7 @@ ln -snf ~/Dropbox/dotfiles/gitattributes ~/.gitattributes
 ln -snf ~/Dropbox/dotfiles/gitconfig ~/.gitconfig
 ln -snf ~/Dropbox/dotfiles/gitmodules ~/.gitmodules
 ln -snf ~/Dropbox/dotfiles/gitradarrc ~/.gitradarrc
+ln -snf ~/Dropbox/dotfiles/gitignore ~/.gitignore
 ln -snf ~/Dropbox/dotfiles/homebrew ~/.homebrew
 ln -snf ~/Dropbox/dotfiles/httpie ~/.httpie
 ln -snf ~/Dropbox/dotfiles/hushlogin ~/.hushlogin

@@ -79,6 +79,7 @@
 [core]
 	editor = vim
 	autocrlf = false
+	excludesfile = ~/.gitignore
 [github]
 	user = miguelmota
 [ghi]
