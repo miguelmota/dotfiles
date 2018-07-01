@@ -68,7 +68,6 @@ alias json='python -m json.tool'
 alias prettyjson='python -m json.tool'
 alias gs='grep -nrHoEali'
 alias gsl='grep -nrHEai'
-alias rg='rg -i' # ripgrep
 alias gsc=grepSearchCount
 alias fs=fileSearch
 alias sr=searchReplace
@@ -185,9 +184,11 @@ alias vmstat='vm_stat'
 alias dockerstop='docker stop $(docker ps -a -q)'
 alias dockerrm='docker rm $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
-alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
+#alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
+alias dockerd='echo "use docker app"'
 alias dockerip='docker-machine ip'
 alias dockerrestart='docker-machine restart default && eval "$(docker-machine env default)"'
+alias dockert='eval "$(docker-machine env default)"' # load docker for new terminal tab
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
@@ -264,6 +265,10 @@ alias how='howdoi'
 alias vimf='vim $(fzf)'
 alias gocover='go test -coverprofile=coverage.out'
 alias sha256file='openssl sha -sha256'
+alias svg2png='rsvg-convert'
+#alias electrum='/Applications/Electrum.app/Contents/MacOS/Electrum'
+alias shodan_history='shodan host --history'
+alias bashlint='shellcheck'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
