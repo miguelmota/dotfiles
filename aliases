@@ -53,6 +53,7 @@ alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
 alias topcpu='top -o cpu'
 alias diskusage='sudo iotop'
+alias prettydiskusage='ncdu'
 alias psmem='ps aux | sort -rn -k 6'
 alias lsperm=octalPerms
 
@@ -143,6 +144,9 @@ alias gitdiff='git diff --cached'
 alias gcherrypick='git cherry-pick' # gcherrypick <commit hash>
 alias grebasei='git rebase -i HEAD~' # grebasei <number>
 alias gfilescommitted='git diff-tree --no-commit-id --name-only -r' # gfilescommitted <revision>
+alias gitlastrev='git rev-parse HEAD'
+alias gitflow='git-flow'
+alias gitf='git-flow'
 
 # Network aliases
 
@@ -154,6 +158,7 @@ alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanV='sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanhost='sudo nmap -O -v -sV' # ip
 alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
+alias portopen='nmap 192.168.0.1 -Pn -p 9000' # check if port is open
 alias scannet='arp -a' # show IPs and MACs
 alias arpflush='arp -d -a'
 alias macs='sudo arp-scan -l'
@@ -182,13 +187,16 @@ alias vmstat='vm_stat'
 # Docker aliases
 
 alias dockerstop='docker stop $(docker ps -a -q)'
-alias dockerrm='docker rm $(docker ps -aq)'
+alias dockerrm='docker rm -f $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
 #alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
 alias dockerd='echo "use docker app"'
 alias dockerip='docker-machine ip'
 alias dockerrestart='docker-machine restart default && eval "$(docker-machine env default)"'
 alias dockert='eval "$(docker-machine env default)"' # load docker for new terminal tab
+alias containerport="docker inspect --format '{{ (index (index .NetworkSettings.Ports \"3333/tcp\") 0).HostPort }}'"
+alias dockercmd='docker inspect --format="{{.Config.Cmd}}"'
+alias dockerpslast='docker ps -q -l'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
@@ -209,6 +217,8 @@ alias untar='tar -zxvf'
 
 alias sb='. ~/.bashrc'
 alias rsb='. ~/.bashrc'
+alias rsbp='. ~/.bashrc_profile'
+alias rsp='. ~/.profile'
 alias rsz='. ~/.zshrc'
 alias rm='rm -r'
 alias c='clear'
@@ -269,6 +279,7 @@ alias svg2png='rsvg-convert'
 #alias electrum='/Applications/Electrum.app/Contents/MacOS/Electrum'
 alias shodan_history='shodan host --history'
 alias bashlint='shellcheck'
+alias cat='bat'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
