@@ -91,9 +91,3 @@
 	insteadOf = https://github.com/
 [http]
 	postBuffer = 524288000
-[url "https://425ce3b98f1771e184e92311d1a291dd62b9d9b0:x-oauth-basic@github.com/"]
-	insteadOf = https://github.com/
-[url "https://425ce3b98f1771e184e92311d1a291dd62b9d9b0:x-oauth-basic@agithub.com/"]
-	insteadOf = https://github.com/
-[url "https://github.com/"]
-	insteadOf = https://github.com/
