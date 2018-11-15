@@ -138,6 +138,7 @@ alias gtag="git tag -a"
 alias gtagd="git tag -d"
 alias gtagdr="git push origin :refs/tags/"
 alias gtagp="git push origin refs/tags/"
+alias gitpushtags="git push origin --tags"
 alias gitsub='git submodule update --init --recursive'
 alias gitdiffrev='git diff-tree --no-commit-id --name-status -r ' # gitdiff <revision>
 alias gitdiff='git diff --cached'
@@ -197,6 +198,7 @@ alias dockert='eval "$(docker-machine env default)"' # load docker for new termi
 alias containerport="docker inspect --format '{{ (index (index .NetworkSettings.Ports \"3333/tcp\") 0).HostPort }}'"
 alias dockercmd='docker inspect --format="{{.Config.Cmd}}"'
 alias dockerpslast='docker ps -q -l'
+alias dockerprune='docker system prune -a -f'
 
 # Node/NPM
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"

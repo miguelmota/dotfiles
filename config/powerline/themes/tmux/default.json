@@ -15,10 +15,6 @@
     ],
     "right": [
       {
-        "function": "powerline.segments.common.sys.uptime",
-        "name": "uptime"
-      },
-      {
         "function": "powerline.segments.common.bat.battery",
         "name": "battery"
       },
