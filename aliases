@@ -69,9 +69,9 @@ alias json='python -m json.tool'
 alias prettyjson='python -m json.tool'
 alias gs='grep -nrHoEali'
 alias gsl='grep -nrHEai'
-alias gsc=grepSearchCount
+alias gsc=grep_search_count
 alias fs=fileSearch
-alias sr=searchReplace
+alias sr=search_replace
 
 # Sass aliases
 
@@ -111,12 +111,12 @@ alias muxls='tmux list-sessions'
 alias tmuxls='muxls'
 alias rtmux='tmux source-file ~/.tmux.conf'
 alias muxnew='tmux new -s'
-alias tmuxrotate=rotateTmux
+alias muxrotate=tmux_rotate
 
 # Curl aliases
 
 alias curlt='curl -o /dev/null -s -w %{time_total}\\n'
-alias curljson=curlJsonPrettyPrint # Ex. curljson <url>
+alias curljson=curl_json_pretty_print # Ex. curljson <url>
 alias curlheaders=headers # curlheaders <url>
 
 # Git aliases
@@ -129,7 +129,7 @@ alias gitp='git push'
 alias ga='git add .'
 alias gm='git commit -m '
 alias gam='git add . && git commit -m '
-alias gamp=gitAddCommitPush # Ex. gmp "my commit"
+alias gamp=git_add_commit_push # Ex. gmp "my commit"
 alias gp='git push'
 alias gch='git checkout '
 alias gme='git merge '
@@ -148,10 +148,11 @@ alias gfilescommitted='git diff-tree --no-commit-id --name-only -r' # gfilescomm
 alias gitlastrev='git rev-parse HEAD'
 alias gitflow='git-flow'
 alias gitf='git-flow'
+alias giteditor='git config --global core.editor' # gitseteditor vim
 
 # Network aliases
 
-alias ip=ip
+#alias ip=ip
 alias publicip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
 alias gateway='route -n get default | grep gateway | rev | cut -d: -f -1 | rev'
 alias nameservers='scutil --dns | grep 'nameserver\[[0-9]*\]''
@@ -172,7 +173,7 @@ alias portping='sudo nping --tcp -p <port> <host>'
 
 # Server aliases
 
-alias server=server # Ex. server 3000
+#alias server=server # Ex. server 3000
 alias mysqlstart='mysql.server restart'
 alias rsap='sudo apache2ctl restart'
 
@@ -204,12 +205,12 @@ alias dockerprune='docker system prune -a -f'
 alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
 
 # Utils
-alias width=width
-alias height=height
-alias confirm=confirm
-alias digga=digga
-alias copy=copy
-alias paste=paste
+alias width=image_width
+alias height=image_height
+#alias confirm=confirm
+#alias digga=digga
+#alias copy=copy
+#alias paste=paste
 alias epoch2date='date -r'
 alias speedtest='speedtest-cli'
 alias since_epoch='date +%s'
@@ -237,20 +238,20 @@ alias bs='browser-sync start --server'
 alias volume=volume
 alias extract=extract
 alias irc='irssi'
-alias inkscape=openInkscape
+alias inkscape=open_inkscape
 alias gcal='gcalcli'
 alias define='dict'
 alias macversion='sw_vers'
 alias vtop='vtop --theme monokai' # npm install -g vtop
 alias activity='glances' # pip install glances
 alias web='w3m google.com'
-alias base54encode=base64encode
-alias base54decode=base64decode
+alias base64encode=base64_encode
+alias base64decode=base64_decode
 alias ferment='brew up && brew upgrade --all'
 alias subl=openSublime
 alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
-alias killregex=killRegex
+alias killregex=kill_regex
 alias reddit='cortex'
 alias hn='pyhn'
 alias python='python3'
@@ -258,11 +259,11 @@ alias pip='pip3'
 alias pipir='pip install -U -r requirements.txt'
 alias populus='~/Library/Python/2.7/bin/populus'
 alias mkdp='mkdir -p'
-alias mkdirg=mkdirg
-alias openp=openp
+alias mkdirg=mkdir_g
+#alias openp=openp
 alias cp='cp -r'
-alias cpg=cpg
-alias mvg=mvg
+alias cpg=cp_g
+alias mvg=mv_g
 alias cp_p=cp_p
 alias phpserver='php -S 0.0.0.0:8080'
 alias resize=resize
@@ -282,6 +283,7 @@ alias svg2png='rsvg-convert'
 alias shodan_history='shodan host --history'
 alias bashlint='shellcheck'
 alias cat='bat'
+alias ci='circleci'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example

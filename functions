@@ -1,5 +1,7 @@
 # Copy to clipboard
-function copy() {
+# Example
+# $ echo 'hello' | copy
+copy() {
   unamestr=`uname`
   if [[ "$unamestr" == 'Darwin' ]]; then
     pbcopy
@@ -9,7 +11,9 @@ function copy() {
 }
 
 # Paste from clipboard
-function paste() {
+# Example
+# $ paste # pastes copies what's on clipboard
+paste() {
   unamestr=`uname`
   if [[ "$unamestr" == 'Darwin' ]]; then
     pbpaste
@@ -19,26 +23,36 @@ function paste() {
 }
 
 # Image width
-function width () {
+# Example
+# $ width image.png # 200
+image_width () {
   echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
 # Image height
-function height () {
+# Example
+# $ height image.png # 300
+image_height () {
   echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
-# All the dig info
-function diga () {
-  dig +nocmd $1 any +multiline +noall +answer
+# Run dig and display the most useful info
+# Example
+# $ diga google.com
+diga () {
+  dig +nocmd "$1" any +multiline +noall +answer
 }
 
 # Copy with progress
-function cp_p () {
+# Example
+# $ cp_p src/ dst/
+cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
 
 # Pretty print JSON
+# Example
+# $ echo '{"foo":"bar"}' | cjson
 cjson () {
   local url=$(echo $1)
   if [[ "http" == $url[0,4] ]] ; then
@@ -49,15 +63,18 @@ cjson () {
 }
 
 # Curl pretty print with underscore
-function curlJsonPrettyPrint() {
+# Example
+# $ curl_json_pretty_print http://example.com/data.json
+curl_json_pretty_print() {
   local url="${1}"
   curl "$url" | underscore print --color | less -R
 }
 
 # Simple server
-function server() {
+# Example
+# $ server 3000 # visit http://localhost:3000
+server() {
   local port="${1:-8000}"
-
 
   if [[ $* == *-o* ]]; then
     open "http://localhost:$port"
@@ -73,34 +90,46 @@ function server() {
 }
 
 # Display local IP
-function ip() {
+# Example
+# $ ip # 10.10.10.192
+ip() {
   # ifconfig getifaddr en0
   ifconfig | grep inet | grep broad | awk {'print $2'}
 }
 
 # List port procceses
-function listPortProcceses() {
+# Example
+# $ list_port_procceses 80
+list_port_procceses() {
   lsof -i tcp:"${1}"
 }
 
 # Git push shortcut
-function gitAddCommitPush() {
+# Example
+# $ git_add_commit_push "my message"
+git_add_commit_push() {
   local msg="${1}"
   git add . && git commit -m "$msg" && git push -u;
 }
 
 # Get load average
-function loadAverage() {
+# Example
+# $ load_average
+load_average() {
   uptime | awk '{ s = ""; for (i = 10; i <= NF; i++) s = s $i " "; print s }'
 }
 
 # Get HTTP Headers only
-function headers() {
+# Example
+# $ headers google.com
+headers() {
   curl -s -D - "${1}" -o /dev/null
 }
 
 # Open local server
-function openp() {
+# Example
+# $ open_p 3000 # goes to http://localhost:3000
+open_p() {
   if [[ ${1} =~ ^[0-9]{4}$ ]]; then
     open "http://localhost:$1"
   else
@@ -109,13 +138,16 @@ function openp() {
 }
 
 # File search. Pass path and regex
-function fileSearch() {
+# Example
+# $ file_search 'index.js' ./
+file_search() {
   find ${2} -name ${1}
 }
 
 # Recursive search and replace text
-# sr ./ "*.js" temp foo
-function searchReplace() {
+# Example
+# $ search_replace ./ "*.js" temp foo
+search_replace() {
   replace_or_print='-pi';
   if [ "$5" == "dry" ]; then
     replace_or_print='-p';
@@ -126,7 +158,9 @@ function searchReplace() {
 }
 
 # Confirm dialog
-function confirm () {
+# Example
+# $ confirm 'continue?' && echo 'hello'
+confirm () {
   # call with a prompt string or use a default
   read -r -p "${1:-Are you sure? [y/N]} " response
   case $response in
@@ -140,19 +174,25 @@ function confirm () {
 }
 
 # Encode base64 string
-function base64encode () {
+# Example
+# $ base64_encode 'hello' # aGVsbG8=
+base64_encode () {
   #echo -n ${1} | openssl base64
-  node -e "process.stdout.write(new Buffer(process.argv[1]).toString('base64'))" ${1}
+  node -e "process.stdout.write(Buffer.from(process.argv[1]).toString('base64'))" ${1}
 }
 
 # Decode base64 string
-function base64decode () {
+# Example
+# $ base64_decode aGVsbG8= # hello
+base64_decode () {
   #echo -n ${1} | openssl base64
-  node -e "process.stdout.write(new Buffer(process.argv[1], 'base64').toString('utf8'))" ${1}
+  node -e "process.stdout.write(Buffer.from(process.argv[1], 'base64').toString('utf8'))" ${1}
 }
 
 # Unarchive files
-function extract () {
+# Example
+# $ extract file.tar.gz
+extract () {
    if [ -f $1 ] ; then
        case $1 in
            *.tar.bz2)   tar xvjf $1    ;;
@@ -174,47 +214,68 @@ function extract () {
  }
 
 # Copy and go to directory
-function cpg () {
+# Example
+# $ cp_g foo/ bar/
+cp_g () {
   cp $1 $2 && cd $2
 }
 
 # Move and go to directory
-function mvg () {
+# Example
+# $ mv_g foo/ bar/
+mv_g () {
   mv $1 $2 && cd $2
 }
 
 # Make directory and go to it
-function mkdirg () {
+# Example
+# $ mkdir_g foo/
+mkdir_g () {
   command mkdir $1 && cd $1
 }
 
 # Set output volume
+# Example
+# $ volume 3.5
 volume() {
-  osascript -e "set Volume $1"
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    # volume range: 0-7
+    osascript -e "set Volume $1"
+  fi
 }
 
 # Kill processes based on regular expression
-killRegex() {
+# Example
+# $ kill_regex /node/
+kill_regex() {
   kill $(ps aux | grep $1 | awk '{print $2}')
 }
 
 # Grep search count
-grepSearchCount() {
+# Example
+# $ grep_search_count file.txt # 10
+grep_search_count() {
   grep -ohr $1 $2 | wc -l
 }
 
 # Rotate Tmux windows every n seconds
-rotateTmux() {
+# Example
+# tmux_rotate
+tmux_rotate() {
   TIME=${2:-30}
   watch -n$TIME tmux next-window -t $1
 }
 
 # Check if command exists
-function commandExists() {
+# Example
+# $ command_exists foobar && echo 'exists'
+command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
 # Vim specific to OS
+# Example
+# $ vim
 function vim() {
   unamestr=`uname`
   macvim="/usr/local/Cellar/vim/$(ls  /usr/local/Cellar/vim/ | tail -1)/bin/./vim"
@@ -228,7 +289,9 @@ function vim() {
 }
 
 # Sublime specific to OS
-function openSublime() {
+# Example
+# $ open_sublime file.txt
+open_sublime() {
   unamestr=`uname`
   macsubl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
@@ -240,7 +303,9 @@ function openSublime() {
 }
 
 # Inkscape specific to OS
-function openInkscape() {
+# Example
+# $ open_inkscape
+open_inkscape() {
   unamestr=`uname`
   macinkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
 
@@ -252,7 +317,9 @@ function openInkscape() {
 }
 
 # List permissions as octal
-octalPerms() {
+# Example
+# $ octal_perms
+octal_perms() {
   if [[ "$unamestr" == 'Darwin' ]]; then
     stat -f '%A %a %N' *
   else
@@ -261,16 +328,22 @@ octalPerms() {
 }
 
 # Shuffle
+# Example
+# $ ls -l | shuf
 shuf() {
     awk 'BEGIN{srand();} {printf "%06d %s\n", rand()*1000000, $0;}' | sort -n | cut -c8-
 }
 
 # Random figlet font
-figlet-random() {
+# Example
+# $ figlet_random 'hello'
+figlet_random() {
   figlet -f $(ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | shuf | sed -n '1p') $1
 }
 
 # Display wifi SSID connected to
+# Example
+# $ ssid
 ssid() {
   if [[ "$unamestr" == 'Darwin' ]]; then
     /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'
@@ -279,23 +352,30 @@ ssid() {
   fi
 }
 
-# DNS TXT Record
-dnstxt() {
+# DNS TXT record lookup
+# Example
+# $ dns_txt google.com
+dns_txt() {
   curl -X POST "https://mdxnorq9nj.execute-api.us-west-2.amazonaws.com/prod/txt" -d '{"domain": "'"$1"'"}'
 }
 
-# Resize image (ex. resize input.jpg 200 output.png)
+# Resize image
+# Example
+# $ resize input.jpg 200 output.png
 resize() {
   convert "$1" -resize "$2" "$3"
 }
 
-# Generate SHA3-256 hash
+# Generate SHA3-256 hash (not keccak-256)
+# Example
+# sha3 'hello' # 3338be694f50c5f338814986cdf0686453a888b84f424d792af4b9202398f392
 sha3() {
   echo -n "$1" | rhash --sha3-256 -
 }
 
-# capture stdout of process
-# capture <pid>
+# Capture stdout of process
+# Example
+# $ capture 3021
 capture() {
     sudo dtrace -p "$1" -qn '
         syscall::write*:entry
@@ -307,7 +387,7 @@ capture() {
 
 # kill all processes returned by grep
 # grepkill "Chrome"
-grepkill() {
+grep_kill() {
   ps aux | grep -i $1 | awk '{print $2}' | xargs sudo kill
 }
 
@@ -329,8 +409,8 @@ xkill() {
 }
 
 # Convert bytes to human readable format.
-# $ bytes2mb 511705088
-# 488 mb
+# Example
+# $ bytes2mb 511705088 # 488 mb
 bytes2human() {
   B=$1
   [ $B -lt 1024 ] && echo ${B} bytes
@@ -343,12 +423,16 @@ bytes2human() {
   echo $(((GB+512)/1024)) terabytes
 }
 
+# Authorize public key for SSH login
+# Example
 # $ pub2ssh root@1.2.3.4
 pub2ssh() {
   cat ~/.ssh/id_rsa.pub | ssh $1 "cat >> ~/.ssh/authorized_keys"
 }
 
 # Make a temporary directory and enter it
+# Example
+# tmpd
 tmpd() {
 	local dir
 	if [ $# -eq 0 ]; then
@@ -359,8 +443,10 @@ tmpd() {
 	cd "$dir" || exit
 }
 
-# Create a data URL from a file
-dataurl() {
+# Create a data URI from a file
+# Example
+# datauri file.txt
+datauri() {
 	local mimeType
 	mimeType=$(file -b --mime-type "$1")
 	if [[ $mimeType == text/* ]]; then
@@ -369,14 +455,11 @@ dataurl() {
 	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
 }
 
-# Run `dig` and display the most useful info
-digga() {
-	dig +nocmd "$1" any +multiline +noall +answer
-}
-
 # Show all the names (CNs and SANs) listed in the SSL certificate
 # for a given domain
-getcertnames() {
+# Example
+# $ cert_names google.com
+cert_names() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified."
 		return 1
@@ -411,7 +494,9 @@ getcertnames() {
 }
 
 # List dependencies of Go project
-golistdeps() {
+# Example
+# $ go_list_deps
+go_list_deps() {
 	(
 	if [[ ! -z "$1" ]]; then
 		gogo "$@"
@@ -422,6 +507,8 @@ golistdeps() {
 }
 
 # Get colors in manual pages
+# Example
+# $ man cat
 man() {
 	env \
 		LESS_TERMCAP_mb="$(printf '\e[1;31m')" \
@@ -435,6 +522,8 @@ man() {
 }
 
 # UTF-8-encode a string of Unicode symbols
+# Example
+# $ escape {args}
 escape() {
 	local args
 	mapfile -t args < <(printf "%s" "$*" | xxd -p -c1 -u)
@@ -446,6 +535,8 @@ escape() {
 }
 
 # Decode \x{ABCD}-style Unicode escape sequences
+# Example
+# $ unidecode '\N{U+0041}' # A
 unidecode() {
 	perl -e "binmode(STDOUT, ':utf8'); print \"$*\""
 	# print a newline unless we’re piping the output to another program
@@ -455,6 +546,8 @@ unidecode() {
 }
 
 # Get a character’s Unicode code point
+# Example
+# $ codepoint A # U+0041
 codepoint() {
 	perl -e "use utf8; print sprintf('U+%04X', ord(\"$*\"))"
 	# print a newline unless we’re piping the output to another program
