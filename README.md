@@ -4,11 +4,13 @@
 
 NOTE: It's not recommended that you install this on your machine since it's highly personalized for my workspace.
 
-But I do recommend checking out these files that contain useful snippets:
+But I do recommend checking out these files and directories that contain useful snippets and programs:
 
 - [`functions`](functions)
-- [`bash_aliases`](bash_aliases)
+- [`aliases`](aliases)
 - [`tmux.conf`](tmux.conf)
+- [`promptrc`](promptrc)
+- [bin](bin)
 
 My vim config is on a seperate repo [vim-config](https://github.com/miguelmota/vim-config).
 
@@ -197,4 +199,4 @@ sudo easy_install Pygments
 
 # License
 
-MIT
+[MIT](LICENSE)

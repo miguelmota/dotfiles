@@ -23,7 +23,7 @@ ask_stories = a
 jobs_stories = J
 
 [settings]
-cache = /home/socketubs/.pyhn/cache
+cache = /home/miguelmota/.pyhn/cache
 cache_age = 5
 # Refresh interval in minutes (default: 5. minimum: 1)
 refresh_interval = 5

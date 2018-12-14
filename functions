@@ -38,8 +38,8 @@ image_height () {
 
 # Run dig and display the most useful info
 # Example
-# $ diga google.com
-diga () {
+# $ dig_all google.com
+dig_all () {
   dig +nocmd "$1" any +multiline +noall +answer
 }
 

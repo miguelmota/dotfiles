@@ -95,7 +95,9 @@ serve
 
 # Personalized files #
 ######################
+# this one is very important!
 *.local
+gitconfig
 apache
 apache2
 config/*
@@ -105,6 +107,8 @@ elinks/globhist
 elinks/gotohist
 elinks/cookies
 elinks/cookies
+elinks/bookmarks
+!elinks/elinks.conf
 docker/*
 filezilla/*
 gcalcli/*
@@ -133,3 +137,6 @@ azure
 vnc
 tmux/resurrect/*
 wegorc
+cortex/
+!cortex/config
+irssi/config.autosave

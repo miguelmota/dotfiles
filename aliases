@@ -55,7 +55,7 @@ alias topcpu='top -o cpu'
 alias diskusage='sudo iotop'
 alias prettydiskusage='ncdu'
 alias psmem='ps aux | sort -rn -k 6'
-alias lsperm=octalPerms
+alias lsperm=octal_perms
 
 # Search aliases
 
@@ -70,7 +70,7 @@ alias prettyjson='python -m json.tool'
 alias gs='grep -nrHoEali'
 alias gsl='grep -nrHEai'
 alias gsc=grep_search_count
-alias fs=fileSearch
+alias fs=file_search
 alias sr=search_replace
 
 # Sass aliases
@@ -179,8 +179,8 @@ alias rsap='sudo apache2ctl restart'
 
 # System aliases
 
-alias lsp=listPortProcceses # Ex. lsp 3000
-alias loadavg=loadAverage
+alias lsp=list_port_procceses # Ex. lsp 3000
+alias loadavg=load_average
 alias fw='lsof -p 1 -r 10'
 alias cputop='ps -eo pcpu,pid,user,args | sort -k 1 -r | head -11'
 alias unixmemtop='ps -eo pmem,pcpu,vsize,pid,cmd | sort -k 1 -nr | head -10';
@@ -208,9 +208,9 @@ alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | x
 alias width=image_width
 alias height=image_height
 #alias confirm=confirm
-#alias digga=digga
 #alias copy=copy
 #alias paste=paste
+alias diga=dig_all
 alias epoch2date='date -r'
 alias speedtest='speedtest-cli'
 alias since_epoch='date +%s'
@@ -260,7 +260,7 @@ alias pipir='pip install -U -r requirements.txt'
 alias populus='~/Library/Python/2.7/bin/populus'
 alias mkdp='mkdir -p'
 alias mkdirg=mkdir_g
-#alias openp=openp
+alias openp=open_p
 alias cp='cp -r'
 alias cpg=cp_g
 alias mvg=mv_g
@@ -271,7 +271,6 @@ alias sha3=sha3
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias screenshot='screencapture -x out.png'
 alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
-alias digall='dig +nocmd any +multiline +answer'
 alias soma='somafm play'
 alias ff='fzf'
 alias how='howdoi'
