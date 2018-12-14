@@ -137,6 +137,6 @@ azure
 vnc
 tmux/resurrect/*
 wegorc
-cortex/
-!cortex/config
+cortex
+!/cortex/config
 irssi/config.autosave
