@@ -1,16 +1,20 @@
 # dotfiles
 
-My dot files. It's not recommended that you install this on your machine since it's highly personalized for my workspace.
+> My dot files
 
-The files you might find useful are:
+NOTE: It's not recommended that you install this on your machine since it's highly personalized for my workspace.
 
-- `functions`
-- `bash_aliases`
-- `tmux.conf`
+But I do recommend checking out these files that contain useful snippets:
+
+- [`functions`](functions)
+- [`bash_aliases`](bash_aliases)
+- [`tmux.conf`](tmux.conf)
 
 My vim config is on a seperate repo [vim-config](https://github.com/miguelmota/vim-config).
 
 **Reference**
+
+Below are references to help me recall certain shortcuts and tips.
 
 [Tmux](http://tmux.sourceforge.net/)
 
