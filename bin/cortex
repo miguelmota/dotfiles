@@ -1,0 +1,981 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import curses
+import threading
+import time
+import webbrowser
+
+from configparser import ConfigParser
+from urllib.request import Request, urlopen
+from urllib.parse import quote
+from threading import Timer
+
+try:
+	from subprocess import call, DEVNULL
+except ImportError:
+	DEVNULL = open(os.devnull, "wb")
+
+# Get a json library
+try:
+    import json
+except ImportError:
+    # Fall back to simplejson if no stdlib json is available
+    import simplejson as json
+
+# Get a pickle library
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+# {{{ Constants
+APPLICATION_NAME = "Cortex"
+APPLICATION_VERSION = "0.5.1"
+APPLICATION_URI = "http://cortex.glacicle.org"
+
+# {{{ Version/Help text
+VERSIONTEXT = """%(name)s v%(version)s <%(uri)s>
+
+See cortex(1) for information about using and configuring cortex.
+
+Copyright (C) 2010 Lucas de Vries <lucas@glacicle.org>
+License WTFPL: <http://sam.zoy.org/wtfpl>""" % dict(
+   name=APPLICATION_NAME,
+   version=APPLICATION_VERSION,
+   uri=APPLICATION_URI
+)
+
+HELPTEXT = """
+Usage: {{CMD}} [-v|--version] [-h|--help] [SUBREDDIT]
+
+    -v, --version      Show the version
+    -h, --help         This message
+
+See cortex(1) for information about using and configuring cortex.
+""".replace("{{CMD}}", sys.argv[0], 1)
+# }}}
+
+CONF_DIR = os.getenv("HOME") + "/.cortex"
+SEEN_LOCATION = CONF_DIR + "/seen.cache"
+CONF_LOCATION = CONF_DIR + "/config"
+
+GETCH_TIMEOUT = 400
+
+BASE_URI = "http://reddit.com/"
+INBOX_URI = BASE_URI + "message/inbox"
+SUB_URI = BASE_URI + "r/%s/"
+SEARCH_URI = BASE_URI + "search.json?q=%s&sort=new"
+
+COLOR_NAME = {
+    "black": 0,
+    "red": 1,
+    "green": 2,
+    "yellow": 3,
+    "blue": 4,
+    "magenta": 5,
+    "cyan": 6,
+    "white": 7,
+    "default": -1,
+}
+# }}}
+
+# {{{ Configuration
+# Default config
+Config = {
+    "browser-command": "",
+    "update-interval": 10,
+    "user-agent": "",
+    "seen-size": 500,
+    "sort": "-read",
+
+    "frontpage": BASE_URI+".json",
+    "inbox": "",
+}
+
+
+if hasattr(str, "format"):
+    Config.update({
+        "title-format": " Cortex -- Reddit/{title}: {total} articles, {new} new",
+        "entry-format-minimal": " {title} %> {subreddit:<13} | {num_comments:<4}",
+        "entry-format-full": " {title} %n  [{score:4}] {read} {nsfw} %> {domain:30}   {subreddit:<13}   {num_comments:4} comments",
+    })
+else:
+    Config.update({
+        "title-format": " Cortex -- Reddit/%(title)s: %(total)s articles, %(new)s new",
+        "entry-format-minimal": " %(title)s {>} %(subreddit)-13s | %(num_comments)-4s",
+        "entry-format-full": " %(title)s {n} [%(score)4s] %(read)s %(nsfw)s {>} %(domain)30s   %(subreddit)-13s   %(num_comments)4s comments",
+    })
+
+Colors = {
+    "title": ("brightyellow", "blue"),
+    "normal": ("white", "black"),
+    "entry": ("white", "black"),
+    "entry-data": ("yellow", "black"),
+    "entry-selected": ("brightyellow", "magenta"),
+    "entry-data-selected": ("brightyellow", "magenta"),
+    "entry-bottom": ("green", "black"),
+    "entry-bottom-selected": ("brightyellow", "magenta"),
+    "entry-bottom-data": ("yellow", "black"),
+    "entry-bottom-data-selected": ("brightyellow", "magenta"),
+    "messages": ("brightgreen", "blue"),
+}
+
+Binds = {
+    ord("q"): "quit",
+    ord("r"): "update",
+    ord("m"): "toggle-minimal",
+    ord("x"): "toggle-hideold",
+
+    ord("k"): "prev-line",
+    ord("j"): "next-line",
+
+    ord("0"): "first-line",
+    ord("g"): "first-line",
+    ord("$"): "last-line",
+    ord("G"): "last-line",
+
+    ord("o"): "open",
+    10: "open",
+    ord("z"): "mark-read",
+
+    ord("t"): "open-both",
+    ord("c"): "open-comments",
+
+    ord("i"): "open-inbox",
+
+    ord("l"): "mark-all-read",
+
+    ord("h"): "frontpage",
+    ord("s"): "subreddit",
+    ord("/"): "search",
+
+    ord("f"): "subreddit-go",
+
+    ord(""): "prev-page",
+    ord(""): "next-page",
+
+    ord(""): "redraw",
+
+    curses.KEY_HOME: "first-line",
+    curses.KEY_END: "last-line",
+
+    curses.KEY_UP: "prev-line",
+    curses.KEY_DOWN: "next-line",
+
+    curses.KEY_PPAGE: "prev-page",
+    curses.KEY_NPAGE: "next-page",
+}
+
+Minimal = False
+HideOld = False
+BackgroundBrowser = True
+UseHTTPS = False
+
+# Load user config
+LocalConfig = ConfigParser(interpolation=None)
+LocalConfig.read([CONF_LOCATION,])
+
+if LocalConfig.has_section("config"):
+    for opt in LocalConfig.options("config"):
+        Config[opt] = LocalConfig.get("config", opt)
+
+        if opt == "minimal":
+            Minimal = bool(int(Config[opt]))
+        elif opt == "hideold":
+            HideOld = bool(int(Config[opt]))
+        elif opt == "browser-background":
+            BackgroundBrowser = bool(int(Config[opt]))
+        elif opt == "https":
+            UseHTTPS = bool(int(Config[opt]))
+
+if LocalConfig.has_section("color"):
+    for cname in LocalConfig.options("color"):
+        col = LocalConfig.get("color", cname).split(",")
+        if len(col) == 2:
+            Colors[cname] = col
+        else:
+            Colors[cname] = col[0], Colors["normal"][1]
+
+if UseHTTPS:
+    BASE_URI = "https://pay.reddit.com/"
+    INBOX_URI = BASE_URI + "message/inbox"
+    SUB_URI = BASE_URI + "r/%s/"
+    SEARCH_URI = BASE_URI + "search.json?q=%s&sort=new"
+
+# Load seen cache
+Seen = []
+if not os.path.exists(CONF_DIR):
+    os.mkdir(CONF_DIR)
+
+if os.path.exists(SEEN_LOCATION):
+    try:
+        Seen = pickle.load(open(SEEN_LOCATION, 'rb'))
+    except:
+        pass
+# }}}
+
+# {{{ Utility functions
+commands = {}
+
+# {{{ command
+def command(name=None, cmds=None):
+    """Register a function as a command."""
+    def cmd(func):
+        # Get command dict
+        if cmds == None:
+            global commands
+            cm = commands
+        else:
+            cm = cmds
+
+        cm[(name or func.__name__)] = func
+        return func
+
+    return cmd
+# }}}
+
+# {{{ getcommand
+def getcommand(name, cmds=None):
+    """Get a command by name."""
+    # Get command dict
+    if cmds == None:
+        global commands
+        cmd = commands
+    else:
+        cmd = cmds
+
+    # Exact match
+    if name in cmd:
+        return cmd[name]
+
+    # Prefix match
+    candidate = filter(lambda x: x.startswith(name), cmd.keys())
+
+    if len(candidate) == 1:
+        return cmd[candidate[0]]
+    elif candidate:
+        return candidate
+    else:
+        return None
+# }}}
+
+# {{{ browseropen
+def browseropen(uri):
+    """Open a link in the browser."""
+    if not BackgroundBrowser:
+        curses.curs_set(1)
+    if type(uri) in (str, bytes):
+        if Config["browser-command"]:
+            if "{0}" in Config["browser-command"]:
+                cmd = Config["browser-command"].format(uri)
+            elif "%s" in Config["browser-command"]:
+                cmd = (Config["browser-command"] % uri )
+            else:
+                cmd = Config["browser-command"]+" "+uri
+            if BackgroundBrowser:
+                cmd += " &"
+                call(cmd, shell=True, stdout=DEVNULL, stderr=DEVNULL)
+            else:
+                call(cmd, shell=True)
+        else:
+            # Taken from webbrowser source since stderr is displayed using regular browser
+            browser = webbrowser.get()
+            if hasattr(browser, 'name'):
+                cmdline = browser.name + " " + uri
+                call( cmdline, shell=True, stdout=DEVNULL, stderr=DEVNULL)
+            else:
+                webbrowser.open(uri)
+    else:
+        if Config["browser-command"]:
+            if "{0}" in Config["browser-command"]:
+                cmd = "("+" ; ".join([Config["browser-command"].format(u) for u in uri])+")"
+            elif "%s" in Config["browser-command"]:
+                cmd = "("+" ; ".join([Config["browser-command"]%u for u in uri])+")"
+            else:
+                cmd = "("+" ; ".join([Config["browser-command"]+" "+u for u in uri])+")"
+            if BackgroundBrowser:
+                cmd += " &"
+                call(cmd, shell=True, stdout=DEVNULL, stderr=DEVNULL)
+            else:
+                call(cmd, shell=True)
+        else:
+            for u in uri:
+                # Taken from webbrowser source since stderr is displayed using regular browser
+                cmdline = webbrowser.get().name + " " + u
+                call( cmdline, shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    if not BackgroundBrowser:
+        curses.curs_set(0)
+# }}}
+
+# {{{ seen_write
+def seen_write():
+    """Write to the seen file."""
+    global Seen
+    if len(Seen) > int(Config["seen-size"]):
+        Seen = Seen[-int(Config["seen-size"]):]
+
+    pickle.dump(Seen, open(SEEN_LOCATION, 'wb'), pickle.HIGHEST_PROTOCOL)
+# }}}
+
+# {{{ check_inbox
+def check_inbox(interface):
+    try:
+        req = Request(Config["inbox"])
+        ua = Config.get("user-agent", "{} - {}".format(
+            APPLICATION_NAME, APPLICATION_VERSION))
+        req.add_header('User-agent', ua)
+
+        resp = urlopen(req).read().decode("utf-8")
+        data = json.loads(resp)["data"]["children"]
+        interface.messages = len(data)
+    except:
+        pass
+# }}}
+# }}}
+
+# {{{ Data
+class Data(object):
+    """Manage communication with the external website."""
+    def __init__(self, uri):
+        self.uri = uri
+        self.loading = False
+        self.need_update = False
+        self.entries = []
+        self.total = 0
+        self.new = 0
+        self.error = ""
+
+    def pprint(self):
+        from pprint import pprint
+        pprint(self.data)
+
+    def _load(self, use_thread=True):
+        try:
+            req = Request(self.uri)
+            ua = Config.get("user-agent", "{} - {}".format(
+                APPLICATION_NAME, APPLICATION_VERSION))
+            req.add_header('User-agent', ua)
+
+            resp = urlopen(req).read().decode("utf-8")
+            data = json.loads(resp)["data"]["children"]
+            self.error = ""
+        except Exception as e:
+            self.loading = False
+            self.need_update = True
+
+            self.error = "Error opening reddit json file at %s. %s [Line %s]." % (self.uri, e, sys.exc_info()[-1].tb_lineno)
+            return
+
+        for datum in data:
+            datum = datum["data"]
+            if datum["hidden"]: continue
+            index = [entry for entry in self.entries if entry.data["id"] == datum["id"]]
+
+            if index:
+                entry = index[0]
+                entry.data["num_comments"] = datum["num_comments"]
+                entry.data["score"] = datum["score"]
+                entry.data["ups"] = datum["ups"]
+                entry.data["downs"] = datum["downs"]
+            else:
+                self.entries.append(Entry(datum))
+
+            if datum["id"] not in Seen:
+                Seen.append(datum["id"])
+
+        seen_write()
+
+        if Config["sort"]:
+            sort = Config["sort"]
+            if sort.startswith("-"):
+                sort = sort[1:]
+
+            self.entries.sort(key=(lambda entry: entry.data[sort] if sort in entry.data else 0))
+            if Config["sort"].startswith("-"):
+                self.entries.reverse()
+
+        self.loading = False
+        self.need_update = True
+
+        self.total = len(self.entries)
+        self.new = len([entry for entry in self.entries if not entry.read])
+
+    def load(self, use_thread=True):
+        if not self.loading:
+            self.loading = True
+            self.need_update = True
+
+            if use_thread:
+                 t = threading.Thread(target=self._load, args=())
+                 t.daemon = True
+                 t.start()
+            else:
+                self._load(False)
+# }}}
+
+# {{{ Entry
+class Entry(object):
+    def __init__(self, data):
+        self.data = data
+        self.read = "id" in self.data and self.data["id"] in Seen
+        self.reval_data()
+
+    def reval_data(self):
+        """Revaluate data dictionary to set some convenience vars."""
+        if "title" not in self.data:
+            return
+        self.data["title"] = self.data["title"].replace("\r\n", "").replace("\n", "").replace("&amp;","&")
+        self.data["read"] = "     " if self.read else "[New]"
+        self.data["nsfw"] = "NSFW" if self.data["over_18"] else "    "
+
+    def __repr__(self):
+        if "title" not in self.data:
+            return "<>"
+        return "<"+self.data["title"]+">"
+
+    def __eq__(self, other):
+        if "id" not in self.data or "id" not in other.data:
+            return False;
+        return other.data["id"] == self.data["id"]
+
+    def _line_format(self, line, width):
+        if hasattr(str, "format"):
+            line = line.split("%>")
+        else:
+            line = line.split("{>}")
+        left, right = (line[0], line[1]) if len(line) >= 2 else (line[0], "")
+
+        right_len = len(right)
+        left_target = width - right_len
+
+        if len(left) > left_target:
+            left = left[:left_target - 3] + "..."
+        else:
+            left = left + " " * (left_target - len(left))
+
+        return left, right
+
+    def format(self, display_type, width):
+        if not len(self.data):
+            return ""
+        if display_type == "minimal":
+            if hasattr(str, "format"):
+                return self._line_format(Config["entry-format-minimal"].format(**self.data), width)
+            else:
+                return self._line_format(Config["entry-format-minimal"] % self.data, width)
+        else:
+            if hasattr(str, "format"):
+                lines = Config["entry-format-full"].format(**self.data).split("%n")
+            else:
+                lines = (Config["entry-format-full"] % self.data).split("{n}")
+
+            if len(lines) >= 2:
+                top, bottom = lines[0], lines[1]
+                bottom = self._line_format(bottom, width)
+            else:
+                top, bottom = lines[0], ("", "")
+
+            top = self._line_format(top, width)
+
+            return top[0], top[1], bottom[0], bottom[1]
+
+    @property
+    def comment_uri(self):
+        """Get the comment uri associated with this entry."""
+        if "id" not in self.data:
+            return ""
+        uri = (SUB_URI % self.data["subreddit"])
+        if uri[-1] != "/":
+            uri += "/"
+        return uri+"comments/"+self.data["id"]
+
+    def open(self):
+        """Open entry link in browser."""
+        if "url" in self.data:
+            if UseHTTPS:
+                self.data["url"] = self.data["url"].replace("http:", "https:")
+            browseropen(self.data["url"])
+            self.read = True
+            self.data["read"] = "    "
+
+    def opencomments(self):
+        """Open comments link in browser."""
+        if self.comment_uri:
+            browseropen(self.comment_uri)
+
+    def openboth(self):
+        """Open entry link in browser."""
+        if self.comment_uri and "url" in self.data:
+            browseropen([self.data["url"], self.comment_uri])
+            self.read = True
+            self.data["read"] = "    "
+# }}}
+
+# {{{ Interface
+class Interface(object):
+    """Manage on-screen display through curses."""
+    def __init__(self, data):
+        self._quit = False
+        self.scr = None
+        self.data = data
+        self.scroll = 0
+        self.selected = 0
+        self.need_update = False
+        self.need_redraw = False
+        self.messages = 0
+        self.displayed_entries = 0
+
+        self.timer = Timer(int(Config["update-interval"])*60, self._timeout)
+        self.timer.start()
+
+    def _timeout(self):
+        # Load data
+        self.data.load(False)
+
+        # Check inbox if applicable
+        if Config["inbox"]:
+            threading.Thread(target=check_inbox, daemon=True, args=(self,)).start()
+
+        # Restart timer
+        del self.timer
+        self.timer = Timer(int(Config["update-interval"])*60, self._timeout)
+        self.timer.start()
+
+    def init(self):
+        """Initialise curses screen"""
+        # Initialise curses
+        self.scr = curses.initscr()
+        self.scr.keypad(1)
+        self.scr.timeout(GETCH_TIMEOUT)
+        curses.curs_set(0)
+        curses.noecho()
+        curses.start_color()
+        curses.use_default_colors()
+
+        # Initialise colors
+        self.colors = {}
+        pairnum = 1
+        for cname in Colors:
+            fg, bg = Colors[cname]
+
+            if fg.startswith("bright"):
+                fbright = True
+                fg = fg[6:]
+            else:
+                fbright = False
+
+            try:
+                curses.init_pair(pairnum, COLOR_NAME[fg], COLOR_NAME[bg])
+            except IndexError:
+                curses.init_pair(pairnum, 0, 0)
+
+            self.colors[cname] = curses.color_pair(pairnum)
+
+            if fbright:
+                self.colors[cname] |= curses.A_BOLD
+
+            pairnum += 1
+
+    @property
+    def entry(self):
+        """Get the selected entry."""
+        if HideOld:
+            num_entries = self.data.total
+            i = 0
+            r = 0
+
+            while i < num_entries:
+                entry = self.data.entries[i]
+                i += 1
+
+                if HideOld and entry.read:
+                    self.displayed_entries -= 1
+                    continue
+
+                if r == self.selected:
+                    return entry
+                r += 1
+
+            return Entry({})
+        elif self.selected < self.data.total:
+            return self.data.entries[self.selected]
+        else:
+            return Entry({})
+
+    def cleanup(self):
+        # Cancel timer
+        self.timer.cancel()
+
+        # Cleanup curses
+        curses.endwin()
+
+    def main(self):
+        """Run a main loop and handle key events."""
+        self.refresh()
+        while not self._quit:
+            key = self.scr.getch()
+            if key in Binds:
+                cmd = getcommand(Binds[key])
+                if callable(cmd):
+                    cmd(self.data, self)
+
+            if self.need_update or self.data.need_update:
+                self.refresh()
+                self.need_update = self.data.need_update = False
+            elif curses.is_term_resized(y,x):
+                self.refresh()
+            y,x = self.scr.getmaxyx()
+
+    def quit(self):
+        """Quit the interface and application."""
+        self._quit = True
+
+    def setline(self, y, x, line, color=None, offset=0, char=' '):
+        """Fill a line completely with text."""
+        height, width = self.scr.getmaxyx()
+        line = str(line).ljust(width-offset, char)
+
+        try:
+            if color and color in self.colors:
+                self.scr.addstr(y, x, line, self.colors[color])
+            else:
+                self.scr.addstr(y, x, line)
+        except:
+            pass
+
+    def refresh(self):
+        """Refresh the curses interface."""
+        # Get dimensions
+        height, width = self.scr.getmaxyx()
+
+        if self.need_redraw:
+            self.need_redraw = False
+            self.scr.clear()
+
+        # Title line
+        if hasattr(str, "format"):
+            self.setline(0, 0, Config["title-format"].format(total=self.data.total,
+                         new=self.data.new, title=self.data.title), color="title")
+        else:
+            self.setline(0, 0, Config["title-format"] % dict(total=self.data.total,
+                         new=self.data.new, title=self.data.title), color="title")
+
+        # Unread messages count
+        if Config["inbox"]:
+            text = str(self.messages)+" unread messages"
+            self.setline(0, width-len(text)-1, text, color = "messages")
+
+        # Display entries
+        y = 1
+        i = 0
+        r = 0
+
+        num_entries = self.data.total
+        self.displayed_entries = num_entries
+
+        if num_entries:
+            displayed = int((height-1-y)/(1 if Minimal else 2))
+            if self.selected <= self.scroll:
+                self.scroll = self.selected
+            elif self.selected >= self.scroll+displayed:
+                self.scroll = self.selected-displayed+1
+
+        while y < height-1:
+            if num_entries and i < num_entries:
+                entry = self.data.entries[i]
+                i += 1
+
+                if HideOld and entry.read:
+                    self.displayed_entries -= 1
+                    continue
+
+                if r < self.scroll:
+                    r += 1
+                    continue
+
+                sel = "-selected" if self.selected == r else ""
+                r += 1
+
+                if Minimal:
+                    left, right = entry.format("minimal", width-1)
+
+                    self.setline(y, 0, left, "entry"+sel)
+                    self.setline(y, len(left), right, "entry-data"+sel)
+                else:
+                    topleft, topright, bottomleft, bottomright = entry.format("full", width-1)
+
+                    self.setline(y, 0, topleft, "entry"+sel)
+                    self.setline(y, len(topleft), topright, "entry-data"+sel)
+
+                    if y+1 < height-1:
+                        y += 1
+                        self.setline(y, 0, bottomleft, "entry-bottom"+sel)
+                        self.setline(y, len(bottomleft), bottomright, "entry-bottom-data"+sel)
+            else:
+                self.setline(y, 0, "", "normal")
+
+            y += 1
+
+        if self.data.error:
+            self.setline(y, 0, self.data.error.center(width-1))
+        else:
+            self.setline(y, 0, "Loading...".center(width-1) if self.data.loading else " "*(width-1))
+
+        # Refresh the screen
+        self.scr.refresh()
+
+    def prev_line(self):
+        total = self.displayed_entries
+        self.selected = total-1 if self.selected <= 0 else self.selected-1
+        self.need_update = True
+
+    def next_line(self):
+        total = self.displayed_entries
+        self.selected = 0 if self.selected >= total-1 else self.selected+1
+        self.need_update = True
+
+    def prev_page(self):
+        height, width = self.scr.getmaxyx()
+        total = self.displayed_entries
+        displayed = int((height-2)/(1 if Minimal else 2))
+
+        self.selected -= displayed
+        self.need_update = True
+
+        if self.selected < 0:
+            self.selected = total-1
+
+    def next_page(self):
+        height, width = self.scr.getmaxyx()
+        total = self.displayed_entries
+        displayed = int((height-2)/(1 if Minimal else 2))
+
+        self.selected += displayed
+        self.need_update = True
+
+        if self.selected >= total-1:
+            self.selected = 0
+
+    def first_line(self):
+        self.selected = 0
+        self.need_update = True
+
+    def last_line(self):
+        self.selected = self.data.total-1
+        self.need_update = True
+# }}}
+
+# {{{ Commands
+@command(name="quit")
+def cm_quit(data, interface):
+    interface.quit()
+
+@command(name="first-line")
+def cm_first_line(data, interface):
+    interface.first_line()
+
+@command(name="last-line")
+def cm_last_line(data, interface):
+    interface.last_line()
+
+@command(name="prev-line")
+def cm_prev_line(data, interface):
+    interface.prev_line()
+
+@command(name="next-line")
+def cm_next_line(data, interface):
+    interface.next_line()
+
+@command(name="prev-page")
+def cm_prev_page(data, interface):
+    interface.prev_page()
+
+@command(name="next-page")
+def cm_next_page(data, interface):
+    interface.next_page()
+
+@command(name="update")
+def cm_update(data, interface):
+    # Update articles
+    data.load()
+
+    # Update inbox
+    if Config["inbox"]:
+        threading.Thread(target=check_inbox, daemon=True, args=(interface, )).start()
+
+@command(name="open")
+def cm_open(data, interface):
+    interface.entry.open()
+    interface.need_update = True
+    if not BackgroundBrowser:
+        interface.need_redraw = True
+
+@command(name="mark-read")
+def cm_mark_read(data, interface):
+    if not interface.entry.read:
+        interface.entry.read = True
+        interface.entry.reval_data()
+        data.new -= 1
+        data.need_update = True
+
+@command(name="open-comments")
+def cm_opencomments(data, interface):
+    interface.entry.opencomments()
+    interface.need_update = True
+    if not BackgroundBrowser:
+        interface.need_redraw = True
+
+@command(name="open-both")
+def cm_openboth(data, interface):
+    interface.entry.openboth()
+    interface.need_update = True
+    if not BackgroundBrowser:
+        interface.need_redraw = True
+
+@command(name="open-inbox")
+def cm_openinbox(data, interface):
+    browseropen(INBOX_URI)
+    if not BackgroundBrowser:
+        interface.need_redraw = True
+    interface.need_update = True
+    interface.messages = 0
+
+@command(name="mark-all-read")
+def cm_mark_all_read(data, interface):
+    for entry in data.entries:
+        entry.read = True
+        entry.reval_data()
+
+    data.new = 0
+    data.need_update = True
+
+@command(name="toggle-minimal")
+def cm_toggle_minimal(data, interface):
+    global Minimal
+    Minimal = not Minimal
+    interface.need_update = True
+
+@command(name="toggle-hideold")
+def cm_toggle_hideold(data, interface):
+    global HideOld
+    HideOld = not HideOld
+    interface.need_update = True
+
+@command(name="frontpage")
+def cm_frontpage(data, interface):
+    if data.uri != Config["frontpage"]:
+        del interface.data
+        data = Data(Config["frontpage"])
+        data.title = "Frontpage"
+        data.load()
+        interface.data = data
+
+@command(name="subreddit")
+def cm_subreddit(data, interface):
+    curses.curs_set(1)
+    curses.echo()
+    interface.scr.timeout(-1)
+
+    height, width = interface.scr.getmaxyx()
+    interface.setline(height-1, 0, " "*(width-1))
+    interface.setline(height-1, 1, "Display Subreddit: ")
+    sub = interface.scr.getstr(height-1, 20).decode("utf-8")
+
+    interface.scr.timeout(GETCH_TIMEOUT)
+    curses.noecho()
+    curses.curs_set(0)
+
+    if not sub:
+        return
+    else:
+        newloc = (SUB_URI % sub)+".json"
+
+    if data.uri != newloc:
+        del interface.data
+        data = Data(newloc)
+        data.title = sub
+        data.load()
+        interface.data = data
+
+@command(name="search")
+def cm_search(data, interface):
+    curses.curs_set(1)
+    curses.echo()
+    interface.scr.timeout(-1)
+
+    height, width = interface.scr.getmaxyx()
+    interface.setline(height-1, 0, " "*(width-1))
+    interface.setline(height-1, 1, "Search: ")
+    sub = interface.scr.getstr(height-1, 9).decode("utf-8")
+
+    interface.scr.timeout(GETCH_TIMEOUT)
+    curses.noecho()
+    curses.curs_set(0)
+
+    if not sub:
+        return
+    else:
+        newloc = SEARCH_URI % quote(sub)
+
+    if data.uri != newloc:
+        del interface.data
+        data = Data(newloc)
+        data.title = "Search -- " + sub
+        data.load()
+        interface.data = data
+
+@command(name="subreddit-go")
+def cm_subreddit_go(data, interface):
+    sub = interface.entry.data["subreddit"]
+    newloc = (SUB_URI % sub)+".json"
+
+    if data.uri == newloc:
+        newloc = Config["frontpage"]
+
+    del interface.data
+    data = Data(newloc)
+    data.title = sub
+    data.load()
+    interface.data = data
+
+@command(name="redraw")
+def cm_redraw(data, interface):
+    interface.need_update = True
+# }}}
+
+# Set LC_ALL locale to force utf-8 to work in curses
+import locale
+locale.setlocale(locale.LC_ALL,"")
+
+# {{{ Main function
+def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ("-v", "--version"):
+        print(VERSIONTEXT)
+    elif len(sys.argv) > 1 and sys.argv[1] in ("--help", "-h"):
+        print(HELPTEXT)
+    else:
+        if len(sys.argv) > 1:
+            data = Data((SUB_URI % sys.argv[1])+".json")
+            data.title = sys.argv[1]
+        else:
+            data = Data(Config["frontpage"])
+            data.title = "Frontpage"
+
+        data.load()
+        interface = Interface(data)
+
+        try:
+            interface.init()
+            interface.main()
+            interface.cleanup()
+        except:
+            interface.cleanup()
+            import traceback
+            traceback.print_exc()
+# }}}
+
+if __name__ == '__main__':
+    main()
+# vim: fdm=marker:
