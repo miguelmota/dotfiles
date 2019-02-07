@@ -229,9 +229,16 @@ mv_g () {
 
 # Make directory and go to it
 # Example
-# $ mkdir_g foo/
-mkdir_g () {
+# $ cdmkdir foo/
+cdmkdir () {
   command mkdir $1 && cd $1
+}
+
+# Make a temp directory and go to it
+# Example
+# $ cdmktemp
+cdmktemp () {
+  cd $(mktemp -d)
 }
 
 # Set output volume
