@@ -5,9 +5,9 @@ set i to 0
 set n to {}
 set L to {}
 
-set destFldr to (choose folder with prompt "Choose a destination folder:") as text
-#set destFldr to "/Users/mota/Dropbox/shared/stickies/" as text
-set mydestFldr to POSIX path of destFldr
+#set destFldr to (choose folder with prompt "Choose a destination folder:") as text
+set destFldr to "/Users/mota/Desktop/" as text
+#set mydestFldr to POSIX path of destFldr
 
 tell application "Stickies"
     activate
@@ -24,11 +24,6 @@ tell application "Stickies"
                 end repeat
             end try
         end tell
-    end tell
-    # display dialog "done"
-    tell application "Finder"
-        activate
-        open destFldr
     end tell
 end tell
 APPLESCRIPT

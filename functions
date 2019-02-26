@@ -228,6 +228,7 @@ mv_g () {
 }
 
 # Make directory and go to it
+# echo $TMPDIR
 # Example
 # $ cdmkdir foo/
 cdmkdir () {

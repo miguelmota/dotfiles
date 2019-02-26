@@ -142,3 +142,4 @@ gitconfig
 /cortex
 !/cortex/config
 /irssi/config.autosave
+/2fa
