@@ -1,3 +1,5 @@
 /Users/moogs/Dropbox/dotfiles/vim	40
 /Users/moogs/Dropbox/Development/acorns/Acorns-ember	40
 /Users/moogs/Dropbox/Development/workspace/cmusphinxdict	40
+/Users/mota	40
+/Volumes/hd2/Sandbox/streamhut	40

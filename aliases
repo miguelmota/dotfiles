@@ -304,6 +304,7 @@ alias cols='tput cols'
 alias rows='tput lines'
 # example: go test -v | gopretty
 alias gopretty='tee >(richgo testfilter)'
+alias ec2_useast1="aws ec2 describe-instances --region=us-east-1 | jq '.Reservations[].Instances[] | \"\(.Tags[0].Value) \(.PublicDnsName) \(.PublicIpAddress)\"'"
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local
