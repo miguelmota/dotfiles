@@ -283,8 +283,9 @@ alias svg2png='rsvg-convert'
 #alias electrum='/Applications/Electrum.app/Contents/MacOS/Electrum'
 alias shodan_history='shodan host --history'
 alias bashlint='shellcheck'
-alias cat='bat'
+#alias cat='bat'
 alias ci='circleci'
+alias unixtimestamp='date +%s'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example

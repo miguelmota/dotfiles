@@ -563,3 +563,10 @@ codepoint() {
 		echo ""; # newline
 	fi
 }
+
+# Generate a random password string
+# Example
+# $ generate_password
+generate_password() {
+  openssl rand -base64 32
+}
