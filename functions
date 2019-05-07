@@ -570,3 +570,39 @@ codepoint() {
 generate_password() {
   openssl rand -base64 32
 }
+
+# Get the DNS host of an EC2 instance
+# Example
+# $ ec2_dns i-0faf8a75466c54ec5
+ec2_dns() {
+  region="us-east-1"
+  if [ ! -z "$2" ]; then
+    region="$2"
+  fi
+  if [ -z "$1" ]; then
+    echo 'instance id is required'
+    return
+  fi
+  aws ec2 describe-instances --instance-ids="$1" --region="$region"| jq '.Reservations[].Instances[] | "\(.PublicDnsName)"' | sed -e "s/\"//g"
+}
+
+# Get the IP address of an EC2 instance
+# Example
+# $ ec2_ip i-0faf8a75466c54ec5
+ec2_ip() {
+  region="us-east-1"
+  if [ ! -z "$2" ]; then
+    region="$2"
+  fi
+  if [ -z "$1" ]; then
+    echo 'instance id is required'
+    return
+  fi
+  aws ec2 describe-instances --instance-ids="$1" --region="$region" | jq '.Reservations[].Instances[] | "\(.PublicIpAddress)"' | sed -e "s/\"//g"
+}
+
+shio() {
+  echo ''
+  #xargs -I{} echo ho {}
+  #xargs -I{} {} >(nc streamhut.io 1337) 2>&1
+}
