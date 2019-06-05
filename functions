@@ -185,7 +185,9 @@ base64_encode () {
 # Example
 # $ base64_decode aGVsbG8= # hello
 base64_decode () {
-  #echo -n ${1} | openssl base64
+  #echo -n ${1} | openssl enc -base64 -d
+  #echo -n ${1} | openssl base64 -d
+  #echo -n ${1} | base64 --decode
   node -e "process.stdout.write(Buffer.from(process.argv[1], 'base64').toString('utf8'))" ${1}
 }
 
@@ -601,8 +603,13 @@ ec2_ip() {
   aws ec2 describe-instances --instance-ids="$1" --region="$region" | jq '.Reservations[].Instances[] | "\(.PublicIpAddress)"' | sed -e "s/\"//g"
 }
 
-shio() {
-  echo ''
-  #xargs -I{} echo ho {}
-  #xargs -I{} {} >(nc streamhut.io 1337) 2>&1
+# Change MAC address
+# Example
+# $ change_mac
+change_mac() {
+  local mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
+  sudo ifconfig en0 ether $mac
+  sudo ifconfig en0 down
+  sudo ifconfig en0 up
+  echo "Your new physical address is $mac"
 }
