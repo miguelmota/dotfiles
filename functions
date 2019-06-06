@@ -422,13 +422,13 @@ xkill() {
 # Example
 # $ bytes2mb 511705088 # 488 mb
 bytes2human() {
-  B=$1
+  local B=$1
   [ $B -lt 1024 ] && echo ${B} bytes
-  KB=$(((B+512)/1024))
+  local KB=$(((B+512)/1024))
   [ $KB -lt 1024 ] && echo ${KB} kb
-  MB=$(((KB+512)/1024))
+  local MB=$(((KB+512)/1024))
   [ $MB -lt 1024 ] && echo ${MB} mb
-  GB=$(((MB+512)/1024))
+  local GB=$(((MB+512)/1024))
   [ $GB -lt 1024 ] && echo ${GB} gb
   echo $(((GB+512)/1024)) terabytes
 }
@@ -612,4 +612,17 @@ change_mac() {
   sudo ifconfig en0 down
   sudo ifconfig en0 up
   echo "Your new physical address is $mac"
+}
+
+# Print the Wifi password
+# Example
+# $ wifi_pass
+# $ wifi_pass MyWifiSSID
+wifi_pass(){
+  local ssid="$(airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')"
+  if [ ! -z "$1" ]; then
+    ssid="$1"
+  fi
+
+  security find-generic-password -ga "$ssid" 2>&1 | grep password: | cut -d '"' -f2
 }
