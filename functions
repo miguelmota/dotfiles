@@ -618,11 +618,35 @@ change_mac() {
 # Example
 # $ wifi_pass
 # $ wifi_pass MyWifiSSID
-wifi_pass(){
+wifi_pass() {
   local ssid="$(airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')"
   if [ ! -z "$1" ]; then
     ssid="$1"
   fi
 
   security find-generic-password -ga "$ssid" 2>&1 | grep password: | cut -d '"' -f2
+}
+
+# Print all log commit hashes
+# Example
+# $ git_log_all_commits
+git_log_all_commits() {
+  git --no-pager log --pretty=oneline | awk '{print $1}'
+}
+
+# Convert a PNG image to SVG (requires `imagemagick` and `potrace`)
+# Example
+# $ png_to_svg image.png # outputs image.svg
+# $ png_to_svg image.png out.svg # outputs out.svg
+png_to_svg() {
+  local tempfile=$(mktemp).pnm
+  convert "$1" "$tempfile"
+
+  local outfile=$(basename "$1" .png).svg
+  if [ ! -z "$2" ]; then
+    outfile="$2"
+  fi
+
+  potrace "$tempfile" -s -o "$outfile"
+  rm -f "$tempfile"
 }
