@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Usage: hub-pr-merge <PR-NUMBER>
+#
+# Cause a pull request to be merged into its respective base branch.
+#
+# Author: Oliver Joseph Ash
+
+# If a script errors, force the script to fail immediately.
+set -e
+
+ID=$1
+shift 1
+
+# https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
+hub api -XPUT "repos/{owner}/{repo}/pulls/$ID/merge" "$@"

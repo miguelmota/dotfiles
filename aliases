@@ -150,6 +150,8 @@ alias gitlastrev='git rev-parse HEAD'
 alias gitflow='git-flow'
 alias gitf='git-flow'
 alias giteditor='git config --global core.editor' # gitseteditor vim
+alias git_commit_show='git cat-file -p HEAD'
+alias git_extensions_path='git --exec-path'
 
 # Network aliases
 

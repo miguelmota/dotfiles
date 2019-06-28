@@ -650,3 +650,38 @@ png_to_svg() {
   potrace "$tempfile" -s -o "$outfile"
   rm -f "$tempfile"
 }
+
+# Add SSH key as authorized key on server
+# Example
+# $ ssh_copy_key_id root@example.com
+ssh_add_authorized_key() {
+  cat ~/.ssh/id_rsa.pub | ssh "$1" "cat >> ~/.ssh/authorized_keys"
+}
+
+# Read an environment variable from a .env file
+# Example
+# $ read_var FOO [.env]
+read_var() {
+  if [ -z "$1" ]; then
+    echo "environment variable name is required"
+    return
+  fi
+
+  local ENV_FILE='.env'
+  if [ ! -z "$2" ]; then
+    ENV_FILE="$2"
+  fi
+
+  # NOTE: will not read full entry if there's an equals sign in the value
+  local VAR=$(grep $1 "$ENV_FILE" | xargs)
+  IFS="=" read -ra VAR <<< "$VAR"
+  echo ${VAR[1]}
+}
+
+# Delete all git branches except current one
+# Example
+# $ git_delete_all_branches
+git_delete_all_branches() {
+  local current_branch=$(git rev-parse --abbrev-ref HEAD)
+  git branch | grep -vw "$current_branch" | xargs git branch -D
+}
