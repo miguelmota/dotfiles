@@ -685,3 +685,10 @@ git_delete_all_branches() {
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
   git branch | grep -vw "$current_branch" | xargs git branch -D
 }
+
+# Alias hub to git if exists
+# Example
+# $ git pull-request
+git() {
+  command -v hub >/dev/null 2>&1 && hub "$@" || $(which git) "$@"
+}
