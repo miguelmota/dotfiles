@@ -10,7 +10,7 @@ But I do recommend checking out these files and directories that contain useful 
 - [`aliases`](aliases)
 - [`tmux.conf`](tmux.conf)
 - [`promptrc`](promptrc)
-- [bin](bin)
+- [`bin`](bin)
 
 My vim config is on a seperate repo [vim-config](https://github.com/miguelmota/vim-config).
 

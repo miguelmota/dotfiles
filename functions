@@ -25,35 +25,35 @@ paste() {
 # Image width
 # Example
 # $ width image.png # 200
-image_width () {
+image_width() {
   echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
 # Image height
 # Example
 # $ height image.png # 300
-image_height () {
+image_height() {
   echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
 }
 
 # Run dig and display the most useful info
 # Example
 # $ dig_all google.com
-dig_all () {
+dig_all() {
   dig +nocmd "$1" any +multiline +noall +answer
 }
 
 # Copy with progress
 # Example
 # $ cp_p src/ dst/
-cp_p () {
+cp_p() {
   rsync -WavP --human-readable --progress $1 $2
 }
 
 # Pretty print JSON
 # Example
 # $ echo '{"foo":"bar"}' | cjson
-cjson () {
+cjson() {
   local url=$(echo $1)
   if [[ "http" == $url[0,4] ]] ; then
     curl --silent $url | python -mjson.tool | pygmentize -O style=monokai -f console256 -g
@@ -109,7 +109,7 @@ list_port_procceses() {
 # $ git_add_commit_push "my message"
 git_add_commit_push() {
   local msg="${1}"
-  git add . && git commit -m "$msg" && git push -u;
+  git add . && git commit -m "$msg" && git push -u
 }
 
 # Get load average
@@ -160,7 +160,7 @@ search_replace() {
 # Confirm dialog
 # Example
 # $ confirm 'continue?' && echo 'hello'
-confirm () {
+confirm() {
   # call with a prompt string or use a default
   read -r -p "${1:-Are you sure? [y/N]} " response
   case $response in
@@ -176,7 +176,7 @@ confirm () {
 # Encode base64 string
 # Example
 # $ base64_encode 'hello' # aGVsbG8=
-base64_encode () {
+base64_encode() {
   #echo -n ${1} | openssl base64
   node -e "process.stdout.write(Buffer.from(process.argv[1]).toString('base64'))" ${1}
 }
@@ -184,7 +184,7 @@ base64_encode () {
 # Decode base64 string
 # Example
 # $ base64_decode aGVsbG8= # hello
-base64_decode () {
+base64_decode() {
   #echo -n ${1} | openssl enc -base64 -d
   #echo -n ${1} | openssl base64 -d
   #echo -n ${1} | base64 --decode
@@ -194,7 +194,7 @@ base64_decode () {
 # Unarchive files
 # Example
 # $ extract file.tar.gz
-extract () {
+extract() {
    if [ -f $1 ] ; then
        case $1 in
            *.tar.bz2)   tar xvjf $1    ;;
@@ -218,14 +218,14 @@ extract () {
 # Copy and go to directory
 # Example
 # $ cp_g foo/ bar/
-cp_g () {
+cp_g() {
   cp $1 $2 && cd $2
 }
 
 # Move and go to directory
 # Example
 # $ mv_g foo/ bar/
-mv_g () {
+mv_g() {
   mv $1 $2 && cd $2
 }
 
@@ -233,14 +233,14 @@ mv_g () {
 # echo $TMPDIR
 # Example
 # $ cdmkdir foo/
-cdmkdir () {
+cdmkdir() {
   command mkdir $1 && cd $1
 }
 
 # Make a temp directory and go to it
 # Example
 # $ cdmktemp
-cdmktemp () {
+cdmktemp() {
   cd $(mktemp -d)
 }
 
@@ -691,4 +691,12 @@ git_delete_all_branches() {
 # $ git pull-request
 git() {
   command -v hub >/dev/null 2>&1 && hub "$@" || $(which git) "$@"
+}
+
+# Length of string
+# Example
+# $ echo -n abc | length
+length() {
+  read a;
+  echo -n $a | wc -c
 }
