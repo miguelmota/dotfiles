@@ -105,8 +105,10 @@ gitconfig
 /apache
 /apache2
 /config/*
-!/config/powerline
+!/config/alacritty
 !/config/fontconfig
+!/config/kitty
+!/config/powerline
 /elinks/globhist
 /elinks/gotohist
 /elinks/cookies

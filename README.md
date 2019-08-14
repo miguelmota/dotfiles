@@ -59,6 +59,13 @@ prefix + U
 # Resurrect
 prefix + Ctrl-s - save
 prefix + Ctrl-r - restore
+
+# go to window index
+prefix + ' '
+Use C-b ' to select the window index.
+
+# select window
+prefix + w
 ```
 
 Terminal
