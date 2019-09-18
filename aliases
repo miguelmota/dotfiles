@@ -308,6 +308,7 @@ alias rows='tput lines'
 # example: go test -v | gopretty
 alias gopretty='tee >(richgo testfilter)'
 alias ec2_useast1="aws ec2 describe-instances --region=us-east-1 | jq '.Reservations[].Instances[] | \"\(.Tags[0].Value) \(.PublicDnsName) \(.PublicIpAddress)\"'"
+alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset && truffle test'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

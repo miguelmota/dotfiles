@@ -108,11 +108,11 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    #family: monospace
     family: DejaVu Sans Mono for Powerline
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
+    style: Book
 
   # Bold font face
   bold:
@@ -123,7 +123,7 @@ font:
     family: DejaVu Sans Mono Bold for Powerline
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
   italic:
@@ -135,6 +135,7 @@ font:
 
     # The `style` can be specified to pick a specific face.
     #style: Italic
+    style: Oblique
 
   # Point size
   size: 11.0
