@@ -190,7 +190,7 @@ export ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
 export PATH="~/.bin:$PATH"
 
 # ClosureScript
-export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
+#export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
 
 # Sublime Text Link
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
@@ -224,26 +224,26 @@ if [ -e /usr/libexec/java_home ]; then
 fi
 
 # Pebble exports
-export PEBBLE_PHONE=192.168.0.2
+#export PEBBLE_PHONE=192.168.0.2
 
 # Artifactory exports
-export ARTIFACTORY_HOME=$(echo $HOME)/Dropbox/Development/acorns/artifactory-3.9.2
+#export ARTIFACTORY_HOME=$(echo $HOME)/Dropbox/Development/acorns/artifactory-3.9.2
 
 # Alexa Voice Service
-export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
-export VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins
+#export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
+#export VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins
 
 # go path
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
 # Fortune quote
-alias f='commandExists fortune && commandExists cowsay && commandExists lolcat && fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.03/share/cows | shuf | sed -n '1p') | lolcat'
+alias f='command_exists fortune && command_exists cowsay && command_exists lolcat && fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.03/share/cows | shuf | sed -n '1p') | lolcat'
 
 f;
 
-export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
-export PATH=$PATH:/Users/mota/Sandbox/reportal-e2e/slimerjs-0.10.0
+#export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
+#export PATH=$PATH:$HOME/Sandbox/reportal-e2e/slimerjs-0.10.0
 
 if [ -f ~/.env ]; then
   source ~/.env
@@ -251,3 +251,7 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export SANDBOX="$HOME/Sandbox"

@@ -37,3 +37,5 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
  # Load NVM
 [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+
+export PATH="$HOME/.cargo/bin:$PATH"
