@@ -34,6 +34,8 @@ alias cdvim='cd ~/.vim'
 alias cdwiki='cd ~/.vimwiki'
 alias cdwikihtml='cd ~/.vimwiki_html'
 alias cddot='cd ~/Dotfiles/dotfiles'
+alias cdtemp='cd /tmp'
+alias cdtmp='cd /tmp'
 alias cdprezto='cd ~/.zprezto'
 alias cdmux='cd ~/.tmuxinator'
 alias cdtmux='cd ~/.tmux'
@@ -161,10 +163,11 @@ alias gateway='route -n get default | grep gateway | rev | cut -d: -f -1 | rev'
 alias nameservers='scutil --dns | grep 'nameserver\[[0-9]*\]''
 alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
 alias scanV='sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24'
-alias scanhost='sudo nmap -O -v -sV' # ip
-alias scanports='sudo nmap -p 1-65535 -T4 -A -v'
-alias portopen='nmap 192.168.0.1 -Pn -p 9000' # check if port is open
-alias scannet='arp -a' # show IPs and MACs
+alias scan_host='sudo nmap -O -v -sV' # ip
+alias scan_ports='sudo nmap -p 1-65535 -T4 -A -v'
+alias port_open='nmap 192.168.0.1 -Pn -p 9000' # check if port is open
+alias scan_net='arp -a' # show IPs and MACs
+
 alias arpflush='arp -d -a'
 alias macs='sudo arp-scan -l'
 alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
@@ -172,7 +175,7 @@ alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .
 alias http80='sudo httpry -i en0'
 alias dnslookup='nslookup -type=soa'
 alias flushdns='sudo killall -HUP mDNSResponder'
-alias portping='sudo nping --tcp -p <port> <host>'
+alias ping_port='sudo nping --tcp -p' # ping_port <port> <host>
 
 # Server aliases
 
@@ -264,7 +267,8 @@ alias pipir='pip install -U -r requirements.txt'
 alias populus='~/Library/Python/2.7/bin/populus'
 alias mkdp='mkdir -p'
 #alias mkdirg=mkdir_g
-alias openp=open_p
+alias open_port=open_port
+alias open=open_x
 alias cp='cp -r'
 alias cpg=cp_g
 alias mvg=mv_g
@@ -286,6 +290,7 @@ alias svg2png='rsvg-convert'
 alias shodan_history='shodan host --history'
 alias bashlint='shellcheck'
 #alias cat='bat'
+alias bat='battery'
 alias ci='circleci'
 alias unixtimestamp='date +%s'
 
@@ -309,6 +314,7 @@ alias rows='tput lines'
 alias gopretty='tee >(richgo testfilter)'
 alias ec2_useast1="aws ec2 describe-instances --region=us-east-1 | jq '.Reservations[].Instances[] | \"\(.Tags[0].Value) \(.PublicDnsName) \(.PublicIpAddress)\"'"
 alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset && truffle test'
+#alias kitty='/home/mota/.local/kitty.app/bin/kitty'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

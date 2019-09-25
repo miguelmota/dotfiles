@@ -126,6 +126,9 @@ else
 	sudo apt install gnome-tweak-tool -y
 	sudo apt-get install dconf-tools -y
 	sudo apt-get install xclip -y
+	sudo apt-get install net-tools -y
+	sudo apt-get install nmap -y
+  sudo apt-get install font-manager -y
 fi
 
 # For powerline

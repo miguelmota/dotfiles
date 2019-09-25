@@ -110,6 +110,10 @@ fi
 #    . ~/.bash_profile
 #fi
 
+if [ -f ~/.profile ]; then
+    . ~/.profile
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -203,10 +207,10 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
-if [ -e ~/.nvm ]; then
-  export NVM_DIR=$(echo $HOME)/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-fi
+#if [ -e ~/.nvm ]; then
+#  export NVM_DIR=$(echo $HOME)/.nvm
+#  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#fi
 
 # ctrl-r reverse
 stty -ixon

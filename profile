@@ -26,16 +26,38 @@ ulimit -n 2048
 
 # RVM
 # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+#[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
+#[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
 # Source if rvm exists
-command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
+#command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
 
 # Eval if rbenv exists
-command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+#command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
  # Load NVM
-[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+
+
+nvm() {
+    unset -f nvm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    nvm "$@"
+}
+
+node() {
+    unset -f node
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    node "$@"
+}
+
+npm() {
+    unset -f npm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    npm "$@"
+}
+
 
 export PATH="$HOME/.cargo/bin:$PATH"

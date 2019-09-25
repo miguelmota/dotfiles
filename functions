@@ -1,8 +1,10 @@
+# Set globals
+unamestr=`uname`
+
 # Copy to clipboard
 # Example
 # $ echo 'hello' | copy
 copy() {
-  unamestr=`uname`
   if [[ "$unamestr" == 'Darwin' ]]; then
     pbcopy
   else
@@ -14,7 +16,6 @@ copy() {
 # Example
 # $ paste # pastes copies what's on clipboard
 paste() {
-  unamestr=`uname`
   if [[ "$unamestr" == 'Darwin' ]]; then
     pbpaste
   else
@@ -91,8 +92,8 @@ server() {
 
 # Display local IP
 # Example
-# $ ip # 10.10.10.192
-ip() {
+# $ ip_address # 10.10.10.192
+ip_address() {
   # ifconfig getifaddr en0
   ifconfig | grep inet | grep broad | awk {'print $2'}
 }
@@ -128,12 +129,28 @@ headers() {
 
 # Open local server
 # Example
-# $ open_p 3000 # goes to http://localhost:3000
-open_p() {
+# $ open_port 3000 # goes to http://localhost:3000
+open_port() {
   if [[ ${1} =~ ^[0-9]{4}$ ]]; then
     open "http://localhost:$1"
   else
-    open ${1}
+    open "$@"
+  fi
+}
+
+# Open item
+# Example
+# $ open_x http://localhost:3000 # goes to browser
+# $ open_x . # open file explorer
+open_x() {
+  if command_exists 'xdg-open'; then
+    if [[ ${1} =~ ^[0-9]{4}$ ]]; then
+      xdg-open "http://localhost:$1"
+    else
+      xdg-open "$@"
+    fi
+  else
+    open "$@"
   fi
 }
 
@@ -249,8 +266,37 @@ cdmktemp() {
 # $ volume 3.5
 volume() {
   if [[ "$unamestr" == 'Darwin' ]]; then
-    # volume range: 0-7
-    osascript -e "set Volume $1"
+    if [ ! -z "$1" ]; then
+      # volume range: 0-7
+      osascript -e "set Volume $1"
+    else
+      echo 'Enter volume 0-10'
+    fi
+  else
+    if [ ! -z "$1" ]; then
+      # alsamixer
+      amixer sset 'Master' "$1%"
+    else
+      echo 'Enter volume 0-100'
+    fi
+  fi
+}
+
+# Mute volume
+# Example
+# $ volume_mute
+volume_mute() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer sset 'Master' mute
+  fi
+}
+
+# Unmute volume
+# Example
+# $ unvolume_mute
+volume_unmute() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer sset 'Master' unmute
   fi
 }
 
@@ -287,10 +333,8 @@ command_exists() {
 # Example
 # $ vim
 function vim() {
-  unamestr=`uname`
-
   if [[ "$unamestr" == 'Darwin' ]]; then
-    local macvim="/usr/local/Cellar/vim/$(ls  /usr/local/Cellar/vim/ | tail -1)/bin/./vim"
+    local macvim="/usr/local/Cellar/vim/$(ls /usr/local/Cellar/vim/ | tail -1)/bin/./vim"
     eval $macvim $@
   else
     local linuxvim="/usr/bin/vim"
@@ -302,7 +346,6 @@ function vim() {
 # Example
 # $ open_sublime file.txt
 open_sublime() {
-  unamestr=`uname`
   macsubl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
   if [[ "$unamestr" == 'Darwin' ]]; then
@@ -316,10 +359,8 @@ open_sublime() {
 # Example
 # $ open_inkscape
 open_inkscape() {
-  unamestr=`uname`
-  macinkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
-
   if [[ "$unamestr" == 'Darwin' ]]; then
+    local macinkscape='/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
     eval $macinkscape
   else
     eval $(which inkscape)
@@ -348,7 +389,9 @@ shuf() {
 # Example
 # $ figlet_random 'hello'
 figlet_random() {
-  figlet -f $(ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | shuf | sed -n '1p') $1
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    figlet -f $(ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | shuf | sed -n '1p') $1
+  fi
 }
 
 # Display wifi SSID connected to
@@ -411,8 +454,8 @@ cert_dates() {
 
 # kill process by name or port
 # example:
-# xkill someapp :8080 node :1111
-xkill() {
+# fkill someapp :8080 node :1111
+fkill() {
   for i in $@;do export q=$i;if [[ $i == :* ]];then lsof -i$i|sed -n '1!p';
   else ps aux|grep -i $i|grep -v grep;fi|awk '{print $2}'|\
   xargs -I@ sh -c 'kill -9 @&&printf "X %s->%s\n" $q @';done
@@ -612,6 +655,9 @@ change_mac() {
   sudo ifconfig en0 down
   sudo ifconfig en0 up
   echo "Your new physical address is $mac"
+
+  # linux
+  # sudo macchanger -r en0
 }
 
 # Print the Wifi password
@@ -699,4 +745,39 @@ git() {
 length() {
   read a;
   echo -n $a | wc -c
+}
+
+# Lock computer
+# Example
+# $ lock
+lock() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    xscreensaver-command -lock
+  fi
+}
+
+# Get all local IP addreses in network
+# Example
+# $ scan_ips
+scan_ips() {
+  sudo arp-scan -l | awk '{print $1}' | tail -n +3 | head -n -2
+}
+
+# Opens system monitor
+# Example
+# $ system_monitor
+system_monitor() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    gnome-system-monitor
+  fi
+}
+
+
+# Opens screenshot app
+# Example
+# $ shot
+shot() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    gnome-screenshot --interactive
+  fi
 }

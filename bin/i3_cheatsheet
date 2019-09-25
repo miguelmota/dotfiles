@@ -1,0 +1,44 @@
+echo "\
+Basics
+mod + enter           open new terminal
+mod + j               focus left
+mod + k               focus right
+mod + l               focus up
+mod + ;               focus right
+mod + a               focus parent
+mod + space           toggle focus mode
+
+Moving windows
+mod + shift + j       move window left
+mod + shift + k       move window right
+mod + shift + l       move window up
+mod + shift + ;       move window right
+
+Modifying windows
+mod + f               toggle fullscreen
+mod + v               split a window vertically
+mod + h               split a window horizontally
+mod + r               resize mode
+
+Container layout
+mod + e               default
+mod + s               stacking
+mod + w               tabbed
+
+Floating
+mod + shift + space   toggle floating
+mod + mouse           drag floating
+
+Workspaces
+mod + 0-9             switch to another workspace
+mod + shift + 0-9     move a window to another workspace
+
+Opening / Closing
+mod + d               open application launcher (dmenu)
+mod + shift + q       kill a window
+
+Restart / Exit
+mod + shift + c       reload configuration file
+mod + shift + r       restart i3 inplace
+mod + shift + e       exit i3
+"
