@@ -84,6 +84,7 @@ ln -snf ~/Dotfiles/dotfiles/w3m ~/.w3m
 #fi
 
 ln -snf ~/Dotfiles/dotfiles/weinre ~/.weinre
+ln -snf ~/Dotfiles/dotfiles/Xresources ~/.Xresources
 
 ln -snf ~/Dotfiles/dotfiles/oh-my-zsh ~/.oh-my-zsh
 ln -snf ~/Dotfiles/dotfiles/zshrc ~/.zshrc

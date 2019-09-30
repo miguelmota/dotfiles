@@ -26,8 +26,10 @@ alias cdd='cd ~/Downloads/'
 alias cddb='cd ~/Dropbox/'
 alias cddev='cd ~/Development/'
 alias cddesktop='cd ~/Desktop'
+alias cdprograms='cd ~/Programs'
 alias cdsandbox='cd $SANDBOX' # ~/Sandbox
 alias cds='cdsandbox'
+alias cdconfig='cd ~/.config'
 alias cdbin='cd ~/bin'
 alias cdusrlogs='cd /usr/local/var/log'
 alias cdvim='cd ~/.vim'
@@ -315,6 +317,9 @@ alias gopretty='tee >(richgo testfilter)'
 alias ec2_useast1="aws ec2 describe-instances --region=us-east-1 | jq '.Reservations[].Instances[] | \"\(.Tags[0].Value) \(.PublicDnsName) \(.PublicIpAddress)\"'"
 alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset && truffle test'
 #alias kitty='/home/mota/.local/kitty.app/bin/kitty'
+alias power='upower -d'
+alias xresources_reload='xrdb -load ~/.Xresources'
+alias vimi3='vim ~/.config/i3/config'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

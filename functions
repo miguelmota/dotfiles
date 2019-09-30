@@ -288,6 +288,8 @@ volume() {
 volume_mute() {
   if [[ "$unamestr" == 'Linux' ]]; then
     amixer sset 'Master' mute
+    amixer sset 'Speaker' mute
+    amixer sset 'Bass Speaker' mute
   fi
 }
 
@@ -297,6 +299,8 @@ volume_mute() {
 volume_unmute() {
   if [[ "$unamestr" == 'Linux' ]]; then
     amixer sset 'Master' unmute
+    amixer sset 'Speaker' unmute
+    amixer sset 'Bass Speaker' unmute
   fi
 }
 
@@ -779,5 +783,17 @@ system_monitor() {
 shot() {
   if [[ "$unamestr" == 'Linux' ]]; then
     gnome-screenshot --interactive
+  fi
+}
+
+battery_time() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    upower -d | grep time | cut -d' ' -f 14-
+  fi
+}
+
+battery_capacity() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    upower -d | grep capacity | awk '{print $2}'
   fi
 }
