@@ -189,7 +189,7 @@ bar {
 }
 
 
-exec --no-startup-id feh --bg-scale ~/Downloads/Wallpaper/green_mountains.jpg
+exec --no-startup-id feh --bg-scale --zoom fill ~/Downloads/Wallpaper/green_mountains.jpg
 exec --no-startup-id dropbox start
 
 # Pulse Audio controls
@@ -200,6 +200,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
+
+bindsym $mod+Shift+comma exec gnome-screenshot
+bindsym $mod+Shift+period exec gnome-screenshot -w
+bindsym $mod+Shift+slash exec gnome-screenshot -a
 
 ##################
 # i3-gaps config #

@@ -2,7 +2,7 @@ echo "\
 Basics
 mod + enter           open new terminal
 mod + j               focus left
-mod + k               focus right
+mod + k               focus down
 mod + l               focus up
 mod + ;               focus right
 mod + a               focus parent

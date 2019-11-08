@@ -244,7 +244,8 @@ alias jtest='jasmine-node'
 alias phan='phantomjs'
 alias f='fortune'
 alias bs='browser-sync start --server'
-alias volume=volume
+#alias volume=volume
+alias vol=volume
 alias extract=extract
 alias irc='irssi'
 alias inkscape=open_inkscape
@@ -320,6 +321,8 @@ alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset &&
 alias power='upower -d'
 alias xresources_reload='xrdb -load ~/.Xresources'
 alias vimi3='vim ~/.config/i3/config'
+alias gif_recorder='peek'
+alias wifi_setup='nm-applet'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

@@ -113,6 +113,13 @@ git_add_commit_push() {
   git add . && git commit -m "$msg" && git push -u
 }
 
+# Undo a git commit ammend
+# Example
+# $ git_undo_ammend
+git_undo_ammend() {
+  git reset --soft HEAD@{1}
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -677,6 +684,17 @@ wifi_pass() {
   security find-generic-password -ga "$ssid" 2>&1 | grep password: | cut -d '"' -f2
 }
 
+# Restart the wifi network manager
+# Example
+# $ wifi_restart
+wifi_restart() {
+  sudo ifconfig wlp4s0 down
+  sudo ifconfig wlp4s0 up
+  if command_exists 'nm-online'; then
+    sudo service network-manager restart
+  fi
+}
+
 # Print all log commit hashes
 # Example
 # $ git_log_all_commits
@@ -796,4 +814,14 @@ battery_capacity() {
   if [[ "$unamestr" == 'Linux' ]]; then
     upower -d | grep capacity | awk '{print $2}'
   fi
+}
+
+resolution() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    xdpyinfo | awk '/dimensions/{print $2}'
+  fi
+}
+
+ps_top_memory() {
+  ps aux --sort=-%mem | awk 'NR<=10{print $0}'
 }
