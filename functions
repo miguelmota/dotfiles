@@ -825,3 +825,46 @@ resolution() {
 ps_top_memory() {
   ps aux --sort=-%mem | awk 'NR<=10{print $0}'
 }
+
+keyboard_disable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    # ubuntu on macbook pro
+    local id=$(xinput list | grep Apple | grep Keyboard | grep -oP 'id=\d+' | cut -d '=' -f 2- | tr -d '\n')
+    echo "xinput float $id"
+    xinput float "$id"
+  fi
+}
+
+keyboard_enable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    # ubuntu on macbook pro
+    echo "xinput reattach 10 3"
+    xinput reattach 10 3
+  fi
+}
+
+touchpad_enable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    synclient TouchpadOff=0
+    synclient MaxTapTime=1
+    synclient PalmDetect=1
+  fi
+}
+
+touchpad_disable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    synclient TouchpadOff=1
+    synclient MaxTapTime=0
+    synclient PalmDetect=0
+  fi
+}
+
+keyboard_touchpad_disable() {
+  touchpad_disable
+  keyboard_disable
+}
+
+keyboard_touchpad_enable() {
+  touchpad_enable
+  keyboard_enable
+}

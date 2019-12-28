@@ -156,6 +156,7 @@ alias gitf='git-flow'
 alias giteditor='git config --global core.editor' # gitseteditor vim
 alias git_commit_show='git cat-file -p HEAD'
 alias git_extensions_path='git --exec-path'
+alias git_delete_remote_branch='git push origin --delete'
 
 # Network aliases
 
@@ -258,7 +259,7 @@ alias web='w3m google.com'
 alias base64encode=base64_encode
 alias base64decode=base64_decode
 alias ferment='brew up && brew upgrade --all'
-alias subl=openSublime
+alias subl=open_sublime
 alias usebash='chsh -s /bin/bash'
 alias usezsh='chsh -s /bin/zsh'
 alias killregex=kill_regex
