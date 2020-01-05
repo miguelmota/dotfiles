@@ -118,6 +118,7 @@ gitconfig
 !/config/rofi
 !/config/qterminal.org
 !/config/konsolerc
+!/config/terminator/config
 /elinks/globhist
 /elinks/gotohist
 /elinks/cookies

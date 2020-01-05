@@ -43,6 +43,8 @@ alias cdmux='cd ~/.tmuxinator'
 alias cdtmux='cd ~/.tmux'
 alias cdtrash='cd ~/.Trash/'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
+alias cdrofi='cd ~/.config/rofi'
+alias cdi3='cd ~/.config/i3'
 
 # Directory listing aliases
 
@@ -297,6 +299,8 @@ alias bashlint='shellcheck'
 alias bat='battery'
 alias ci='circleci'
 alias unixtimestamp='date +%s'
+alias files='pcmanfm'
+alias window_manager='echo $XDG_CURRENT_DESKTOP'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example

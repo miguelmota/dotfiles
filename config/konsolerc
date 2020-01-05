@@ -2,8 +2,17 @@
 DefaultProfile=Main.profile
 
 [Favorite Profiles]
-Favorites=Main.profile
+Favorites=
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
 
 [MainWindow]
-State=AAAA/wAAAAD9AAAAAAAAAoAAAAHKAAAABAAAAAQAAAAIAAAACPwAAAAA
+Height 1800=544
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAA2EAAAZpAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
+Width 2880=2740
+
+[TabBar]
+TabBarVisibility=ShowTabBarWhenNeeded

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+url="$1"
+filename=$(basename "$url")
+
+(cd /tmp && wget -q "$url" && openssl dgst -sha256 "$filename" | awk '{print $NF}' && rm -rf "$filename")

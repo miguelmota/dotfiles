@@ -1,4 +1,5 @@
 rofi.show-icons:            false
+rofi.show-match:            false
 rofi.modi:                  drun,run,window,ssh
 rofi.lines:                 7
 rofi.line-padding:          10
@@ -9,4 +10,4 @@ rofi.separator-style:       none
 rofi.hide-scrollbar:        true
 rofi.line-margin:           0
 rofi.font:                  sans-serif 10
-rofi.theme: /home/mota/.config/rofi/themes/android_notification.rasi
+rofi.theme: /home/mota/.config/rofi/themes/moogs.rasi
