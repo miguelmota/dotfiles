@@ -124,6 +124,10 @@ gitconfig
 !/config/terminator/config
 !/config/pcmanfm
 !/config/powerline/themes
+/local
+/local/share
+/local/share/konsole
+!/local/share/konsole/Main.profile
 
 # ignore these files
 /config/copr

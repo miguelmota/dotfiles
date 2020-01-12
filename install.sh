@@ -17,8 +17,8 @@ filesToLink=(
 	"cortex"
 	"dircolors"
 	"docker"
-	"elinks" 
-	"emacs.d" 
+	"elinks"
+	"emacs.d"
 	"filezilla"
 	"functions"
 	"fonts"
@@ -121,7 +121,7 @@ ln -snf ~/Dotfiles/dotfiles/z/z.sh ~/.z.sh
 # Packages
 if [[ "$unamestr" == 'Darwin' ]]; then
 	# TODO install brew if not installed
-	
+
 	brew install vim
 	brew install tmux
 	brew install wget
@@ -173,6 +173,12 @@ if [ ! -d "/usr/lib/urxvt/perl" ]; then
 	echo "Copying urxvt perls"
 	sudo mkdir -p /usr/lib/urxvt/perl
 	sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
+fi
+
+if [ ! -f "local/share/konsole/Main.profile" ]; then
+  echo "Adding konsole profiles"
+  mkdir -p ~/.local/share/konsole/Main.profile
+  ln -snf local/share/konsole/Main.profile ~/.local/share/konsole/Main.profile
 fi
 
 echo "sourcing ~/.bashrc"
