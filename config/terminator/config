@@ -1,0 +1,5 @@
+[profiles]
+  [[default]]
+    show_titlebar = false
+[global_config]
+  scrollbar_position = disabled

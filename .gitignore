@@ -120,6 +120,7 @@ gitconfig
 !/config/rofi
 !/config/qterminal.org
 !/config/konsolerc
+/config/terminator
 !/config/terminator/config
 !/config/pcmanfm
 !/config/powerline/themes
