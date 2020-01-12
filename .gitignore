@@ -165,9 +165,14 @@ gitconfig
 !/config/konsolerc
 !/config/pcmanfm
 !/config/powerline/themes
-!/local/share/konsole/Main.profile
 !/elinks/elinks.conf
 
 !/config/terminator/
 /config/terminator/*
 !/config/terminator/config
+
+!/local/share/
+/local/share/*
+!/local/share/konsole/
+/local/share/konsole/*
+!/local/share/konsole/Main.profile

@@ -175,10 +175,10 @@ if [ ! -d "/usr/lib/urxvt/perl" ]; then
 	sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
 fi
 
-if [ ! -f "local/share/konsole/Main.profile" ]; then
+if [ ! -f "$HOME/.local/share/konsole/Main.profile" ]; then
   echo "Adding konsole profiles"
-  mkdir -p ~/.local/share/konsole/Main.profile
-  ln -snf local/share/konsole/Main.profile ~/.local/share/konsole/Main.profile
+  mkdir -p $HOME/.local/share/konsole
+  ln -snf $HOME/Dotfiles/dotfiles/local/share/konsole/Main.profile $HOME/.local/share/konsole/Main.profile
 fi
 
 echo "sourcing ~/.bashrc"
