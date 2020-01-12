@@ -101,33 +101,14 @@ serve
 /ssh
 # this one is very important!
 aws
+# this one is very important!
+/2fa
+# this one is very important!
+/config/*
 gitconfig
 /apache
-/apache2
-/config/*
-
-# don't ignore these files
-!/config/alacritty
-!/config/cointop
-!/config/i3
-!/config/fontconfig
-!/config/kitty
-!/config/lxpanel/launchtaskbar.cfg
-!/config/lxterminal
-!/config/neofetch
-!/config/sublime-text-3/Packages/User/Preferences.sublime-settings
-!/config/powerline
-!/config/rofi
-!/config/qterminal.org
-!/config/konsolerc
-/config/terminator
-!/config/terminator/config
-!/config/pcmanfm
-!/config/powerline/themes
-/local
-/local/share
-/local/share/konsole
-!/local/share/konsole/Main.profile
+/rapache2
+/local/*
 
 # ignore these files
 /config/copr
@@ -135,8 +116,6 @@ gitconfig
 /elinks/gotohist
 /elinks/cookies
 /elinks/bookmarks
-
-!/elinks/elinks.conf
 
 /docker/*
 /filezilla/*
@@ -169,4 +148,26 @@ gitconfig
 !/cortex/config
 
 /irssi/config.autosave
-/2fa
+
+# don't ignore these files
+!/config/alacritty
+!/config/cointop
+!/config/i3
+!/config/fontconfig
+!/config/kitty
+!/config/lxpanel/launchtaskbar.cfg
+!/config/lxterminal
+!/config/neofetch
+!/config/sublime-text-3/Packages/User/Preferences.sublime-settings
+!/config/powerline
+!/config/rofi
+!/config/qterminal.org
+!/config/konsolerc
+!/config/pcmanfm
+!/config/powerline/themes
+!/local/share/konsole/Main.profile
+!/elinks/elinks.conf
+
+!/config/terminator/
+/config/terminator/*
+!/config/terminator/config
