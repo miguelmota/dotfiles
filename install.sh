@@ -184,4 +184,14 @@ fi
 echo "sourcing ~/.bashrc"
 source ~/.bashrc
 
+
+if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; then
+  (
+    echo "installing tmux plugin dependencies"
+    cd $TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load
+    cmake .
+    make
+  )
+fi
+
 echo "done."

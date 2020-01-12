@@ -108,17 +108,13 @@ alias e='emacs'
 # Tmux aliases
 
 alias tmux='tmux -2' # force 256 color
-alias muxkill='tmux kill-session -t'
-alias tmuxkill='muxkill'
+alias tmuxkill='tmux kill-session -t'
 alias tmuxkillall="tx ls | awk '{print $1}' | sed 's/://g' | xargs -I{} tmux kill-session -t {}"
-alias muxkillall='tmuxkillall'
-alias muxat='tmux attach -t'
-alias tmuxat='muxat'
-alias muxls='tmux list-sessions'
-alias tmuxls='muxls'
-alias rtmux='tmux source-file ~/.tmux.conf'
-alias muxnew='tmux new -s'
-alias muxrotate=tmux_rotate
+alias tmuxat='tmux attach -t'
+alias tmuxls='tmux list-sessions'
+alias tmux_source='tmux source-file ~/.tmux.conf'
+alias tmuxnew='tmux new -s'
+alias tmuxrotate=tmux_rotate
 
 # Curl aliases
 
