@@ -120,23 +120,22 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 fi
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
+#export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
 export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
 
-function parse_git_dirty {
+parse_git_dirty() {
+  # for some reason using just `git` doesn't work with urxvt
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
-function parse_git_branch {
+
+parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
-
-if [ -f ~/.promptrc ]; then
-  source ~/.promptrc
-fi
 
 # Git radar
 export PATH=$PATH:$HOME/.git-radar
@@ -165,7 +164,7 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # Powerline
 if [ -d "$HOME/Library/Python/2.7/bin" ]; then
-	PATH="$HOME/Library/Python/2.7/bin:$PATH"
+	export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 fi
 
 if [ -f ~/.powerline/powerline/bindings/bash/powerline.sh ]; then
@@ -259,3 +258,13 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export SANDBOX="$HOME/Sandbox"
+
+# keep this at the bottom 
+if [ -f ~/.promptrc ]; then
+  source ~/.promptrc
+fi
+
+# make this be very last
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	exec tmux 
+fi

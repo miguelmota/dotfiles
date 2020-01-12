@@ -757,9 +757,10 @@ git_delete_all_branches() {
 # Alias hub to git if exists
 # Example
 # $ git pull-request
-git() {
-  command -v hub >/dev/null 2>&1 && hub "$@" || $(which git) "$@"
-}
+# TODO: doesn't work on urxvt; it hangs
+#git() {
+#  command -v hub >/dev/null 2>&1 && hub "$@" || $(which git) "$@"
+#}
 
 # Length of string
 # Example

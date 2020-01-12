@@ -169,6 +169,12 @@ fi
 #pip install psutil
 #pip install --upgrade pip
 
+if [ ! -d "/usr/lib/urxvt/perl" ]; then
+	echo "Copying urxvt perls"
+	sudo mkdir -p /usr/lib/urxvt/perl
+	sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
+fi
+
 echo "sourcing ~/.bashrc"
 source ~/.bashrc
 

@@ -105,6 +105,8 @@ gitconfig
 /apache
 /apache2
 /config/*
+
+# don't ignore these files
 !/config/alacritty
 !/config/cointop
 !/config/i3
@@ -119,11 +121,18 @@ gitconfig
 !/config/qterminal.org
 !/config/konsolerc
 !/config/terminator/config
+!/config/pcmanfm
+!/config/powerline/themes
+
+# ignore these files
+/config/copr
 /elinks/globhist
 /elinks/gotohist
 /elinks/cookies
 /elinks/bookmarks
+
 !/elinks/elinks.conf
+
 /docker/*
 /filezilla/*
 /gcalcli/*
@@ -138,7 +147,7 @@ gitconfig
 /s3cfg
 /stickies
 /themes
-!/config/powerline/themes
+
 /tmuxinator/*
 /twitter-alarm/config.json
 /w3m/history
@@ -150,7 +159,9 @@ gitconfig
 /vnc
 /tmux/resurrect/*
 /wegorc
+
 /cortex
 !/cortex/config
+
 /irssi/config.autosave
 /2fa
