@@ -297,6 +297,8 @@ alias ci='circleci'
 alias unixtimestamp='date +%s'
 alias files='pcmanfm'
 alias window_manager='echo $XDG_CURRENT_DESKTOP'
+alias kill_postgres='sudo service postgresql stop'
+alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
