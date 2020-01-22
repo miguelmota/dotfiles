@@ -830,17 +830,28 @@ ps_top_memory() {
 keyboard_disable() {
   if [[ "$unamestr" == 'Linux' ]]; then
     # ubuntu on macbook pro
-    local id=$(xinput list | grep Apple | grep Keyboard | grep -oP 'id=\d+' | cut -d '=' -f 2- | tr -d '\n')
+    local id=$(xinput list | sed -nE 's/.*Apple.*Keyboard.*id=([0-9]+).*/\1/p')
+    if [ -z "$id" ]; then
+      echo "device not found"
+      exit 1
+    fi
+
     echo "xinput float $id"
-    xinput float "$id"
+    xinput float $id
   fi
 }
 
 keyboard_enable() {
   if [[ "$unamestr" == 'Linux' ]]; then
     # ubuntu on macbook pro
-    echo "xinput reattach 10 3"
-    xinput reattach 10 3
+    local id=$(xinput list | sed -nE 's/.*Apple.*Keyboard.*id=([0-9]+).*/\1/p')
+    if [ -z "$id" ]; then
+      echo "device not found"
+      exit 1
+    fi
+
+    echo "xinput reattach $id 3"
+    xinput reattach $id 3
   fi
 }
 
