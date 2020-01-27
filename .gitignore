@@ -171,6 +171,10 @@ gitconfig
 /config/terminator/*
 !/config/terminator/config
 
+!/config/termite/
+/config/termite/*
+!/config/termite/config
+
 !/local/share/
 /local/share/*
 !/local/share/konsole/

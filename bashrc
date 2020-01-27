@@ -127,6 +127,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 #export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
 export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
+#export TERM=rxvt-unicode-256colors
 
 parse_git_dirty() {
   # for some reason using just `git` doesn't work with urxvt
@@ -259,13 +260,13 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export SANDBOX="$HOME/Sandbox"
 
-# keep this at the bottom 
+# keep this at the bottom
 if [ -f ~/.promptrc ]; then
   source ~/.promptrc
 fi
 
 # make this be very last
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-	exec tmux 
+	exec tmux
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
