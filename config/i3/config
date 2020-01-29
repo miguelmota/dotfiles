@@ -194,8 +194,12 @@ exec --no-startup-id nm-applet --sm-disable
 exec --no-startup-id feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
 #exec --no-startup-id dropbox start
 # use `xprop` command and click on window to find class name
+exec --no-startup-id "i3-msg 'workspace 4; append_layout ~/.config/i3/workspace-4.json'"
+exec --no-startup-id "i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3.json'"
 exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
 exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
+exec telegram-desktop
+exec slack
 exec konsole -e tmux new-session -A -s 0
 exec google-chrome
 
