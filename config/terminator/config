@@ -1,5 +1,27 @@
+[global_config]
+  title_font = Fira Code 12
+  title_inactive_bg_color = "#343434"
+  title_inactive_fg_color = "#ababab"
+  title_transmit_bg_color = "#000000"
+  title_transmit_fg_color = "#ababab"
+  title_use_system_font = False
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
 [profiles]
   [[default]]
-    show_titlebar = false
-[global_config]
-  scrollbar_position = disabled
+    cursor_color = "#ababab"
+    font = Fira Code 12
+    foreground_color = "#ababab"
+    palette = "#000000:#e92f2f:#0ed839:#dddd13:#3b48e3:#f996e2:#23edda:#ababab:#343434:#e92f2f:#0ed839:#dddd13:#3b48e3:#f996e2:#23edda:#f9f9f9"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
