@@ -6,7 +6,8 @@ audible_bell = false
 #cell_width_scale = 1.0
 clickable_url = true
 dynamic_title = true
-font = Monospace 11
+#font = Monospace 11
+font = FiraCode 12
 #fullscreen = true
 icon_name = terminal
 mouse_autohide = false
@@ -42,37 +43,43 @@ scrollbar = off
 
 [colors]
 
-# Base16 Isotope
-# Scheme: Jan T. Sott
+# special
+foreground      = #ababab
+foreground_bold = #ababab
+cursor          = #ababab
+background      = #000000
 
-foreground=   #d0d0d0
-background=   #000000
-cursor=  #d0d0d0
+# black
+color0  = #000000
+color8  = #343434
 
-color0=       #000000
-color1=       #ff0000
-color2=       #33ff00
-color3=       #ff0099
-color4=       #0066ff
-color5=       #cc00ff
-color6=       #00ffff
-color7=       #d0d0d0
+# red
+color1  = #e92f2f
+color9  = #e92f2f
 
-color8=       #808080
-color9=       #ff0000
-color10=      #33ff00
-color11=      #ff0099
-color12=      #0066ff
-color13=      #cc00ff
-color14=      #00ffff
-color15=      #ffffff
+# green
+color2  = #0ed839
+color10 = #0ed839
 
-color16=      #ff9900
-color17=      #3300ff
-color18=      #404040
-color19=      #606060
-color20=      #c0c0c0
-color21=      #e0e0e0
+# yellow
+color3  = #dddd13
+color11 = #dddd13
+
+# blue
+color4  = #3b48e3
+color12 = #3b48e3
+
+# magenta
+color5  = #f996e2
+color13 = #f996e2
+
+# cyan
+color6  = #23edda
+color14 = #23edda
+
+# white
+color7  = #ababab
+color15 = #f9f9f9
 
 [hints]
 #font = Monospace 12
