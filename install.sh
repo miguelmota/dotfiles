@@ -98,8 +98,7 @@ filesToLink=(
 
   "oh-my-zsh"
 
-  "z"
-  "z.sh"
+  #"z"
   "zshrc"
   "zshrc-e"
   "zsh-update"

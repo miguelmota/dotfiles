@@ -880,3 +880,11 @@ keyboard_touchpad_enable() {
   touchpad_enable
   keyboard_enable
 }
+
+update_wallpaper() {
+  if [ -f ~/Downloads/wallpaper.jpg ] ; then
+    mv ~/Downloads/wallpaper.jpg ~/.local/share/wallpaper.jpg
+  fi
+
+  feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
+}
