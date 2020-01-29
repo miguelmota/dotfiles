@@ -8,13 +8,13 @@ Favorites=Main.profile
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1800=1761
+Height 1800=1641
 Height 900=881
 MenuBar=Disabled
 State=AAAA/wAAAAD9AAAAAAAABUEAAAZVAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
-Width 1440=478
-Width 2880=1436
+Width 1440=1438
+Width 2880=910
 
 [TabBar]
 TabBarVisibility=ShowTabBarWhenNeeded
