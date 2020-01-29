@@ -1,3 +1,5 @@
+!! Remember to reload config with `xrdb -load ~/.Xresources`
+
 !! URxvt Config
 Urxvt*termName: screen-256color
 URxvt.loginShell: true
@@ -10,7 +12,7 @@ URxvt.boldItalicfont: -*-rissole-*
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
-URxvt.internalBorder: 24
+URxvt.internalBorder: 10
 URxvt.cursorBlink: true
 URxvt.cursorUnderline: false
 URxvt.saveline: 2048
@@ -70,48 +72,40 @@ URxvt.keysym.Shift-Control-Meta-v: builtin-string:
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !! Colorscheme
 
-#define base00 #2e3440
-#define base01 #3b4252
-#define base02 #434c5e
-#define base03 #4c566a
-#define base04 #9fabad
-#define base05 #e5e9f0
-#define base06 #eceff4
-#define base07 #8fbcbb
-#define base08 #88c0d0
-#define base09 #81a1c1
-#define base0A #5e81ac
-#define base0B #bf616a
-#define base0C #d08770
-#define base0D #ebcb8b
-#define base0E #a3be8c
-#define base0F #b48ead
+! special
+*.foreground:   #ababab
+*.background:   #000000
+*.cursorColor:  #ababab
 
+! black
+*.color0:       #000000
+*.color8:       #343434
 
-*foreground:   base04
-*background:   base00
-*cursorColor:  base04
-*fading:       35
-*fadeColor:    base03
+! red
+*.color1:       #e92f2f
+*.color9:       #e92f2f
 
-*lighterbg:    base01
-*separator:    base01
-*selection:    base0B
+! green
+*.color2:       #0ed839
+*.color10:      #0ed839
 
-*color0:       base01
-*color1:       base0B
-*color2:       base0E
-*color3:       base0D
-*color4:       base09
-*color5:       base0F
-*color6:       base08
-*color7:       base05
+! yellow
+*.color3:       #dddd13
+*.color11:      #dddd13
 
-*color8:       base03
-*color9:       base11
-*color10:      base14
-*color11:      base13
-*color12:      base09
-*color13:      base15
-*color14:      base07
-*color15:      base06
+! blue
+*.color4:       #3b48e3
+*.color12:      #3b48e3
+
+! magenta
+*.color5:       #f996e2
+*.color13:      #f996e2
+
+! cyan
+*.color6:       #23edda
+*.color14:      #23edda
+
+! white
+*.color7:       #ababab
+*.color15:      #f9f9f9
+

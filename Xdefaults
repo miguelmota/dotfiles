@@ -4,8 +4,8 @@ urxvt.scrollBar: false
 urxvt.background: black
 urxvt.foreground: gray
 !! Font prefferenes
-urxvt.font: xft:DejaVu Sans Mono:pixelsize=13
-urxvt.boldFont: xft:DejaVu Sans Mono:pixelsize=13:weight=bold
+urxvt.font: xft:Fira Code:pixelsize=14
+urxvt.boldFont: xft:Fira Code:pixelsize=14:weight=bold
 urxvt.letterSpace: -1
 !! Larger history limit
 urxvt.saveLines: 1000000
@@ -27,23 +27,21 @@ urxvt.keysym.Control-Down:  \033[1;5B
 urxvt.keysym.Control-Left:  \033[1;5D
 urxvt.keysym.Control-Right: \033[1;5C
 
-!! Tango color theme
-!! Strange - it matches tango from gnome-terminal, but looks different
 URxvt.color0: rgb:00/00/00
-URxvt.color1: rgb:CC/00/00
-URxvt.color2: rgb:4E/9A/06
-URxvt.color3: rgb:C4/A0/00
-URxvt.color4: rgb:34/65/A4
-URxvt.color5: rgb:75/50/7B
-URxvt.color6: rgb:06/98/9A
-URxvt.color7: rgb:D3/D7/CF
-URxvt.color8: rgb:55/57/53
-URxvt.color9: rgb:EF/29/29
-URxvt.color10: rgb:8A/E2/34
-URxvt.color11: rgb:FC/E9/4F
-URxvt.color12: rgb:72/9F/CF
-URxvt.color13: rgb:AD/7F/A8
-URxvt.color14: rgb:34/E2/E2
-URxvt.color15: rgb:EE/EE/EC
-URxvt.colorBD: rgb:ff/ff/ff
+URxvt.color1: rgb:E9/2F/2F
+URxvt.color2: rgb:0E/D8/39
+URxvt.color3: rgb:DD/DD/13
+URxvt.color4: rgb:3B/48/E3
+URxvt.color5: rgb:F9/96/E2
+URxvt.color6: rgb:23/ED/DA
+URxvt.color7: rgb:AB/AB/AB
+URxvt.color8: rgb:34/34/34
+URxvt.color9: rgb:E9/2F/2F
+URxvt.color10: rgb:0E/D8/39
+URxvt.color11: rgb:DD/DD/13
+URxvt.color12: rgb:3B/48/E3
+URxvt.color13: rgb:F9/96/E2
+URxvt.color14: rgb:23/ED/DA
+URxvt.color15: rgb:F9/F9/F9
+URxvt.colorBD: rgb:FF/FF/FF
 
