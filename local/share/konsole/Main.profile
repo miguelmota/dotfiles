@@ -10,6 +10,7 @@ Parent=FALLBACK/
 Description=terminal.sexy
 Opacity=1
 Wallpaper=
+TerminalMargin=20
 
 [Scrolling]
 ScrollBarPosition=2

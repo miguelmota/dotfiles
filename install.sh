@@ -19,6 +19,8 @@ filesToLink=(
   "config/i3/config"
   "config/i3/workspace-1.json"
   "config/i3/workspace-2.json"
+  "config/i3/workspace-3.json"
+  "config/i3/workspace-4.json"
   "config/kitty/kitty.conf"
   "config/konsolerc"
   "config/lxterminal/lxterminal.conf"
@@ -50,7 +52,7 @@ filesToLink=(
   "gemrc"
   "ghci"
   "gitattributes"
-  "gitconfig"
+  #"gitconfig"
   "gitmodules"
   "gitradarrc"
   "gitignore"
@@ -113,7 +115,13 @@ filesToLink=(
 
 for f in ${filesToLink[@]}; do
   if [ -d ~/.$f ] || [ -f ~/.$f ]; then
-    echo "~/.$f exists; skipping."
+    if [ -d $f ] || [ -f $f ]; then
+      if [ -L ~/.$f ]; then
+        echo "~/.$f exists and is symlink; skipping."
+      else
+        echo "~/.$f exists (not a symlink but parent might be); skipping."
+      fi
+    fi
   else
     if [ -d $f ] || [ -f $f ]; then
       echo "symlinking ~/Dotfiles/dotfiles/$f -> ~/.$f"
@@ -132,8 +140,16 @@ done
 #sudo ln -snf ~/Dropbox/.apache2/users/moogs.conf /etc/apache2/users/moogs.conf
 
 if [[ "$unamestr" == 'Darwin' ]]; then
-  echo "symlinking ~/Dotfiles/dotfiles/homebrew -> ~/.homebrew"
-  ln -snf ~/Dotfiles/dotfiles/homebrew ~/.homebrew
+  if [ -d ~/.homebrew ]; then
+    if [ -L ~/.homebrew ]; then
+      echo "~/.homebrew exists. skipping."
+    else
+      echo "~/.homebrew exists (not a symlink). skipping."
+    fi
+  else
+    echo "symlinking ~/Dotfiles/dotfiles/homebrew -> ~/.homebrew"
+    ln -snf ~/Dotfiles/dotfiles/homebrew ~/.homebrew
+  fi
 fi
 
 
@@ -144,8 +160,16 @@ fi
 
 # ln -snf ~/Dotfiles/dotfiles/stickies/StickiesDatabase ~/Library/StickiesDatabase
 
-echo "symlinking ~/Dotfiles/dotfiles/z/z.sh -> ~/.z.sh"
-ln -snf ~/Dotfiles/dotfiles/z/z.sh ~/.z.sh
+if [ -f ~/.z.sh ]; then
+  if [ -L ~/.z.sh ]; then
+    echo "~/.z.sh exists and is symlink. skipping."
+  else
+    echo "~/.z.sh exists (not a symlink). skipping."
+  fi
+else
+  echo "symlinking ~/Dotfiles/dotfiles/z/z.sh -> ~/.z.sh"
+  ln -snf ~/Dotfiles/dotfiles/z/z.sh ~/.z.sh
+fi
 
 # Packages
 if [[ "$unamestr" == 'Darwin' ]]; then
@@ -231,6 +255,12 @@ if [ ! -f "$HOME/.local/share/konsole/Main.profile" ]; then
   echo "Adding konsole profiles"
   mkdir -p $HOME/.local/share/konsole
   ln -snf $HOME/Dotfiles/dotfiles/local/share/konsole/Main.profile $HOME/.local/share/konsole/Main.profile
+else
+  if [ -L "$HOME/.local/share/konsole/Main.profile" ]; then
+    echo "konsolerc profiles exists and is symlink. skipping."
+  else
+    echo "konsolerc profiles exists (not a symlink). skipping."
+  fi
 fi
 
 echo "sourcing ~/.bashrc"

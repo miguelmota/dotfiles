@@ -258,6 +258,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Turn off Ubuntu bell error bell sound
+#bind 'set bell-style none'
+
 export SANDBOX="$HOME/Sandbox"
 
 # keep this at the bottom

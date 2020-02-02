@@ -26,17 +26,15 @@ ulimit -n 2048
 
 # RVM
 # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+#[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
+#[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
 # Source if rvm exists
-command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
+#command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
 
 # Eval if rbenv exists
 #command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
  # Load NVM
-
 
 nvm() {
     unset -f nvm
@@ -59,5 +57,9 @@ npm() {
     npm "$@"
 }
 
-
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
