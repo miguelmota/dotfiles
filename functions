@@ -348,8 +348,21 @@ function vim() {
     local macvim="/usr/local/Cellar/vim/$(ls /usr/local/Cellar/vim/ | tail -1)/bin/./vim"
     eval $macvim $@
   else
-    local linuxvim="/usr/bin/vim"
-    eval $linuxvim $@
+    if grep -q NAME=Fedora /etc/os-release; then
+      if command_exists 'gvim'; then
+        local fedoravim="/usr/bin/gvim -v"
+        eval $fedoravim $@
+      else
+        echo "Copy to clipboard might not work. Use \`gvim -v\` instead."
+        echo "Install with \`sudo dnf install vim-X11\`"
+        sleep 2
+        local linuxvim="/usr/bin/vim"
+        eval $linuxvim $@
+      fi
+    else
+      local linuxvim="/usr/bin/vim"
+      eval $linuxvim $@
+    fi
   fi
 }
 
@@ -693,6 +706,10 @@ wifi_restart() {
   if command_exists 'nm-online'; then
     sudo service network-manager restart
   fi
+}
+
+network_manager_restart() {
+  sudo systemctl restart NetworkManager.service
 }
 
 # Print all log commit hashes
