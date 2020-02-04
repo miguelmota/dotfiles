@@ -202,7 +202,7 @@ exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-
 exec telegram-desktop
 exec slack
 exec konsole -e tmux new-session -A -s 0
-exec google-chrome
+exec firefox
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% #increase sound volume

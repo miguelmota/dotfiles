@@ -197,6 +197,7 @@ if [ -f "/etc/debian_version" ]; then
   sudo apt-get install -y tmux
   sudo apt-get install -y wget
   sudo apt-get install -y curl
+  sudo apt-get install -y jq
   sudo apt-get install -y make
   sudo apt-get install -y cmake
   sudo apt-get install -y build-essential
@@ -216,6 +217,7 @@ if grep NAME=Fedora /etc/os-release; then
   sudo dnf install -y tmux
   sudo dnf install -y wget
   sudo dnf install -y curl
+  sudo dnf install -y jq
   sudo dnf install -y xclip
   sudo dnf install -y tree
   sudo dnf install -y nmap
