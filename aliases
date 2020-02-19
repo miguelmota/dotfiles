@@ -87,7 +87,6 @@ alias watchcss='sass --watch css:css --style compressed'
 # Vim aliases
 
 # Check if on mac
-alias vim=vim
 alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
@@ -324,6 +323,7 @@ alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset &&
 alias power='upower -d'
 alias xresources_reload='xrdb -load ~/.Xresources'
 alias vimi3='vim ~/.config/i3/config'
+alias vimfunctions='vim ~/.functions'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 
