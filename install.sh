@@ -279,4 +279,7 @@ if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; the
 )
 fi
 
+# demnu and rofi only read from /usr/bin so need to symlink.
+# sudo ln -sf $HOME/.bin/shot /usr/bin/shot
+
 echo "done."

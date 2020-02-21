@@ -1,0 +1,8 @@
+#!/bin/bash
+
+unamestr=$(uname)
+
+# Opens screenshot app
+if [[ "$unamestr" == 'Linux' ]]; then
+  gnome-screenshot --interactive
+fi
