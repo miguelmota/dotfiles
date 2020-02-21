@@ -225,6 +225,7 @@ if grep NAME=Fedora /etc/os-release; then
   sudo dnf install -y make automake gcc gcc-c++
   sudo dnf install -y light
   sudo dnf install -y neofetch
+  sudo dnf install -y bash-completion
 
   dnf copr enable gregw/i3desktop
   sudo dnf install i3-gaps --allowerasing

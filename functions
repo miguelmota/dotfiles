@@ -708,6 +708,10 @@ wifi_restart() {
   fi
 }
 
+forget_network() {
+  nmcli connection delete "$1"
+}
+
 network_manager_restart() {
   sudo systemctl restart NetworkManager.service
 }

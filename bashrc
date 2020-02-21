@@ -121,6 +121,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 fi
 
+# fedora
+if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
+	. /etc/profile.d/bash_completion.sh
+fi
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -199,7 +204,7 @@ export PATH="~/.bin:$PATH"
 # Sublime Text Link
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
 
-export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 function _update_ps1() {
     export PS1="$(~/Dropbox/dotfiles/powerline-shell/powerline-shell.py $? 2> /dev/null)"
