@@ -191,7 +191,7 @@ bar {
 }
 
 exec --no-startup-id nm-applet --sm-disable
-exec --no-startup-id feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
+exec --no-startup-id feh --bg-scale --zoom fill /home/mota/.local/share/wallpaper.jpg
 #exec --no-startup-id dropbox start
 
 # note use `xprop` command and click on window to find class name

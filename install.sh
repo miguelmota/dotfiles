@@ -231,6 +231,25 @@ if grep NAME=Fedora /etc/os-release; then
   sudo dnf install i3-gaps --allowerasing
 fi
 
+if [ -f "/etc/arch-release" ]; then
+	sudo pacman -S --noconfirm git
+	sudo pacman -S --noconfirm vim
+	sudo pacman -S --noconfirm tmux
+	sudo pacman -S --noconfirm wget
+	sudo pacman -S --noconfirm curl
+	sudo pacman -S --noconfirm jq
+	sudo pacman -S --noconfirm xclip
+	sudo pacman -S --noconfirm tree
+	sudo pacman -S --noconfirm nmap
+	sudo pacman -S --noconfirm cmake
+	sudo pacman -S --noconfirm light
+	sudo pacman -S --noconfirm neofetch
+	sudo pacman -S --noconfirm bash-completion
+
+	# amixer, alsamixer
+	sudo pacman -S --noconfirm alsa-utils
+fi
+
 echo "installing fonts"
 if [[ "$unamestr" == 'Darwin' ]]; then
   (cd ./fonts && ./install)
@@ -264,6 +283,16 @@ else
   else
     echo "konsolerc profiles exists (not a symlink). skipping."
   fi
+fi
+
+if [ ! -f "$HOME/.local/share/wallpaper.jpg" ]; then
+	(
+		cd /tmp
+		echo "Downloading wallpaper"
+		wget https://user-images.githubusercontent.com/168240/73391163-56ca8d80-42cf-11ea-8f37-8693f161b618.jpg -O wallpaper.jpg
+		mkdir -p $HOME/.local/share
+		mv wallpaper.jpg $HOME/.local/share/wallpaper.jpg
+	)
 fi
 
 echo "sourcing ~/.bashrc"
