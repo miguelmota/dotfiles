@@ -796,7 +796,12 @@ length() {
 # $ lock
 lock() {
   if [[ "$unamestr" == 'Linux' ]]; then
-    xscreensaver-command -lock
+    if command_exists 'xscreensaver-command'; then
+      xscreensaver-command -lock
+    fi
+    if command_exists 'i3lock'; then
+      i3lock -n -c 000000
+    fi
   fi
 }
 
