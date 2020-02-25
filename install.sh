@@ -242,12 +242,20 @@ if [ -f "/etc/arch-release" ]; then
 	sudo pacman -S --noconfirm tree
 	sudo pacman -S --noconfirm nmap
 	sudo pacman -S --noconfirm cmake
+
+  # make user is part of 'video' group
 	sudo pacman -S --noconfirm light
+
 	sudo pacman -S --noconfirm neofetch
 	sudo pacman -S --noconfirm bash-completion
 
-	# amixer, alsamixer
+  # adds amixer and alsamixer (tui)
 	sudo pacman -S --noconfirm alsa-utils
+
+  # todo: if arch
+  # install yay: https://gist.github.com/miguelmota/cd12465fe82548d20d8a8cbadf04732a
+  # install vim-11: https://gist.github.com/miguelmota/08c7b5bedda4ba42563594af48618def
+  # add user to 'audio' and 'video' groups
 fi
 
 echo "installing fonts"
@@ -307,6 +315,10 @@ if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; the
   make
 )
 fi
+
+mkdir -p ~/Desktop
+mkdir -p ~/Downloads
+mkdir -p ~/Sandbox
 
 # demnu and rofi only read from /usr/bin so need to symlink.
 # sudo ln -sf $HOME/.bin/shot /usr/bin/shot

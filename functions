@@ -906,3 +906,11 @@ somafm_stream() {
 ubuntu_version() {
   cat /etc/*release | grep VERSION | head -1
 }
+
+afk() {
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+  else
+    systemctl suspend
+  fi
+}

@@ -7,11 +7,9 @@
 
 # This will start xinit, but only on TTY1. xinit will read xinitrc and start i3 and keep the X session alive until i3 exists.
 
-if [ -z "$DISPLAY" -a $XDG_VTNR -eq 1 ]; then
-
-	  startx
-
-fi
+#if [ -z "$DISPLAY" -a $XDG_VTNR -eq 1 ]; then
+#	startx
+#fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -282,8 +280,8 @@ if [ -f ~/.promptrc ]; then
 fi
 
 # make this be very last
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-	exec tmux
-fi
+#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	#exec tmux
+#fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
