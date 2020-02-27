@@ -150,14 +150,18 @@ gitconfig
 /irssi/config.autosave
 
 # don't ignore these files
+!/config/i3blocks
 !/config/alacritty
 !/config/cointop
 !/config/i3
+!/config/i3status
 !/config/fontconfig
 !/config/kitty
 !/config/lxpanel/launchtaskbar.cfg
 !/config/lxterminal
 !/config/neofetch
+!/config/nvim
+!/config/nvim/init.vim
 !/config/sublime-text-3/Packages/User/Preferences.sublime-settings
 !/config/powerline
 !/config/rofi

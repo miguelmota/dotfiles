@@ -1,0 +1,120 @@
+general {
+  colors = true
+  color_good = "#00FF00"
+  color_bad = "#FF0000"
+  color_degraded = "#FFFF00"
+  interval = 5
+}
+
+order += "ipv6"
+order += "run_watch DHCP"
+order += "run_watch VPNC"
+order += "path_exists VPN"
+order += "wireless wlp3s0"
+order += "ethernet eth0"
+order += "disk /"
+order += "memory"
+order += "cpu_temperature 0"
+order += "load"
+order += "battery 0"
+order += "battery 1"
+order += "volume master"
+order += "time"
+order += "tztime local"
+
+run_watch DHCP {
+  pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPNC {
+  # file containing the PID of a vpnc process
+  pidfile = "/var/run/vpnc/pid"
+}
+
+path_exists VPN {
+  # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+  path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+wireless wlan0 {
+  format_up = "W: (%quality at %essid, %bitrate / %frequency) %ip"
+  format_down = "W: down"
+}
+
+wireless wlp3s0 {
+  format_up = "W: (%quality at %essid, %bitrate / %frequency) %ip"
+  format_down = "W: down"
+}
+
+ethernet eth0 {
+  format_up = "E: %ip (%speed)"
+  format_down = "E: down"
+}
+
+disk "/" {
+  format = "D: %used %percentage_used / %total"
+  low_threshold = 5
+  format_below_threshold = "Warning: %percentage_avail"
+  threshold_type = "percentage_free"
+}
+
+memory {
+  format = "M: %used %percentage_used / %total"
+  threshold_degraded = "10%"
+  threshold_critical = "5%"
+  format_degraded = "MEMORY LOW: %free"
+}
+
+cpu_temperature 0 {
+  format = "T: %degrees °C"
+  max_threshold = 74
+  format_above_threshold = "Warning: T above threshold: %degrees °C"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon8/temp1_input"
+}
+
+load {
+  format = "%1min %5min 1%5min"
+  max_threshold = 5
+  format_above_threshold = "Warning: %1min %5min 1%5min"
+}
+
+read_file uptime {
+  path = "/proc/uptime"
+}
+
+battery 0 {
+  format = "%status %percentage %remaining %emptytime"
+  format_down = "No battery"
+  status_chr = "CHR"
+  status_bat = "B:"
+  status_unk = "UNK"
+  status_full = "FULL"
+  low_threshold = 20
+  threshold_type = "percentage"
+  path = "/sys/class/power_supply/BAT%d/uevent"
+}
+
+battery 1 {
+  format = "%status %percentage %remaining %emptytime"
+  format_down = "No battery"
+  status_chr = "CHR"
+  status_bat = "B:"
+  status_unk = "UNK"
+  status_full = "FULL"
+  low_threshold = 20
+  threshold_type = "percentage"
+  path = "/sys/class/power_supply/BAT%d/uevent"
+}
+
+volume master {
+  format = "V: %volume"
+  format_muted = "V: 0%%"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+tztime local {
+  format = "LT: %Y-%m-%d %H:%M:%S"
+  hide_if_equals_localtime = true
+}

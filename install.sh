@@ -21,10 +21,13 @@ filesToLink=(
   "config/i3/workspace-2.json"
   "config/i3/workspace-3.json"
   "config/i3/workspace-4.json"
+  "config/i3status/config"
   "config/kitty/kitty.conf"
+  "config/i3blocks"
   "config/konsolerc"
   "config/lxterminal/lxterminal.conf"
   "config/neofetch/config.conf"
+  "config/nvim/init.vim"
   "config/pcmanfm/default/pcmanfm.conf"
   "config/pcmanfm/lubuntu/desktop-items-0.conf"
   "config/pcmanfm/lubuntu/pcmanfm.conf"
@@ -322,5 +325,6 @@ mkdir -p ~/Sandbox
 
 # demnu and rofi only read from /usr/bin so need to symlink.
 # sudo ln -sf $HOME/.bin/shot /usr/bin/shot
+# go get -u rsc.io/2fa
 
 echo "done."

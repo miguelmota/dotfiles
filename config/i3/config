@@ -179,6 +179,7 @@ client.urgent               $rd        $rd         $tx
 bar {
         position top
         status_command i3status
+        #status_command i3blocks
 
         colors {
             background          $bg

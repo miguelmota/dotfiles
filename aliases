@@ -297,6 +297,7 @@ alias unixtimestamp='date +%s'
 alias files='pcmanfm'
 alias window_manager='echo $XDG_CURRENT_DESKTOP'
 alias kill_postgres='sudo service postgresql stop'
+alias ram='free -mh | head -2'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
