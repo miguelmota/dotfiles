@@ -114,6 +114,7 @@ alias tmuxls='tmux list-sessions'
 alias tmux_source='tmux source-file ~/.tmux.conf'
 alias tmuxnew='tmux new -s'
 alias tmuxrotate=tmux_rotate
+alias tmux_attach='tmux attach -t 0'
 
 # Curl aliases
 
@@ -323,9 +324,13 @@ alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset &&
 alias power='upower -d'
 alias xresources_reload='xrdb -load ~/.Xresources'
 alias vimi3='vim ~/.config/i3/config'
+alias vimi3status='vim ~/.config/i3status/config'
+alias vimpolybar='vim ~/.config/polybar/config'
 alias vimfunctions='vim ~/.functions'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
+alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias pacman_list_packages='pacman -Qe'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

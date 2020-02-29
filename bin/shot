@@ -4,5 +4,13 @@ unamestr=$(uname)
 
 # Opens screenshot app
 if [[ "$unamestr" == 'Linux' ]]; then
-  gnome-screenshot --interactive
+  if command -v "scrot" >/dev/null 2>&1; then
+    scrot -s ~/Downloads
+  else
+    if command -v "gnome-screenshot" >/dev/null 2>&1; then
+      gnome-screenshot --interactive
+    else
+      echo "no screenshot program found"
+    fi
+  fi
 fi

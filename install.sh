@@ -21,6 +21,7 @@ filesToLink=(
   "config/i3/workspace-2.json"
   "config/i3/workspace-3.json"
   "config/i3/workspace-4.json"
+  "config/i3/polybar.sh"
   "config/i3status/config"
   "config/kitty/kitty.conf"
   "config/i3blocks"
@@ -33,6 +34,8 @@ filesToLink=(
   "config/pcmanfm/lubuntu/pcmanfm.conf"
   "config/pcmanfm/LXDE/desktop-items-0.conf"
   "config/pcmanfm/LXDE/pcmanfm.conf"
+  "config/picom/config"
+  "config/polybar/config"
   "config/powerline/colors.json"
   "config/powerline/colorschemes"
   "config/powerline/config.json"
@@ -254,6 +257,7 @@ if [ -f "/etc/arch-release" ]; then
 
   # adds amixer and alsamixer (tui)
 	sudo pacman -S --noconfirm alsa-utils
+	sudo pacman -S --noconfirm python-pywal
 
   # todo: if arch
   # install yay: https://gist.github.com/miguelmota/cd12465fe82548d20d8a8cbadf04732a

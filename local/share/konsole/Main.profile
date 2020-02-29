@@ -1,17 +1,17 @@
 [Appearance]
+AntiAliasFonts=false
+BoldIntense=true
 ColorScheme=Shapeshifter
-Font=Fira Code,9,-1,5,50,0,0,0,0,0,Regular
-
-# --- general options ---
+Font=Liberation Mono for Powerline,8,-1,5,50,0,0,0,0,0,Regular
+UseFontLineChararacters=false
 
 [General]
-Name=Main
-Parent=FALLBACK/
 Description=terminal.sexy
+Name=Main
 Opacity=1
-Wallpaper=
+Parent=FALLBACK/
 TerminalMargin=20
+Wallpaper=
 
 [Scrolling]
 ScrollBarPosition=2
-

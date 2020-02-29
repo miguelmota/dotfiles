@@ -168,6 +168,8 @@ gitconfig
 !/config/qterminal.org
 !/config/konsolerc
 !/config/pcmanfm
+!/config/picom
+!/config/polybar
 !/config/powerline/themes
 !/elinks/elinks.conf
 

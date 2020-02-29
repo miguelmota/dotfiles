@@ -1,21 +1,16 @@
-# --- special colors ---
-
 [Background]
+Color=0,0,0
+
+[BackgroundFaint]
 Color=0,0,0
 
 [BackgroundIntense]
 Color=0,0,0
 
-[Foreground]
-Color=171,171,171
-
-[ForegroundIntense]
-Color=171,171,171
-Bold=true
-
-# --- standard colors ---
-
 [Color0]
+Color=0,0,0
+
+[Color0Faint]
 Color=0,0,0
 
 [Color0Intense]
@@ -24,10 +19,16 @@ Color=52,52,52
 [Color1]
 Color=233,47,47
 
+[Color1Faint]
+Color=233,47,47
+
 [Color1Intense]
 Color=233,47,47
 
 [Color2]
+Color=14,216,57
+
+[Color2Faint]
 Color=14,216,57
 
 [Color2Intense]
@@ -36,10 +37,16 @@ Color=14,216,57
 [Color3]
 Color=221,221,19
 
+[Color3Faint]
+Color=221,221,19
+
 [Color3Intense]
 Color=221,221,19
 
 [Color4]
+Color=59,72,227
+
+[Color4Faint]
 Color=59,72,227
 
 [Color4Intense]
@@ -47,3 +54,43 @@ Color=59,72,227
 
 [Color5]
 Color=249,150,226
+
+[Color5Faint]
+Color=249,150,226
+
+[Color5Intense]
+Color=249,150,226
+
+[Color6]
+Color=24,178,178
+
+[Color6Faint]
+Color=24,178,178
+
+[Color6Intense]
+Color=24,178,178
+
+[Color7]
+Color=178,178,178
+
+[Color7Faint]
+Color=178,178,178
+
+[Color7Intense]
+Color=178,178,178
+
+[Foreground]
+Color=171,171,171
+
+[ForegroundFaint]
+Color=171,171,171
+
+[ForegroundIntense]
+Color=171,171,171
+
+[General]
+Blur=true
+ColorRandomization=false
+Description=Un-named Color Scheme
+Opacity=0.3
+Wallpaper=
