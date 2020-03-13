@@ -26,8 +26,11 @@ ulimit -n 2048
 
 # RVM
 # Add RVM to PATH for scripting
-#[[ -s "$HOME/.rvm/bin" ]] && PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-#[[ -s "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+#[[ -s "$HOME/.rvm/bin" ]] && export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
+[[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin
+[[ -d "$HOME/.rvm/gems/ruby-2.6.3/bin" ]] && export PATH=$PATH:$HOME/.rvm/gems/ruby-2.6.3/bin
+[[ -d "$HOME/.gem/ruby/2.6.3/bin" ]] && export PATH=$PATH:$HOME/.gem/ruby/2.6.3/bin
+[[ -d "$HOME/.gem/ruby/2.7.0/bin" ]] && export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin
 # Source if rvm exists
 #command -v rvm >/dev/null 2>&1 && source $(rvm default do rvm env --path) && rvm get stable --auto-dotfiles
 

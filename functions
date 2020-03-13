@@ -27,14 +27,22 @@ paste() {
 # Example
 # $ width image.png # 200
 image_width() {
-  echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    echo $(sips -g pixelWidth $1 | grep -oE "[[:digit:]]{1,}$")
+  else
+    identify -format '%w' "$1"
+  fi
 }
 
 # Image height
 # Example
 # $ height image.png # 300
 image_height() {
-  echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    echo $(sips -g pixelHeight $1 | grep -oE "[[:digit:]]{1,}$")
+  else
+    identify -format '%h' "$1"
+  fi
 }
 
 # Run dig and display the most useful info

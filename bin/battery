@@ -35,7 +35,7 @@ freebsd_get_bat ()
 
 # Do with grep and awk unless too hard
 
-# TODO Identify which machine we're on from teh script.
+# TODO Identify which machine we're on from the script.
 
 battery_status()
 {

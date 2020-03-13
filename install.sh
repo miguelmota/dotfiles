@@ -16,6 +16,7 @@ filesToLink=(
   "coffeelint.json"
   "config/alacritty/alacritty.yml"
   "config/fontconfig/conf.d/10-powerline-symbols.conf"
+  "config/dunst/dunstrc"
   "config/i3/config"
   "config/i3/workspace-1.json"
   "config/i3/workspace-2.json"
@@ -238,26 +239,27 @@ if grep NAME=Fedora /etc/os-release; then
 fi
 
 if [ -f "/etc/arch-release" ]; then
-	sudo pacman -S --noconfirm git
-	sudo pacman -S --noconfirm vim
-	sudo pacman -S --noconfirm tmux
-	sudo pacman -S --noconfirm wget
-	sudo pacman -S --noconfirm curl
-	sudo pacman -S --noconfirm jq
-	sudo pacman -S --noconfirm xclip
-	sudo pacman -S --noconfirm tree
-	sudo pacman -S --noconfirm nmap
-	sudo pacman -S --noconfirm cmake
+  sudo pacman -S --noconfirm git
+  sudo pacman -S --noconfirm vim
+  sudo pacman -S --noconfirm tmux
+  sudo pacman -S --noconfirm wget
+  sudo pacman -S --noconfirm curl
+  sudo pacman -S --noconfirm jq
+  sudo pacman -S --noconfirm xclip
+  sudo pacman -S --noconfirm tree
+  sudo pacman -S --noconfirm nmap
+  sudo pacman -S --noconfirm cmake
+  sudo pacman -S --noconfirm the_silver_searcher
 
   # make user is part of 'video' group
-	sudo pacman -S --noconfirm light
+  sudo pacman -S --noconfirm light
 
-	sudo pacman -S --noconfirm neofetch
-	sudo pacman -S --noconfirm bash-completion
+  sudo pacman -S --noconfirm neofetch
+  sudo pacman -S --noconfirm bash-completion
 
   # adds amixer and alsamixer (tui)
-	sudo pacman -S --noconfirm alsa-utils
-	sudo pacman -S --noconfirm python-pywal
+  sudo pacman -S --noconfirm alsa-utils
+  sudo pacman -S --noconfirm python-pywal
 
   # todo: if arch
   # install yay: https://gist.github.com/miguelmota/cd12465fe82548d20d8a8cbadf04732a
@@ -301,13 +303,13 @@ else
 fi
 
 if [ ! -f "$HOME/.local/share/wallpaper.jpg" ]; then
-	(
-		cd /tmp
-		echo "Downloading wallpaper"
-		wget https://user-images.githubusercontent.com/168240/73391163-56ca8d80-42cf-11ea-8f37-8693f161b618.jpg -O wallpaper.jpg
-		mkdir -p $HOME/.local/share
-		mv wallpaper.jpg $HOME/.local/share/wallpaper.jpg
-	)
+  (
+    cd /tmp
+    echo "Downloading wallpaper"
+    wget https://user-images.githubusercontent.com/168240/73391163-56ca8d80-42cf-11ea-8f37-8693f161b618.jpg -O wallpaper.jpg
+    mkdir -p $HOME/.local/share
+    mv wallpaper.jpg $HOME/.local/share/wallpaper.jpg
+  )
 fi
 
 echo "sourcing ~/.bashrc"

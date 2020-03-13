@@ -198,8 +198,9 @@ client.urgent               $rd        $rd         $tx
 exec_always --no-startup-id ~/.config/i3/polybar.sh &
 exec --no-startup-id nm-applet --sm-disable
 #exec --no-startup-id feh --bg-scale --zoom fill /home/mota/.local/share/wallpaper.jpg
-exec --no-startup-id wal -i /home/mota/Downloads/wal.jpg
+exec --no-startup-id wal -i /home/mota/.local/share/wallpaper2.jpg
 #exec --no-startup-id dropbox start
+exec --no-startup-id dunst
 
 # note use `xprop` command and click on window to find class name
 exec --no-startup-id "i3-msg 'workspace 4; append_layout ~/.config/i3/workspace-4.json'"
@@ -219,11 +220,14 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # (
 bindsym XF86Tools exec --no-startup-id pavucontrol # (F9 on T480) open sound gui
 
 # Screen brightness controls
-bindsym XF86MonBrightnessDown exec light -U 10 # (F5 on T480) decrease screen brightness
-bindsym XF86MonBrightnessUp exec light -A 10 # (F6 on T480) increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # (F5 on T480) decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # (F6 on T480) increase screen brightness
 
 # Printscreen button
 bindsym Print exec --no-startup-id gnome-screenshot -i
+
+# Suspend button
+bindsym XF86Favorites exec --no-startup-id systemctl suspend # (F2 on T480) favorite
 
 bindsym $mod+Shift+comma exec --no-startup-id gnome-screenshot -i
 #bindsym $mod+Shift+period exec --no-startup-id gnome-screenshot -a

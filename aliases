@@ -59,8 +59,8 @@ alias dirsize='du -sh * | sort -n'
 alias dirsize2='du -bsh .'
 alias topmem='top -o mem'
 alias topcpu='top -o cpu'
-alias diskusage='sudo iotop'
-alias prettydiskusage='ncdu'
+alias disk_usage='sudo iotop'
+alias disk_usage_visualizer='ncdu --color dark'
 alias psmem='ps aux | sort -rn -k 6'
 alias lsperm=octal_perms
 
@@ -107,13 +107,13 @@ alias e='emacs'
 # Tmux aliases
 
 alias tmux='tmux -2' # force 256 color
-alias tmuxkill='tmux kill-session -t'
-alias tmuxkillall="tx ls | awk '{print $1}' | sed 's/://g' | xargs -I{} tmux kill-session -t {}"
-alias tmuxat='tmux attach -t'
-alias tmuxls='tmux list-sessions'
+alias tmux_kill_target='tmux kill-session -t'
+alias tmux_kill_all="tx ls | awk '{print $1}' | sed 's/://g' | xargs -I{} tmux kill-session -t {}"
+alias tmux_attach='tmux attach -t'
+alias tmux_ls='tmux list-sessions'
 alias tmux_source='tmux source-file ~/.tmux.conf'
-alias tmuxnew='tmux new -s'
-alias tmuxrotate=tmux_rotate
+alias tmux_new='tmux new -s'
+alias tmux_rotate=tmux_rotate
 alias tmux_attach='tmux attach -t 0'
 
 # Curl aliases
@@ -210,7 +210,10 @@ alias dockerpslast='docker ps -q -l'
 alias dockerprune='docker system prune -a -f'
 
 # Node/NPM
-alias npmupdate="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
+alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
+alias nbuild='npm run build'
+alias ndev='npm run dev'
+alias nlint='npm run lint'
 
 # Utils
 alias width=image_width
@@ -299,6 +302,7 @@ alias files='pcmanfm'
 alias window_manager='echo $XDG_CURRENT_DESKTOP'
 alias kill_postgres='sudo service postgresql stop'
 alias ram='free -mh | head -2'
+alias vimssh='vim ~/.ssh/config'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example

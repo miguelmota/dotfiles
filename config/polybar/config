@@ -104,7 +104,7 @@ interval = 25
 mount-0 = /
 
 ;label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-mounted = D: %percentage_used%%
+label-mounted = DISK: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -206,14 +206,14 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-;format-prefix = "C:"
+;format-prefix = "CPU:"
 format-prefix-foreground = ${colors.foreground}
-label = C: %percentage%%
+label = CPU: %percentage%%
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "M: "
+format-prefix = "RAM: "
 format-prefix-foreground = ${colors.foreground}
 label = %percentage_used%%
 
@@ -258,7 +258,7 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "T:"
+date = "TIME:"
 date-alt = " %Y-%m-%d"
 
 time = %H:%M
@@ -275,10 +275,10 @@ type = internal/pulseaudio
 
 ;format-volume = <label-volume> <bar-volume>
 format-volume = <label-volume>
-label-volume = "V: %percentage%%"
+label-volume = "VOL: %percentage%%"
 label-volume-foreground = ${root.foreground}
 
-label-muted = "V: 0"
+label-muted = "MUTE: 0%"
 label-muted-foreground = #ffff00
 
 bar-volume-width = 10
@@ -330,20 +330,21 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
+full-at = 100
 
 ;format-charging-prefix = "CHR:"
 ;format-charging = <animation-charging> <label-charging>
 format-charging = CHR: <label-charging>
 format-charging-underline =
 
-;format-discharging-prefix = "B: "
+;format-discharging-prefix = "BAT: "
 ;format-discharging = <animation-discharging> <label-discharging>
-format-discharging = B: <label-discharging>
+format-discharging = BAT: <label-discharging>
 format-discharging-underline =
 
 ;format-full-prefix = "FULL:"
-format-full-prefix-foreground = ${colors.foreground-alt}
+;format-full-prefix-foreground = ${colors.foreground-alt}
+format-full = FULL: 100%
 format-full-underline =
 
 ramp-capacity-0 = 

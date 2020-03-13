@@ -8,14 +8,14 @@ Favorites=
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=992
+Height 1080=486
 Height 1800=1635
 Height 900=818
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAB0QAAAPlAAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAAAAB0QAAAPgAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1440=673
-Width 1920=620
+Width 1920=1860
 Width 2880=1345
 
 [TabBar]

@@ -6,10 +6,9 @@
 [ -z "$PS1" ] && return
 
 # This will start xinit, but only on TTY1. xinit will read xinitrc and start i3 and keep the X session alive until i3 exists.
-
-#if [ -z "$DISPLAY" -a $XDG_VTNR -eq 1 ]; then
-#	startx
-#fi
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty3 ]]; then
+  startx
+fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options

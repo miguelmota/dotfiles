@@ -153,6 +153,7 @@ gitconfig
 !/config/i3blocks
 !/config/alacritty
 !/config/cointop
+!/config/dunst
 !/config/i3
 !/config/i3status
 !/config/fontconfig
