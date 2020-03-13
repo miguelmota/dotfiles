@@ -330,11 +330,16 @@ alias xresources_reload='xrdb -load ~/.Xresources'
 alias vimi3='vim ~/.config/i3/config'
 alias vimi3status='vim ~/.config/i3status/config'
 alias vimpolybar='vim ~/.config/polybar/config'
+alias vimbspwm='vim ~/.config/bspwm/bspwmrc'
+alias vimsxhkdrc='vim ~/.config/sxhkd/sxhkdrc'
+alias vimdunst='vim ~/.config/dunst/dunstrc'
+alias vimrofi='vim ~/.config/rofi/config'
 alias vimfunctions='vim ~/.functions'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias pacman_list_packages='pacman -Qe'
+alias reload_bspwm='$HOME/.config/bspwm/bspwmrc'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

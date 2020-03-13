@@ -158,14 +158,14 @@ bindsym $mod+r mode "resize"
 
 # color defines for styled i3
 set $bg     #000000
-set $fg     #00ff00
+set $fg     #677f8a
 set $hi     #333333
-set $ac     #00ff00
+set $ac     #677f8a
 set $tx     #000000
-set $ia     #00ff00
-set $be     #00ff00
-set $yw     #00ff00
-set $gn     #00ff00
+set $ia     #677f8a
+set $be     #677f8a
+set $yw     #677f8a
+set $gn     #677f8a
 set $rd     #ff0000
 
 # set some nice colors      border     background  text

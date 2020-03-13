@@ -16,6 +16,8 @@ filesToLink=(
   "coffeelint.json"
   "config/alacritty/alacritty.yml"
   "config/fontconfig/conf.d/10-powerline-symbols.conf"
+  "config/bspwm/bspwmrc"
+  "config/sxhkd/sxhkdrc"
   "config/dunst/dunstrc"
   "config/i3/config"
   "config/i3/workspace-1.json"
@@ -250,6 +252,8 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -S --noconfirm nmap
   sudo pacman -S --noconfirm cmake
   sudo pacman -S --noconfirm the_silver_searcher
+
+  sudo pacman -S --noconfirm qbittorrent
 
   # make user is part of 'video' group
   sudo pacman -S --noconfirm light
