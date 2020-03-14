@@ -132,3 +132,34 @@ super + alt + shift + {h,j,k,l}
 
 super + {Left,Down,Up,Right}
 	bspc node -f {west,south,north,east}
+
+# Pulse Audio controls
+XF86AudioMute
+  pactl set-sink-mute 0 toggle
+
+XF86AudioLowerVolume
+  pactl -- set-sink-volume 0 -5%
+
+XF86AudioRaiseVolume
+  pactl -- set-sink-volume 0 +5%
+
+XF86AudioMicMute
+  pactl set-source-mute 1 toggle
+
+XF86Tools
+  pavucontrol
+
+# Screen brightness controls
+XF86MonBrightnessDown
+  light -U 5
+
+XF86MonBrightnessUp
+  light -A 5
+
+## Printscreen button
+Print
+  gnome-screenshot -i
+
+# Suspend button
+XF86Favorites
+  systemctl suspend

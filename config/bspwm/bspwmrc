@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 sxhkd &
 
@@ -9,7 +9,7 @@ wal -i /home/mota/.local/share/wallpaper2.jpg
 dunst &
 
 #bspc monitor -d I II III IV V VI VII VIII IX X
-bspc monitor -d I II III
+bspc monitor -d I II III IV V VI VII VIII IX
 
 bspc config border_width         1
 bspc config window_gap          14
@@ -23,3 +23,6 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+
+(konsole -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "konsole" -t 1)
+(firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)

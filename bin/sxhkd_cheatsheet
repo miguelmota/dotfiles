@@ -1,10 +1,24 @@
 echo "\
-open terminal: super + enter
-rofi menu: super + d
-close window: super + shift + q
-toggle fullscreen: super + m
-move floating window: super + left click + move
-resize floating window: super + right click + move
-reload config: super + shift + r
-navigate: super + {h,j,k,l}
+super + enter                     open terminal
+super + d                         open rofi menu
+super + shift + q                 close window
+super + m                         toggle fullscreen
+super + left click + move         move floating window:
+super + right click + move        resize floating window:
+super + shift + r                 reload config:
+super + {h,j,k,l}                 navigate
+super + shift + {h,j,k,l}         switch window places
+super + alt + {h,j,k,l}           resize window expand
+super + alt + shift + {h,j,k,l}   resize window contract
+super + {0-9}                     change workspace
+super + shift + {0-9}             move window to workspace
+super + t                         tiled mode
+super + f                         fullscreen mode
+super + s                         floating mode
+super + g                         switch places with biggest window
+super + tilde                     alternate window focus
+super + tab                       last workspace focus
+super + ctrl + {h,j,k,l}          preselect direction
+super + ctrl + {1-9}              preselect ratio
+super + shift + e                 exit xorg
 "
