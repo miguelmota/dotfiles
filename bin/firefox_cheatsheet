@@ -1,0 +1,43 @@
+echo "\
+Standard shortcuts
+ctrl + l            address bar
+ctrl + j            google search
+ctrl + t            new tab
+ctrl + shift + t    open last closed tab
+ctrl + w            close tab
+ctrl + s            save
+ctrl + b            bookmarks toggle
+ctrl + d            add bookmark
+ctrl + h            history toggle
+ctrl + f            search
+ctrl + r            reload
+ctrl + shift + r    force reload
+ctrl + p            print
+ctrl + shift + p    private browsing
+ctrl + f            find
+ctrl + g            find next
+ctrl + shift + g    find previous
+ctrl + a            select all
+ctrl + x            cut
+ctrl + c            copy
+ctrl + v            paste
+ctrl + z            undo
+ctrl + u            view page source
+ctrl + i            view page info
+ctrl + +            zoom in
+ctrl + -            zoom out
+ctrl + 0            zoon default
+ctrl + [            back
+ctrl + ]            foward
+ctrl + shift + i    open dev tools console
+ctrl + tab          next tab
+ctrl + shift + tab  previous tab
+alt + left          back
+alt + right         forward
+alt + {0-9}         go to tab
+F11                 fullscreen toggle
+esc                 stop loading
+
+Add-on shortcuts
+ctrl + shift + v    vertical tabs toggle
+"

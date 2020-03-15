@@ -340,6 +340,7 @@ alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias pacman_list_packages='pacman -Qe'
 alias reload_bspwm='$HOME/.config/bspwm/bspwmrc'
+alias calendar='gnome-calendar'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

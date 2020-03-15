@@ -1,20 +1,23 @@
 echo "\
 super + enter                     open terminal
 super + d                         open rofi menu
-super + shift + q                 close window
+super + q                         close window
+super + shift + q                 close application
 super + m                         toggle fullscreen
 super + left click + move         move floating window:
 super + right click + move        resize floating window:
 super + shift + r                 reload config:
 super + {h,j,k,l}                 navigate
+super + shift + right             rotate 90
 super + shift + {h,j,k,l}         switch window places
 super + alt + {h,j,k,l}           resize window expand
 super + alt + shift + {h,j,k,l}   resize window contract
 super + {0-9}                     change workspace
 super + shift + {0-9}             move window to workspace
 super + t                         tiled mode
-super + f                         fullscreen mode
+super + shift + t                 pseudo-tiled mode
 super + s                         floating mode
+super + f                         fullscreen mode
 super + g                         switch places with biggest window
 super + tilde                     alternate window focus
 super + tab                       last workspace focus

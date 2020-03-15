@@ -1,0 +1,40 @@
+echo "\
+Amazon S3 command line client [S3cmd](http://s3tools.org/s3cmd)
+
+brew install s3cmd
+
+~/.s3cfg
+
+# List Buckets
+s3cmd ls
+
+# Create Bucket
+s3cmd mb s3://foo
+
+# Upload File and make public
+s3cmd put --acl-public qux.txt s3://foo/
+
+# Make all public
+s3cmd setacl --acl-public --recursive
+
+# Upload Directory
+s3cmd put -r qux s3://foo/
+
+# List bucket files
+s3cmd ls s3://foo/
+
+# Download file
+s3cmd get s3://foo/qux.txt
+
+# Delete file
+s3cmd del s3://foo/qux.txt
+
+# Delete directory
+s3cmd del s3://foo/qux
+
+# Delete bucket
+s3cmd rb s3://foo
+
+# File url
+http://[bucket].s3.amazonaws.com/[filename]
+"

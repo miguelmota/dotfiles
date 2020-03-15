@@ -1,0 +1,13 @@
+echo "\
+[Midnight Commander](https://www.midnight-commander.org/)
+
+brew install mc
+
+~/.config/mc/hotlist
+
+# open hotlist
+Ctr + \
+
+# Search
+Ctr + s
+"

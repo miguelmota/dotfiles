@@ -1,0 +1,10 @@
+echo "\
+# Delete to left
+ctr u
+
+# Delete to right
+ctr k
+
+# Delete word backwards
+esc delete
+"

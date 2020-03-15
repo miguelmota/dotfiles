@@ -133,6 +133,9 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -f {west,south,north,east}
 
+super + shift + {Right}
+  bspc node @/ -R 90
+
 # Pulse Audio controls
 XF86AudioMute
   pactl set-sink-mute 0 toggle
