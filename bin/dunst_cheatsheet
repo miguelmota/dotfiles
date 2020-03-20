@@ -1,0 +1,6 @@
+echo "\
+ctrl + space            dismiss
+ctrl + shift + space    dismiss all
+ctrl + shift + period   context menu
+ctrl + backtick         history
+"
