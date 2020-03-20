@@ -1,0 +1,4 @@
+echo "\
+zip -r9 archive.zip myfiles
+unzip archive.zip
+"

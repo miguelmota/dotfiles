@@ -252,6 +252,7 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -S --noconfirm nmap
   sudo pacman -S --noconfirm cmake
   sudo pacman -S --noconfirm the_silver_searcher
+  sudo pacman -S --noconfirm lsof
 
   sudo pacman -S --noconfirm qbittorrent
 

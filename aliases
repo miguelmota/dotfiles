@@ -214,6 +214,7 @@ alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | 
 alias nbuild='npm run build'
 alias ndev='npm run dev'
 alias nlint='npm run lint'
+alias nbump='npm run bump'
 
 # Utils
 alias width=image_width

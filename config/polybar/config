@@ -527,6 +527,7 @@ bar-volume-foreground-6 = #f5a70a
 bar-volume-foreground-7 = #f5a70a
 bar-volume-foreground-8 = #ff5555
 bar-volume-foreground-9 = #ff5555
+
 bar-volume-gradient = false
 ;bar-volume-indicator = |
 bar-volume-indicator =
@@ -579,7 +580,7 @@ type = internal/battery
 
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
-battery = BAT0
+battery = BAT1
 adapter = AC
 
 ; This is useful in case the battery never reports 100% charge

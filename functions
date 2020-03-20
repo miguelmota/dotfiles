@@ -707,8 +707,8 @@ wifi_pass() {
 
 # Restart the wifi network manager
 # Example
-# $ wifi_restart
-wifi_restart() {
+# $ restart_wifi
+restart_wifi() {
   sudo ifconfig wlp4s0 down
   sudo ifconfig wlp4s0 up
   if command_exists 'nm-online'; then
@@ -720,7 +720,7 @@ forget_network() {
   nmcli connection delete "$1"
 }
 
-network_manager_restart() {
+restart_network_manager() {
   sudo systemctl restart NetworkManager.service
 }
 
@@ -932,4 +932,12 @@ hibernate() {
   if [[ "$unamestr" == 'Linux' ]]; then
     systemctl hibernate
   fi
+}
+
+restart_sxhkd() {
+  pkill sxhkd && sxhkd &
+}
+
+restart_dunst() {
+  pkill dunst && dunst &
 }

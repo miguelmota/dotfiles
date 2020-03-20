@@ -1,4 +1,4 @@
-#
+
 # wm independent hotkeys
 #
 
@@ -12,6 +12,9 @@ super + @space
 
 super + d
 	rofi -show run
+
+super + shift + d
+  rofi -modi windowcd -show windowcd
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -138,7 +141,7 @@ super + shift + {Right}
 
 # Pulse Audio controls
 XF86AudioMute
-  pactl set-sink-mute 0 toggle
+  pactl set-sink-mute 0 toggle && notify-send -u low -t 650 'Volume' "$(pacmd list-sinks | grep muted --color=never | sed -e 's/^[ \t]*//')"
 
 XF86AudioLowerVolume
   pactl -- set-sink-volume 0 -5%

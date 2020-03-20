@@ -1,6 +1,5 @@
 echo "\
 super + enter                     open terminal
-super + d                         open rofi menu
 super + q                         close window
 super + shift + q                 close application
 super + m                         toggle fullscreen
@@ -24,4 +23,13 @@ super + tab                       last workspace focus
 super + ctrl + {h,j,k,l}          preselect direction
 super + ctrl + {1-9}              preselect ratio
 super + shift + e                 exit xorg
+
+# rofi
+super + d                         open rofi menu
+super + shift + d                 open rofi tabs menu
+
+# rofi selection
+tab         next
+ctrl + n    next
+ctrl + p    previous
 "
