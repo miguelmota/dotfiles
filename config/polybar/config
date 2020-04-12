@@ -58,7 +58,7 @@ modules-left = bspwm i3
 ;modules-center = mpd
 ;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 ;modules-right = date
-modules-center = filesystem memory cpu date backlight pulseaudio battery
+modules-center = filesystem memory cpu date backlight pulseaudio battery-combined
 
 tray-position = right
 tray-padding = 2
@@ -574,6 +574,11 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/battery-combined]
+type = custom/script
+exec = ~/.config/polybar/battery-combined.sh
+tail = true
 
 [module/battery]
 type = internal/battery

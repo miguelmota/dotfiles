@@ -45,6 +45,7 @@ alias cdtrash='cd ~/.Trash/'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 alias cdrofi='cd ~/.config/rofi'
 alias cdi3='cd ~/.config/i3'
+alias cdpolybar='cd ~/.config/polybar'
 
 # Directory listing aliases
 

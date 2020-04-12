@@ -1,10 +1,23 @@
 #!/bin/bash
 
+
 # use `upower -d` to view info for batteries
-battery_number=1
-battery_path="/org/freedesktop/UPower/devices/battery_BAT$battery_number"
-state=$(upower -i $battery_path | grep state | awk '{print $2}')
-level=$(upower -i $battery_path | grep percentage | awk '{print $2}' | sed 's/%//')
+battery_number="$1"
+
+battery_path_0="/org/freedesktop/UPower/devices/battery_BAT0"
+battery_path_1="/org/freedesktop/UPower/devices/battery_BAT1"
+state_0=$(upower -i $battery_path_0 | grep state | awk '{print $2}')
+state_1=$(upower -i $battery_path_1 | grep state | awk '{print $2}')
+level_0=$(upower -i $battery_path_0 | grep percentage | awk '{print $2}' | sed 's/%//')
+level_1=$(upower -i $battery_path_1 | grep percentage | awk '{print $2}' | sed 's/%//')
+
+if [ "$state_0" == "charging" ] || [ "$battery_status_1" == "Charging" ]; then
+  status="(CHR)"
+fi
+
+max=$(("$level_0 + $level_1"))
+level=$(("$max / 2"))
+state="$state_0"
 
 notify() {
   DISPLAY=:0.0 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus" /usr/bin/notify-send "$@"

@@ -13,7 +13,9 @@ rounded-corners-exclude = [
   "class_g = 'TelegramDesktop'",
   "class_g = 'firefox'",
   "class_g = 'Google-chrome'",
-  "class_g = 'Thunderbird'"
+  "class_g = 'Thunderbird'",
+  "class_g = 'Pcmanfm'",
+  "class_g = 'Surf'"
 ];
 
 shadow = false;
@@ -21,7 +23,7 @@ shadow-opacity = 0.5;
 
 blur: {
   method = "kawase";
-  strength = 5;
+  strength = 8;
   background = false;
   background-frame = false;
   background-fixed = false;

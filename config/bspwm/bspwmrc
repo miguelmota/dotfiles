@@ -5,8 +5,8 @@ clipit &
 xsetroot -cursor_name left_ptr &
 
 nm-applet --sm-disable &
-wal -i /home/mota/.local/share/wallpaper2.jpg
-~/.config/i3/polybar.sh &
+wal -i ~/.local/share/wallpaper2.jpg
+~/.config/polybar/polybar.sh &
 #dropbox start
 dunst &
 
