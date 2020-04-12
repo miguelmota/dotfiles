@@ -1,0 +1,4 @@
+echo "\
+using xclip
+  xclip -sel clip     copy to clipboard
+"

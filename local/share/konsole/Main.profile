@@ -2,7 +2,7 @@
 AntiAliasFonts=false
 BoldIntense=true
 ColorScheme=Shapeshifter
-Font=Liberation Mono for Powerline,8,-1,5,50,0,0,0,0,0,Regular
+Font=Source Code Pro ExtraLight [ADBO],8,-1,5,12,0,0,0,0,0,Regular
 UseFontLineChararacters=false
 
 [General]

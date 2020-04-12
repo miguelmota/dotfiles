@@ -682,14 +682,21 @@ ec2_ip() {
 # Example
 # $ change_mac
 change_mac() {
-  local mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
-  sudo ifconfig en0 ether $mac
-  sudo ifconfig en0 down
-  sudo ifconfig en0 up
-  echo "Your new physical address is $mac"
-
-  # linux
-  # sudo macchanger -r en0
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    local mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
+    interface="en0"
+    sudo ifconfig $interface down
+    sudo ifconfig $interface ether $mac
+    sudo ifconfig $interface up
+    echo "Your new physical address is $mac"
+  elif [ -f "/etc/arch-release" ]; then
+    local interface="wlp3s0"
+    sudo ifconfig $interface down
+    sudo macchanger -A $interface
+    sudo ifconfig $interface up
+  else
+      echo "distro not supported"
+  fi
 }
 
 # Print the Wifi password
@@ -806,9 +813,10 @@ lock() {
   if [[ "$unamestr" == 'Linux' ]]; then
     if command_exists 'xscreensaver-command'; then
       xscreensaver-command -lock
-    fi
-    if command_exists 'i3lock'; then
+    elif command_exists 'i3lock'; then
       i3lock -n -c 000000
+    else
+      echo 'no lock program found'
     fi
   fi
 }
@@ -905,6 +913,34 @@ keyboard_touchpad_enable() {
   keyboard_enable
 }
 
+touchscreen_disable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    # lenovo thinkpad t480
+    local id=$(xinput list | sed -nE 's/.*Touch System.*id=([0-9]+).*/\1/p')
+    if [ -z "$id" ]; then
+      echo "device not found"
+      exit 1
+    fi
+
+    echo "xinput disable $id"
+    xinput disable $id
+  fi
+}
+
+touchscreen_enable() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    # lenovo thinkpad t480
+    local id=$(xinput list | sed -nE 's/.*Touch System.*id=([0-9]+).*/\1/p')
+    if [ -z "$id" ]; then
+      echo "device not found"
+      exit 1
+    fi
+
+    echo "xinput enable $id"
+    xinput enable $id
+  fi
+}
+
 update_wallpaper() {
   if [ -f ~/Downloads/wallpaper.jpg ] ; then
     mv ~/Downloads/wallpaper.jpg ~/.local/share/wallpaper.jpg
@@ -921,6 +957,7 @@ ubuntu_version() {
 }
 
 afk() {
+  echo 'suspending (sleep)...'
   if [[ "$unamestr" == 'Darwin' ]]; then
     /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
   else
@@ -929,6 +966,7 @@ afk() {
 }
 
 hibernate() {
+  echo 'hibernating...'
   if [[ "$unamestr" == 'Linux' ]]; then
     systemctl hibernate
   fi
@@ -940,4 +978,103 @@ restart_sxhkd() {
 
 restart_dunst() {
   pkill dunst && dunst &
+}
+
+localip() {
+  if [ -f "/etc/arch-release" ]; then
+    ip addr show wlp3s0 | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}'
+  elif [[ "$unamestr" == 'Darwin' ]]; then
+    ifconfig wlan0 | awk '$1 == "inet" {print $2}'
+  else
+    ifconfig
+  fi
+}
+
+arch_update() {
+  sudo pacman -Syu
+}
+
+restart_smb() {
+  systemctl restart smb
+}
+
+enable_smb() {
+  systemctl enable smb
+}
+
+start_smb() {
+  systemctl start smb
+}
+
+stop_smb() {
+  systemctl disable smb
+  systemctl stop smb
+}
+
+update_pacman() {
+  sudo pacman -Syu
+}
+
+start_vnc() {
+  x11vnc -many -usepw -localhost -display :0
+}
+
+stop_vnc() {
+  fkill vnc
+}
+
+vnc_resize_macbook_air() {
+  xrandr -s 1400x900
+}
+
+vnc_resize_thinkpad() {
+  xrandr -s 1920x1080
+}
+
+vnc_tunnel() {
+  ssh -L 5900:localhost:5900 user@host 'x11vnc -localhost -display :0'
+}
+
+renew_dhcp() {
+  local interface="wlp3s0"
+  sudo dhclient -v -r $interface
+  restart_network_manager
+}
+
+start_ufw() {
+  systemctl start ufw.service
+}
+
+enable_ufw() {
+  systemctl enable ufw.service
+}
+
+stop_ufw() {
+  systemctl stop ufw.service
+}
+
+ufw_status() {
+  sudo ufw status
+}
+
+ufw_restart() {
+  sudo ufw disable
+  sudo ufw enable
+}
+
+enable_sshd() {
+  systemctl enable sshd.service
+}
+
+start_sshd() {
+  systemctl start sshd.service
+}
+
+stop_sshd() {
+  systemctl stop sshd.service
+  systemctl disable sshd.service
+}
+
+restart_sshd() {
+  systemctl restart sshd.service
 }

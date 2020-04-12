@@ -1,0 +1,4 @@
+echo "\
+search                  rg 'search term' ./
+ignore folder           rg 'search term' -g '!folder-to-ignore' ./
+"

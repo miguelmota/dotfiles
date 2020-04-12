@@ -1,1 +1,28 @@
+experimental-backends = true;
+
+backend = "glx";
+
+corner-radius = 10;
+
+rounded-corners-exclude = [
+  "class_g = 'URxvt'",
+  "class_g = 'XTerm'",
+  "class_g = 'konsole'",
+  "class_g = 'Polybar'",
+  "class_g = 'code-oss'",
+  "class_g = 'TelegramDesktop'",
+  "class_g = 'firefox'",
+  "class_g = 'Google-chrome'",
+  "class_g = 'Thunderbird'"
+];
+
 shadow = false;
+shadow-opacity = 0.5;
+
+blur: {
+  method = "kawase";
+  strength = 5;
+  background = false;
+  background-frame = false;
+  background-fixed = false;
+}

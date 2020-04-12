@@ -211,10 +211,13 @@ alias dockerprune='docker system prune -a -f'
 
 # Node/NPM
 alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
+alias nstart='npm run start'
 alias nbuild='npm run build'
+alias nbstart='npm run build && npm run start'
 alias ndev='npm run dev'
 alias nlint='npm run lint'
 alias nbump='npm run bump'
+alias nrelease='npm run release'
 
 # Utils
 alias width=image_width
@@ -282,7 +285,7 @@ alias cp_p=cp_p
 alias phpserver='php -S 0.0.0.0:8080'
 alias resize=resize
 alias sha3=sha3
-alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+# alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias screenshot='screencapture -x out.png'
 alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
 alias soma='somafm play'
@@ -304,6 +307,9 @@ alias window_manager='echo $XDG_CURRENT_DESKTOP'
 alias kill_postgres='sudo service postgresql stop'
 alias ram='free -mh | head -2'
 alias vimssh='vim ~/.ssh/config'
+alias vimsshd='sudo vim /etc/ssh/sshd_config'
+alias p='pacman'
+alias pac='pacman'
 
 # https://github.com/rtyley/bfg-repo-cleaner
 # example
@@ -335,13 +341,22 @@ alias vimbspwm='vim ~/.config/bspwm/bspwmrc'
 alias vimsxhkdrc='vim ~/.config/sxhkd/sxhkdrc'
 alias vimdunst='vim ~/.config/dunst/dunstrc'
 alias vimrofi='vim ~/.config/rofi/config'
+alias vimsmb='sudo vim /etc/samba/smb.conf'
+alias vimfstab='sudo vim /etc/fstab'
 alias vimfunctions='vim ~/.functions'
+alias vimpicom='vim ~/.config/picom/config'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias pacman_list_packages='pacman -Qe'
 alias reload_bspwm='$HOME/.config/bspwm/bspwmrc'
 alias calendar='gnome-calendar'
+alias list_systemctl_enabled='systemctl list-unit-files --state=enabled'
+alias xrandr_auto='xrandr --auto'
+alias xrandr_turn_off_display='xrandr --auto && xrandr --output eDP-1 --off'
+alias list_kernels='pacman -Q | grep linux'
+alias vpn_up='sudo wg-quick up wg0'
+alias vpn_down='sudo wg-quick down wg0'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

@@ -269,6 +269,13 @@ if [ -f "/etc/arch-release" ]; then
   # todo: if arch
   # install yay: https://gist.github.com/miguelmota/cd12465fe82548d20d8a8cbadf04732a
   # install vim-11: https://gist.github.com/miguelmota/08c7b5bedda4ba42563594af48618def
+
+  # image viewer
+  # yay -S mirage # right click image -> open with -> set default image viewer
+
+  # pdf viewer
+  # yay -S okular
+
   # add user to 'audio' and 'video' groups
 fi
 
