@@ -5,7 +5,7 @@ clipit &
 xsetroot -cursor_name left_ptr &
 
 nm-applet --sm-disable &
-wal -i ~/.local/share/wallpaper2.jpg
+wal -s -i ~/.local/share/wallpaper2.jpg
 ~/.config/polybar/polybar.sh &
 #dropbox start
 dunst &
@@ -25,5 +25,5 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-(konsole -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "konsole" -t 1)
+(alacritty -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "alacritty" -t 1)
 (firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)

@@ -34,8 +34,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
-    y: 0
+    x: 10
+    y: 10
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -84,7 +84,8 @@ scrolling:
   # to allow mouse scrolling for applications like `man`.
   #
   # Specifying `0` will disable faux scrolling.
-  faux_multiplier: 3
+  # NOTE: this option is deprecated
+  #faux_multiplier: 3
 
   # Scroll to the bottom when new text is written to the terminal.
   auto_scroll: false
@@ -101,7 +102,7 @@ tabspaces: 8
 # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
-  #normal:
+  normal:
     # Font family
     #
     # Default:
@@ -109,6 +110,8 @@ font:
     #   - (Linux) monospace
     #   - (Windows) Consolas
     #family: monospace
+    #family: Liberation Mono
+    family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -136,7 +139,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 11.0
+  size: 5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -168,7 +171,7 @@ font:
   use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night Bright)
 colors:
@@ -202,27 +205,32 @@ colors:
   #  text: '0xeaeaea'
   #  background: '0x404040'
 
+  # Default colors
+  primary:
+    background: '0x000000'
+    foreground: '0xababab'
+
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xeaeaea'
+    red:     '0xe92f2f'
+    green:   '0x0ed839'
+    yellow:  '0xdddd13'
+    blue:    '0x3b48e3'
+    magenta: '0xf996e2'
+    cyan:    '0x23edda'
+    white:   '0xababab'
 
   # Bright colors
   bright:
-    black:   '0x666666'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
+    black:   '0x343434'
+    red:     '0xe92f2f'
+    green:   '0x0ed839'
+    yellow:  '0xdddd13'
+    blue:    '0x3b48e3'
+    magenta: '0xf996e2'
+    cyan:    '0x23edda'
+    white:   '0xf9f9f9'
 
   # Dim colors
   #
@@ -278,7 +286,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+background_opacity: 0.6
 
 # Mouse bindings
 #

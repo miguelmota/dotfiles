@@ -168,6 +168,7 @@ gitconfig
 !/config/sublime-text-3/Packages/User/Preferences.sublime-settings
 !/config/powerline
 !/config/rofi
+!/config/cava
 !/config/qterminal.org
 !/config/konsolerc
 !/config/pcmanfm

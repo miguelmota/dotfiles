@@ -2,7 +2,7 @@ experimental-backends = true;
 
 backend = "glx";
 
-corner-radius = 10;
+corner-radius = 0;
 
 rounded-corners-exclude = [
   "class_g = 'URxvt'",
@@ -20,11 +20,3 @@ rounded-corners-exclude = [
 
 shadow = false;
 shadow-opacity = 0.5;
-
-blur: {
-  method = "kawase";
-  strength = 8;
-  background = false;
-  background-frame = false;
-  background-fixed = false;
-}

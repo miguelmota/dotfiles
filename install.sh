@@ -47,6 +47,7 @@ filesToLink=(
   "config/qterminal.org/qterminal.ini"
   "config/rofi/config"
   "config/rofi/themes"
+  "config/cava/config"
   "config/terminator/config"
   "cortex"
   "dircolors"
