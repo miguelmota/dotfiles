@@ -1,14 +1,41 @@
-#!/bin/sh
+#!/bin/bash
 
-sxhkd &
-clipit &
+if [ -x "$(command -v sxhkd)" ]; then
+  sxhkd &
+fi
+
+if [ -x "$(command -v clipit)" ]; then
+  clipit &
+fi
+
+# set cursor to be arrow instead of 'x'
 xsetroot -cursor_name left_ptr &
 
-nm-applet --sm-disable &
-wal -s -i ~/.local/share/wallpaper2.jpg
-~/.config/polybar/polybar.sh &
-#dropbox start
-dunst &
+if [ -x "$(command -v nm-applet)" ]; then
+  nm-applet --sm-disable &
+fi
+
+bg="$HOME/.local/share/wallpaper2.jpg"
+
+if [ -x "$(command -v wal)" ]; then
+  wal -s -i $bg
+else
+  if [ -x "$(command -v feh)" ]; then
+    feh --bg-scale --zoom fill $bg
+  fi
+fi
+
+if [ -f ~/.config/polybar/polybar.sh ]; then
+  ~/.config/polybar/polybar.sh &
+fi
+
+#if [ -x "$(command -v dropbox)" ]; then
+  #dropbox start
+#fi
+
+if [ -x "$(command -v dunst)" ]; then
+  dunst &
+fi
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
@@ -24,6 +51,14 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a Peek desktop='^1' state=floating follow=on
 
-(alacritty -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "alacritty" -t 1)
-(firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)
+if [ -x "$(command -v wmctrl)" ]; then
+  if [ -x "$(command -v alacritty)" ]; then
+    (alacritty -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "alacritty" -t 1)
+  fi
+
+  if [ -x "$(command -v firefox)" ]; then
+    (firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)
+  fi
+fi

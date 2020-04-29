@@ -46,6 +46,7 @@ alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 
 alias cdrofi='cd ~/.config/rofi'
 alias cdi3='cd ~/.config/i3'
 alias cdpolybar='cd ~/.config/polybar'
+alias cdbin='cd ~/.bin'
 
 # Directory listing aliases
 
@@ -217,8 +218,10 @@ alias nbuild='npm run build'
 alias nbstart='npm run build && npm run start'
 alias ndev='npm run dev'
 alias nlint='npm run lint'
+alias nlbuild='npm run lint && npm run build'
 alias nbump='npm run bump'
 alias nrelease='npm run release'
+alias ntypes='npm run types'
 
 # Utils
 alias width=image_width
@@ -342,11 +345,14 @@ alias vimbspwm='vim ~/.config/bspwm/bspwmrc'
 alias vimsxhkdrc='vim ~/.config/sxhkd/sxhkdrc'
 alias vimdunst='vim ~/.config/dunst/dunstrc'
 alias vimrofi='vim ~/.config/rofi/config'
+alias vimrofitheme='vim ~/.config/rofi/themes/moogs.rasi'
 alias vimsmb='sudo vim /etc/samba/smb.conf'
 alias vimfstab='sudo vim /etc/fstab'
 alias vimfunctions='vim ~/.functions'
 alias vimpicom='vim ~/.config/picom/config'
 alias vimalacritty='vim ~/.config/alacritty/alacritty.yml'
+alias vimhosts='sudo vim /etc/hosts'
+alias vimxinitrc='vim ~/.xinitrc'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -360,6 +366,8 @@ alias list_kernels='pacman -Q | grep linux'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 alias source_polybar='~/.config/polybar/polybar.sh &'
+alias open_plex='open http://localhost:32400/web/'
+alias open_torrent='qbittorrent'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

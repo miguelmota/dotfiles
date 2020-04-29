@@ -1,5 +1,7 @@
-experimental-backends = true;
+# set to "true" for background blur
+experimental-backends = false;
 
+# set to "glx" for background blur
 backend = "glx";
 
 corner-radius = 0;
@@ -20,3 +22,11 @@ rounded-corners-exclude = [
 
 shadow = false;
 shadow-opacity = 0.5;
+
+#blur: {
+#  method = "kawase";
+#  strength = 5;
+#  background = false;
+#  background-frame = false;
+#  background-fixed = false;
+#}

@@ -11,7 +11,7 @@ state_1=$(upower -i $battery_path_1 | grep state | awk '{print $2}')
 level_0=$(upower -i $battery_path_0 | grep percentage | awk '{print $2}' | sed 's/%//')
 level_1=$(upower -i $battery_path_1 | grep percentage | awk '{print $2}' | sed 's/%//')
 
-if [ "$state_0" == "charging" ] || [ "$battery_status_1" == "Charging" ]; then
+if [ "$state_0" == "charging" ] || [ "$state_1" == "charging" ]; then
   status="(CHR)"
 fi
 
@@ -24,12 +24,14 @@ notify() {
 }
 
 if [ "$state" == "discharging" ]; then
-  if (( level <= 2 )); then
-    notify -u critical -t 60000 'Critical Low Battery. Suspending soon.' "$level% of battery remaining"
+  if (( level <= 8 )); then
+    notify -u critical -t 60000 'Critical Low Battery. Suspending...' "$level% of battery remaining"
+    sleep 1
+    sudo systemctl hibernate
     exit 0
   fi
 
-  if (( level <= 5 )); then
+  if (( level <= 10 )); then
     notify -u critical -t 60000 'Critical Low Battery' "$level% of battery remaining"
     exit 0
   fi

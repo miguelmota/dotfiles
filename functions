@@ -1007,8 +1007,11 @@ start_smb() {
 }
 
 stop_smb() {
-  systemctl disable smb
   systemctl stop smb
+}
+
+disable_smb() {
+  systemctl disable smb
 }
 
 update_pacman() {
@@ -1057,7 +1060,7 @@ ufw_status() {
   sudo ufw status
 }
 
-ufw_restart() {
+restart_ufw() {
   sudo ufw disable
   sudo ufw enable
 }
@@ -1072,9 +1075,65 @@ start_sshd() {
 
 stop_sshd() {
   systemctl stop sshd.service
+}
+
+disable_sshd() {
   systemctl disable sshd.service
 }
 
 restart_sshd() {
   systemctl restart sshd.service
+}
+
+start_plex() {
+  systemctl start plexmediaserver.service
+}
+
+stop_plex() {
+  systemctl stop plexmediaserver.service
+}
+
+enable_plex() {
+  systemctl enable plexmediaserver.service
+}
+
+disable_plex() {
+  systemctl disable plexmediaserver.service
+}
+
+restart_plex() {
+  systemctl restart plexmediaserver.service
+}
+
+plex_logs() {
+  tail -f /var/lib/plex/Plex\ Media\ Server/Logs/Plex\ Media\ Server.log
+}
+
+start_vpn() {
+  sudo wg-quick up wg0
+}
+
+stop_vpn() {
+  sudo wg-quick down wg0
+}
+
+replace_brackets_in_filenames() {
+  for f in *\ *; do mv "$f" "${f//[/(}"; done
+  for f in *\ *; do mv "$f" "${f//]/)}"; done
+}
+
+filepath () {
+  if command_exists 'readlink'; then
+    readlink -f "$1"
+  else
+    find "$(pwd)" -name "$1"
+  fi
+}
+
+count_occurrences() {
+  rg "$1" "$2" -c | cut -d':' -f2 | awk '{print $1}' | awk '{s+=$1} END {print s}'
+}
+
+source_fonts() {
+  fc-cache -f -v ~/.fonts
 }
