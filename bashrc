@@ -251,6 +251,9 @@ fi
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
+# git path
+export PATH=$PATH:/bin/git
+
 # Fortune quote
 alias f='command_exists fortune && command_exists cowsay && command_exists lolcat && fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.03/share/cows | shuf | sed -n '1p') | lolcat'
 
@@ -284,3 +287,6 @@ fi
 #fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+
+  export DENO_INSTALL="$HOME/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"

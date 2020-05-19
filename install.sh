@@ -16,6 +16,7 @@ filesToLink=(
   "coffeelint.json"
   "config/alacritty/alacritty.yml"
   "config/fontconfig/conf.d/10-powerline-symbols.conf"
+  "config/fontconfig/fonts.conf"
   "config/bspwm/bspwmrc"
   "config/sxhkd/sxhkdrc"
   "config/dunst/dunstrc"
@@ -74,6 +75,7 @@ filesToLink=(
   "jupyter"
   "local/share/konsole/Main.profile"
   "local/share/konsole/Shapeshifter.colorscheme"
+  "local/share/fonts"
   "mc"
   "mongo"
   "mutt"
@@ -285,7 +287,7 @@ echo "installing fonts"
 if [[ "$unamestr" == 'Darwin' ]]; then
   (cd ./fonts && ./install)
 else
-  fc-cache -f -v ~/.fonts
+  fc-cache -vf
 fi
 
 if [ ! -f $HOME/.tmux/plugins/tpm/bin/install_plugins ]; then

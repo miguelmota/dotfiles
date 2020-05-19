@@ -191,3 +191,5 @@ gitconfig
 /local/share/konsole/*
 !/local/share/konsole/Main.profile
 !/local/share/konsole/Shapeshifter.colorscheme
+!/local/share/fonts
+!/local/share/fonts/*

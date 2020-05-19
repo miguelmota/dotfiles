@@ -401,8 +401,8 @@ open_inkscape() {
 
 # List permissions as octal
 # Example
-# $ octal_perms
-octal_perms() {
+# $ ls_octal_perms
+ls_octal_perms() {
   if [[ "$unamestr" == 'Darwin' ]]; then
     stat -f '%A %a %N' *
   else
@@ -510,8 +510,8 @@ bytes2human() {
 
 # Authorize public key for SSH login
 # Example
-# $ pub2ssh root@1.2.3.4
-pub2ssh() {
+# $ ssh_add_public_key root@1.2.3.4
+ssh_add_public_key() {
   cat ~/.ssh/id_rsa.pub | ssh $1 "cat >> ~/.ssh/authorized_keys"
 }
 
@@ -1105,6 +1105,22 @@ restart_plex() {
   systemctl restart plexmediaserver.service
 }
 
+start_docker() {
+  systemctl start docker
+}
+
+stop_docker() {
+  systemctl stop docker
+}
+
+enable_docker() {
+  systemctl enable docker
+}
+
+stop_docker() {
+  systemctl stop docker
+}
+
 plex_logs() {
   tail -f /var/lib/plex/Plex\ Media\ Server/Logs/Plex\ Media\ Server.log
 }
@@ -1135,5 +1151,158 @@ count_occurrences() {
 }
 
 source_fonts() {
-  fc-cache -f -v ~/.fonts
+  fc-cache -vf
+}
+
+filetree() {
+  ls -R | grep ":$" --color=never | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+}
+
+publicip() {
+  curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'
+}
+
+gateway_address() {
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    route -n get default | grep gateway | rev | cut -d: -f -1 | rev
+  else
+    # arch
+    nmcli dev show wlp3s0 | grep -m1 GATEWAY | awk '{print $2}'
+  fi
+}
+
+nameservers() {
+  scutil --dns | grep "nameserver\[[0-9]*\]"
+}
+
+scan() {
+  sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24
+}
+
+scanV() {
+  sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24
+}
+
+scan_host() {
+  sudo nmap -O -v -sV # ip
+}
+
+scan_ports() {
+  sudo nmap -p 1-65535 -T4 -A -v
+}
+
+port_open() {
+  nmap 192.168.0.1 -Pn -p 9000 # check if port is open
+}
+
+scan_net() {
+  arp -a # show IPs and MACs
+}
+
+arpflush() {
+  arp -d -a
+}
+
+macs() {
+  sudo arp-scan -l
+}
+
+ngrep_get() {
+  ngrep -W byline -qilw 'get' tcp dst port 80
+}
+
+tcpflow80() {
+  sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'
+}
+
+http80() {
+  sudo httpry -i en0
+}
+
+dnslookup() {
+  nslookup -type=soa
+}
+
+flushdns() {
+  sudo killall -HUP mDNSResponder
+}
+
+ping_port() {
+  sudo nping --tcp -p # ping_port <port> <host>
+}
+
+restart_mysql() {
+  mysql.server restart
+}
+
+restart_apache() {
+  sudo apache2ctl restart
+}
+
+virtualbox_load_modules() {
+  # arch
+  sudo vboxreload
+}
+
+tmuxp_load() {
+  tmuxp load "~/.tmuxp/$1.yml"
+}
+
+kernel_info() {
+  # arch
+  hostnamectl
+}
+
+systemd_blame() {
+  # arch
+  systemd-analyze blame
+}
+
+
+ssh_permissions() {
+  # TODO: automate
+  echo "
+  .ssh directory: 700 (drwx------)
+  public key (.pub file): 644 (-rw-r--r--)
+  private key (id_rsa): 600 (-rw-------)
+  home directory should not be writeable by the group or others (at most 755 (drwxr-xr-x))
+  "
+}
+
+git_ignore_blame() {
+  git check-ignore -v "$1"
+}
+
+restart_gpg() {
+  gpgconf --kill gpg-agent
+}
+
+ip_mac() {
+  sudo nmap -sn "$1"
+}
+
+burn_iso() {
+  set -eux
+  if [ ! -f "$1" ]; then
+    echo 'File not found'
+    exit 1
+  fi
+
+  sudo dd bs=4M if="$1" of="$2" conv=fdatasync status=progress
+}
+
+pcmanfm_desktop_settings () {
+  pcmanfm --desktop-pref
+}
+
+start_pcmanfm_desktop () {
+  pcmanfm --desktop &
+}
+
+stop_pcmanfm_desktop () {
+  pcmanfm --desktop-off
+}
+
+update_mirrorlist() {
+  pacman -Syyu
 }

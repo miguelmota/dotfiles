@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# running cron job:
+# $sudo crontab -e
+# contents:
+# SHELL=/bin/bash
+# */5 * * * * su mota -c "/home/mota/.bin/low_battery_notification.sh"
+
 
 # use `upower -d` to view info for batteries
 battery_number="$1"

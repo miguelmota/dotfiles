@@ -42,7 +42,6 @@ alias cdprezto='cd ~/.zprezto'
 alias cdmux='cd ~/.tmuxinator'
 alias cdtmux='cd ~/.tmux'
 alias cdtrash='cd ~/.Trash/'
-alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 alias cdrofi='cd ~/.config/rofi'
 alias cdi3='cd ~/.config/i3'
 alias cdpolybar='cd ~/.config/polybar'
@@ -64,7 +63,6 @@ alias topcpu='top -o cpu'
 alias disk_usage='sudo iotop'
 alias disk_usage_visualizer='ncdu --color dark'
 alias psmem='ps aux | sort -rn -k 6'
-alias lsperm=octal_perms
 
 # Search aliases
 
@@ -88,7 +86,6 @@ alias watchcss='sass --watch css:css --style compressed'
 
 # Vim aliases
 
-# Check if on mac
 alias v='vim'
 alias vp='vim -p'
 alias vimaliases='vim ~/.aliases'
@@ -103,13 +100,14 @@ alias vimupdate='vim +PlugUpdate'
 alias wiki='cd ~/vimwiki && vim ~/vimwiki/'
 
 # Emacs aliases
-alias emacs='/usr/local/Cellar/emacs/25.1/bin/emacs'
+alias emacs_mac='/usr/local/Cellar/emacs/25.1/bin/emacs'
 alias e='emacs'
 
 # Tmux aliases
 
 alias tmux='tmux -2' # force 256 color
 alias tmux_kill_target='tmux kill-session -t'
+alias tkill='tmux kill-session -t'
 alias tmux_kill_all="tx ls | awk '{print $1}' | sed 's/://g' | xargs -I{} tmux kill-session -t {}"
 alias tmux_attach='tmux attach -t'
 alias tmux_ls='tmux list-sessions'
@@ -117,6 +115,7 @@ alias tmux_source='tmux source-file ~/.tmux.conf'
 alias tmux_new='tmux new -s'
 alias tmux_rotate=tmux_rotate
 alias tmux_attach='tmux attach -t 0'
+alias tmuxload='tmuxp_load'
 
 # Curl aliases
 
@@ -158,34 +157,6 @@ alias git_commit_show='git cat-file -p HEAD'
 alias git_extensions_path='git --exec-path'
 alias git_delete_remote_branch='git push origin --delete'
 
-# Network aliases
-
-#alias ip=ip
-alias publicip="curl -s http://checkip.dyndns.com/ | sed 's/[^0-9\.]//g'"
-alias gateway='route -n get default | grep gateway | rev | cut -d: -f -1 | rev'
-alias nameservers='scutil --dns | grep "nameserver\[[0-9]*\]"'
-alias scan='sudo nmap -sn `ip | rev | cut -d. -f 2- | rev`.0/24'
-alias scanV='sudo nmap -v -A `ip | rev | cut -d. -f 2- | rev`.0/24'
-alias scan_host='sudo nmap -O -v -sV' # ip
-alias scan_ports='sudo nmap -p 1-65535 -T4 -A -v'
-alias port_open='nmap 192.168.0.1 -Pn -p 9000' # check if port is open
-alias scan_net='arp -a' # show IPs and MACs
-
-alias arpflush='arp -d -a'
-alias macs='sudo arp-scan -l'
-alias ngrep_get="ngrep -W byline -qilw 'get' tcp dst port 80"
-alias tcpflow80="sudo tcpflow -p -c -i en0 port 80 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'"
-alias http80='sudo httpry -i en0'
-alias dnslookup='nslookup -type=soa'
-alias flushdns='sudo killall -HUP mDNSResponder'
-alias ping_port='sudo nping --tcp -p' # ping_port <port> <host>
-
-# Server aliases
-
-#alias server=server # Ex. server 3000
-alias mysqlstart='mysql.server restart'
-alias rsap='sudo apache2ctl restart'
-
 # System aliases
 
 alias lsp=list_port_procceses # Ex. lsp 3000
@@ -214,6 +185,7 @@ alias dockerprune='docker system prune -a -f'
 # Node/NPM
 alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
 alias nstart='npm run start'
+alias ntest='npm run test'
 alias nbuild='npm run build'
 alias nbstart='npm run build && npm run start'
 alias ndev='npm run dev'
@@ -222,6 +194,7 @@ alias nlbuild='npm run lint && npm run build'
 alias nbump='npm run bump'
 alias nrelease='npm run release'
 alias ntypes='npm run types'
+alias npmi='npm i --save-exact'
 
 # Utils
 alias width=image_width
@@ -312,6 +285,7 @@ alias kill_postgres='sudo service postgresql stop'
 alias ram='free -mh | head -2'
 alias vimssh='vim ~/.ssh/config'
 alias vimsshd='sudo vim /etc/ssh/sshd_config'
+alias vimknownhosts='vim ~/.ssh/known_hosts'
 alias p='pacman'
 alias pac='pacman'
 
@@ -353,6 +327,9 @@ alias vimpicom='vim ~/.config/picom/config'
 alias vimalacritty='vim ~/.config/alacritty/alacritty.yml'
 alias vimhosts='sudo vim /etc/hosts'
 alias vimxinitrc='vim ~/.xinitrc'
+alias vimpacman='sudo vim /etc/pacman.conf'
+alias vimgrub='sudo vim /etc/default/grub'
+alias vimfonts='sudo vim /etc/fonts/local.conf'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -368,6 +345,12 @@ alias vpn_down='sudo wg-quick down wg0'
 alias source_polybar='~/.config/polybar/polybar.sh &'
 alias open_plex='open http://localhost:32400/web/'
 alias open_torrent='qbittorrent'
+alias s='startx'
+alias mount_sda1='sudo mount /dev/sda1 /mnt/boot'
+alias mount_sda2='sudo mount /dev/sda2 /mnt/root'
+alias umount_boot='sudo umount /mnt/boot'
+alias umount_root='sudo umount /mnt/root'
+alias umount_myhd='sudo umount /mnt/myhd'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local
