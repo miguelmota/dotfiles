@@ -515,6 +515,14 @@ ssh_add_public_key() {
   cat ~/.ssh/id_rsa.pub | ssh $1 "cat >> ~/.ssh/authorized_keys"
 }
 
+start_ssh_agent() {
+  ssh-agent bash
+}
+
+ssh_agent_add_key() {
+  ssh-add "$1"
+}
+
 # Make a temporary directory and enter it
 # Example
 # tmpd
@@ -1305,4 +1313,9 @@ stop_pcmanfm_desktop () {
 
 update_mirrorlist() {
   pacman -Syyu
+}
+
+restart_polybar() {
+  pkill polybar
+  ~/.config/polybar/polybar.sh &
 }

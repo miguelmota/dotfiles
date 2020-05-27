@@ -1,5 +1,11 @@
 #!/bin/sh
 
+green="%{F#55aa55}"
+yellow="%{F#f5a70a}"
+red="%{F#ff5555}"
+white="%{F#fff}"
+gray="%{F#555}"
+
 battery_print() {
     PATH_AC="/sys/class/power_supply/AC"
     PATH_BATTERY_0="/sys/class/power_supply/BAT0"
@@ -57,9 +63,11 @@ battery_print() {
         label="BAT $status:"
 
         if [ "$battery_percent" -gt 97 ]; then
-            echo "$label"
+            bar=$(gen_bar $battery_percent)
+            echo "$label $battery_percent% $bar"
         else
-            echo "$label $battery_percent%"
+            bar=$(gen_bar $battery_percent)
+            echo "$label $battery_percent% $bar"
         fi
     else
         if [ "$battery_percent" -gt 85 ]; then
@@ -74,8 +82,42 @@ battery_print() {
           label="BAT $status:"
         fi
 
-        echo "$label $battery_percent%"
+        bar=$(gen_bar $battery_percent)
+        echo "$label $battery_percent% $bar"
     fi
+}
+
+gen_bar() {
+  value=1
+  width=10
+
+  if [ ! -z "$1" ]; then
+    value="$1"
+  fi
+
+  filled="$((($value / 10) * ($width / 10)))"
+
+  bar=""
+  line="─"
+  fillcolor=""
+
+  if [ "$value" -gt 80 ]; then
+    fillcolor="$green"
+  elif [ "$battery_percent" -gt 20 ]; then
+    fillcolor="$yellow"
+  else
+    fillcolor="$red"
+  fi
+
+  for i in $(seq 1 $filled); do
+    bar="$bar$fillcolor$line"
+  done
+
+  for i in $(seq $filled $(($width - 1))); do
+    bar="$bar$gray$line"
+  done
+
+  echo $bar
 }
 
 path_pid="/tmp/polybar-battery-combined-udev.pid"

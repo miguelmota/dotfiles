@@ -290,3 +290,5 @@ fi
 
   export DENO_INSTALL="$HOME/.deno"
   export PATH="$DENO_INSTALL/bin:$PATH"
+
+[[ -s "/home/mota/.gvm/scripts/gvm" ]] && source "/home/mota/.gvm/scripts/gvm"

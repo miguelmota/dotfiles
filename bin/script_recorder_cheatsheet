@@ -1,0 +1,19 @@
+echo "\
+# start recoring, type 'exit' to stop. Generates file called 'typescript'
+script
+
+# output to a file
+script output.txt
+
+# append to a file
+script -a output.txt
+
+# record a command
+script -c htop output.txt
+
+# record step by step
+script --timing=time_log output.txt
+
+# replay step by step recording
+scriptreplay --timing=time_log output.txt
+"

@@ -76,7 +76,7 @@ super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }c
+super + {_,shift + }w
 	bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
@@ -169,3 +169,17 @@ Print
 # Suspend button
 XF86Favorites
   systemctl suspend
+
+# Copy all window nodes from workspace
+super + c
+  echo "$(bspc query -D -d)" > /tmp/bspwmdtop_swap
+
+# Paste copied window node into workspace
+super + v
+  for win in $(bspc query -N -d $(cat /tmp/bspwmdtop_swap)); do \
+      bspc node $win -d $(bspc query -D -d); \
+  done
+
+# Move windows to empty workspace selection
+super + alt + shift + {1-9}
+  bspc desktop -s '^{1-9}'
