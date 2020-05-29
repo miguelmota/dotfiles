@@ -56,11 +56,15 @@ battery_print() {
     status=""
 
     if [ "$battery_status_0" == "Charging" ] || [ "$battery_status_1" == "Charging" ]; then
-      status="(CHR)"
+      status=" (CHR)"
+    fi
+
+    if [ "$battery_percent" -gt 98 ]; then
+      status=" (FULL)"
     fi
 
     if [ "$ac" -eq 1 ]; then
-        label="BAT $status:"
+        label="BAT$status:"
 
         if [ "$battery_percent" -gt 97 ]; then
             bar=$(gen_bar $battery_percent)
@@ -79,7 +83,7 @@ battery_print() {
         elif [ "$battery_percent" -gt 10 ]; then
             label="BAT:"
         else
-          label="BAT $status:"
+          label="BAT$status:"
         fi
 
         bar=$(gen_bar $battery_percent)
