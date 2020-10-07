@@ -47,6 +47,8 @@ filesToLink=(
   "config/powerline/config.json"
   "config/powerline/themes"
   "config/qterminal.org/qterminal.ini"
+  "config/ranger/rc.conf"
+  "config/ranger/rifle.conf"
   "config/rofi/config"
   "config/rofi/themes"
   "config/cava/config"
