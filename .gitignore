@@ -156,6 +156,10 @@ gitconfig
 !config/bspwm
 !config/sxhkd
 !/config/dunst
+!/config/pgcli
+!/config/pgcli/config
+/config/pgcli/history
+/config/pgcli/log
 !/config/i3
 !/config/i3status
 !/config/fontconfig

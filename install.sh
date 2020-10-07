@@ -37,6 +37,7 @@ filesToLink=(
   "config/pcmanfm/lubuntu/pcmanfm.conf"
   "config/pcmanfm/LXDE/desktop-items-0.conf"
   "config/pcmanfm/LXDE/pcmanfm.conf"
+  "config/pgcli/config"
   "config/picom/config"
   "config/polybar/config"
   "config/polybar/battery-combined.sh"
@@ -260,6 +261,9 @@ if [ -f "/etc/arch-release" ]; then
 
   sudo pacman -S --noconfirm qbittorrent
 
+  # make sure to add `numlockx on` to ~/.xinitrc afterwards
+  sudo pacman -S --noconfirm numlockx
+
   # make user is part of 'video' group
   sudo pacman -S --noconfirm light
 
@@ -283,6 +287,10 @@ if [ -f "/etc/arch-release" ]; then
   # add user to 'audio' and 'video' groups
 fi
 
+if [[ "$OSTYPE" == "freebsd"* ]]; then
+  pkg install sudo
+fi
+
 echo "installing fonts"
 if [[ "$unamestr" == 'Darwin' ]]; then
   (cd ./fonts && ./install)
@@ -302,7 +310,7 @@ fi
 
 if [ ! -d "/usr/lib/urxvt/perl" ]; then
   echo "Copying urxvt perls"
-  sudo mkdir -p /usr/lib/urxvt/perl
+  sudo mkdir -p /usr/lib/urxvt/perl`
   sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
 fi
 

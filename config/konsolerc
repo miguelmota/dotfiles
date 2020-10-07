@@ -2,20 +2,20 @@
 DefaultProfile=Main.profile
 
 [Favorite Profiles]
-Favorites=
+Favorites=Demo.profile
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=1020
+Height 1080=480
 Height 1800=1635
 Height 900=818
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAA88AAAP5AAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAAAAA4MAAAHgAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1440=673
-Width 1920=600
+Width 1920=424
 Width 2880=1345
 
 [TabBar]

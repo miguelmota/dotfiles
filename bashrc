@@ -247,10 +247,6 @@ fi
 #export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
 #export VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins
 
-# go path
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin
-
 # git path
 export PATH=$PATH:/bin/git
 
@@ -285,10 +281,29 @@ fi
 #if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 	#exec tmux
 #fi
+
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+#[[ -s "/home/mota/.gvm/scripts/gvm" ]] && source "/home/mota/.gvm/scripts/gvm"
 
+# go path
+export GOPATH=~/go
+#export GOROOT=$GOPATH/bin
+#export GOROOT=/usr/bin/go
+export PATH=$PATH:$GOPATH/bin
+unset GOROOT
 
-  export DENO_INSTALL="$HOME/.deno"
-  export PATH="$DENO_INSTALL/bin:$PATH"
+# https://github.com/mattn/go-sqlite3/issues/803
+# export CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
 
-[[ -s "/home/mota/.gvm/scripts/gvm" ]] && source "/home/mota/.gvm/scripts/gvm"
+export STATUSBAR=polybar
+
+# brew on linux
+#test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+#test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+#test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+#echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+
+# snapcraft
+export PATH=$PATH:/var/lib/snapd/snap/bin

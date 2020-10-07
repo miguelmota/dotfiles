@@ -15,6 +15,14 @@ if [ -x "$(command -v nm-applet)" ]; then
   nm-applet --sm-disable &
 fi
 
+if [ -x "$(command -v pasystray)" ]; then
+  pasystray &
+fi
+
+if [ -x "$(command -v blueman-applet)" ]; then
+  blueman-applet &
+fi
+
 bg="$HOME/.local/share/wallpaper2.jpg"
 
 if [ -x "$(command -v wal)" ]; then

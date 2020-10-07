@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2.7
 
 # Example usage:
 # $ server 8000
@@ -21,7 +21,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         urlparts = urlparse.urlparse(self.path)
         request_file_path = urlparts.path.strip('/')
 
-        print request_file_path
+        print(request_file_path)
 
         if not os.path.exists(request_file_path):
             self.path = 'index.html'

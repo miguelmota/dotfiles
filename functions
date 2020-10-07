@@ -128,6 +128,23 @@ git_undo_ammend() {
   git reset --soft HEAD@{1}
 }
 
+# Git blame a line
+# Example
+# $ git_blame_line 25 src/index.ts
+git_blame_line() {
+  git blame -L $1,+1 -- $2
+}
+
+git_first_commit() {
+  git rev-list --max-parents=0 HEAD
+}
+
+# shows dff commits
+git_branch_commits() {
+  local branch="${1:-$(git branch --show-current)}"
+  git cherry -v develop $branch
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -247,6 +264,10 @@ extract() {
    fi
  }
 
+filesizebytes() {
+  stat --printf="%s" "$1"
+}
+
 # Copy and go to directory
 # Example
 # $ cp_g foo/ bar/
@@ -317,6 +338,57 @@ volume_unmute() {
     amixer sset 'Speaker' unmute
     amixer sset 'Bass Speaker' unmute
   fi
+}
+
+# Toggles mute
+volume_toggle() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer -D pulse set Master 1+ toggle
+  fi
+}
+
+volume_inc() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer sset 'Master' 3%+
+  fi
+}
+
+volume_dec() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer sset 'Master' 3%-
+  fi
+}
+
+mute() {
+  volume_toggle
+}
+
+volume_controls() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    pavucontrol
+  fi
+}
+
+mic_mute() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer set Capture nocap
+  fi
+}
+
+mic_unmute() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer set Capture cap
+  fi
+}
+
+mic_toggle() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    amixer set Capture toggle
+  fi
+}
+
+mic() {
+  mic_toggle
 }
 
 # Kill processes based on regular expression
@@ -521,6 +593,13 @@ start_ssh_agent() {
 
 ssh_agent_add_key() {
   ssh-add "$1"
+}
+
+# SSH using password
+# Example
+# $ ssh_password root@example.com
+ssh_password() {
+  ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no "$1"
 }
 
 # Make a temporary directory and enter it
@@ -746,6 +825,10 @@ git_log_all_commits() {
   git --no-pager log --pretty=oneline | awk '{print $1}'
 }
 
+git_log_history_search() {
+  git log --all --grep="$1"
+}
+
 # Convert a PNG image to SVG (requires `imagemagick` and `potrace`)
 # Example
 # $ png_to_svg image.png # outputs image.svg
@@ -776,7 +859,7 @@ ssh_add_authorized_key() {
 read_var() {
   if [ -z "$1" ]; then
     echo "environment variable name is required"
-    return
+    return 1
   fi
 
   local ENV_FILE='.env'
@@ -950,10 +1033,15 @@ touchscreen_enable() {
 }
 
 update_wallpaper() {
-  if [ -f ~/Downloads/wallpaper.jpg ] ; then
-    mv ~/Downloads/wallpaper.jpg ~/.local/share/wallpaper.jpg
+  if [ ! -z "$1" ]; then
+    feh --bg-scale --zoom fill "$1"
+  else
+    if [ -f ~/Downloads/wallpaper.jpg ] ; then
+      mv ~/Downloads/wallpaper.jpg ~/.local/share/wallpaper.jpg
+    fi
+
+    feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
   fi
-feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
 }
 
 somafm_stream() {
@@ -1141,6 +1229,14 @@ stop_vpn() {
   sudo wg-quick down wg0
 }
 
+start_bluetooth() {
+  sudo systemctl start bluetooth.service
+}
+
+stop_bluetooth() {
+  sudo systemctl stop bluetooth.service
+}
+
 replace_brackets_in_filenames() {
   for f in *\ *; do mv "$f" "${f//[/(}"; done
   for f in *\ *; do mv "$f" "${f//]/)}"; done
@@ -1158,7 +1254,7 @@ count_occurrences() {
   rg "$1" "$2" -c | cut -d':' -f2 | awk '{print $1}' | awk '{s+=$1} END {print s}'
 }
 
-source_fonts() {
+reload_fonts() {
   fc-cache -vf
 }
 
@@ -1261,6 +1357,10 @@ kernel_info() {
   hostnamectl
 }
 
+kernel_version() {
+  uname -r
+}
+
 systemd_blame() {
   # arch
   systemd-analyze blame
@@ -1318,4 +1418,93 @@ update_mirrorlist() {
 restart_polybar() {
   pkill polybar
   ~/.config/polybar/polybar.sh &
+}
+
+echostderr() {
+  >&2 echo "$@"
+}
+
+# https://stackoverflow.com/a/4455706/1439168
+color()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
+
+google() {
+  Q="$@";
+  GOOG_URL='https://www.google.de/search?tbs=li:1&q=';
+  AGENT="Mozilla/4.0";
+  stream=$(curl -A "$AGENT" -skLm 10 "${GOOG_URL}${Q//\ /+}" | grep -oP '\/url\?q=.+?&amp' | sed 's|/url?q=||; s|&amp||');
+  echo -e "${stream//\%/\x}";
+}
+
+streamhut_shell() {
+  exec &> >(nc localhost 1337)
+}
+
+# show exif data from image
+exif() {
+  # arch linux install:
+  # yay -S perl-image-exiftool
+
+  exiftool "$1"
+}
+
+# remove exif data from image
+exif_remove() {
+  # leave space after equals
+  exiftool -all= "$1"
+}
+
+# $ showcolor "#ff0000"
+showcolor() {
+	printf '\e]4;1;%s\a\e[0;41m  \e[m' "$1"
+}
+
+cointop_sha256() {
+  local version=$(curl --silent "https://api.github.com/repos/miguelmota/cointop/releases/latest" | grep -Po --color=never '"tag_name": "\K.*?(?=")')
+  local url="https://github.com/miguelmota/cointop/archive/$version.tar.gz"
+  echo $url
+  wget_sha256 "$url"
+}
+
+stopwatch() {
+  # ctrl-d to stop
+  time read
+}
+
+rehash() {
+  hash -r
+}
+
+reload_udev_rules() {
+  sudo udevadm control --reload-rules && udevadm trigger
+}
+
+# shows list of manuals available in demu. On selection it converts man page to pdf and opens it in viewer
+mansplain() {
+  man -k . | dmenu -l 30 | awk '{print $1}' | xargs -r man -Tpdf | zathura -
+}
+
+# example
+# mount_usb /dev/sdb1
+mount_usb() {
+  udisksctl mount -b "$1"
+}
+
+# example
+# unmount_usb /dev/sdb1
+unmount_usb() {
+  udisksctl unmount -b "$1"
+}
+
+# example
+# poweroff_usb /dev/sdb
+poweroff_usb() {
+  udisksctl power-off -b "$1"
+}
+
+restart_pulseaudio() {
+  killall pulseaudio; pulseaudio --kill; pulseaudio --start
+}
+
+open_cups() {
+  open http://localhost:631/
 }

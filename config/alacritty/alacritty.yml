@@ -68,6 +68,9 @@ window:
   # Window class (Linux only):
   #class: Alacritty
 
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -109,9 +112,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    #family: monospace
+    family: monospace
     #family: Liberation Mono
-    family: Source Code Pro
+    #family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -139,7 +142,10 @@ font:
     #style: Italic
 
   # Point size
-  size: 5
+  # 5
+  # standard: 6
+  # demos: 8
+  size: 6
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -277,7 +283,7 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -345,9 +351,6 @@ selection:
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: false
-
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   # Cursor style

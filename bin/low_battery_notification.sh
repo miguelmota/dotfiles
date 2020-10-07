@@ -39,6 +39,7 @@ if [ "$state" == "discharging" ]; then
 
   if (( level <= 10 )); then
     notify -u critical -t 60000 'Critical Low Battery' "$level% of battery remaining"
+    play -nq -t alsa synth 0.2 sine 250
     exit 0
   fi
 
@@ -49,8 +50,10 @@ if [ "$state" == "discharging" ]; then
 fi
 
 if [ "$state" == "fully-charged" ]; then
-  notify -u normal -t 5000 'Battery Fully Charged' "$level% battery charged"
-  exit 0
+  if (( level >= 99 )); then
+    notify -u normal -t 5000 'Battery Fully Charged' "$level% battery charged"
+    exit 0
+  fi
 fi
 
 if [ "$state" == "charging" ]; then
@@ -58,7 +61,4 @@ if [ "$state" == "charging" ]; then
     notify -u normal -t 5000 'Battery Charged' "$level% battery charged"
     exit 0
   fi
-
-  notify -u low -t 2000 'Charging Battery' "$level% battery charged"
-  exit 0
 fi

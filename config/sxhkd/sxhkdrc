@@ -141,16 +141,20 @@ super + shift + {Right}
 
 # Pulse Audio controls
 XF86AudioMute
-  pactl set-sink-mute 0 toggle && notify-send -u low -t 650 'Volume' "$(pacmd list-sinks | grep muted --color=never | sed -e 's/^[ \t]*//')"
+  amixer -D pulse set Master 1+ toggle
+  #pactl set-sink-mute 0 toggle && notify-send -u low -t 650 'Volume' "$(pacmd list-sinks | grep muted --color=never | sed -e 's/^[ \t]*//')"
 
 XF86AudioLowerVolume
-  pactl -- set-sink-volume 0 -5%
+  amixer sset 'Master' 3%-
+  #pactl -- set-sink-volume 0 -3%
 
 XF86AudioRaiseVolume
-  pactl -- set-sink-volume 0 +5%
+  amixer sset 'Master' 3%+
+  #pactl -- set-sink-volume 0 +3%
 
 XF86AudioMicMute
-  pactl set-source-mute 1 toggle
+  amixer set Capture toggle
+  #pactl set-source-mute 1 toggle
 
 XF86Tools
   pavucontrol
