@@ -1508,3 +1508,7 @@ restart_pulseaudio() {
 open_cups() {
   open http://localhost:631/
 }
+
+list_all_executables() {
+  compgen -c | sort -u
+}

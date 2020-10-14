@@ -11,7 +11,8 @@ super + @space
 	rofi -show run
 
 super + d
-	rofi -show run
+	fuzzy_launcher
+	#rofi -show run
 
 super + shift + d
   rofi -modi windowcd -show windowcd

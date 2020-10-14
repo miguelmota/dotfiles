@@ -60,6 +60,7 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Peek desktop='^1' state=floating follow=on
+bspc rule -a \*:"FuzzyLauncher" state=floating center=on sticky=on
 
 if [ -x "$(command -v wmctrl)" ]; then
   if [ -x "$(command -v alacritty)" ]; then

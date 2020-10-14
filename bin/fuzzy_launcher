@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# @credit https://medium.com/njiuko/using-fzf-instead-of-dmenu-2780d184753f
+
+xdotool search --onlyvisible --classname FuzzyLauncher windowunmap || xdotool search --classname FuzzyLauncher windowmap || alacritty -d 100 10 --class FuzzyLauncher -e sh -c 'compgen -c | sort -u | fzf --color=bw --reverse --prompt="> " --pointer=" " | (x=$(cat); (set -m; exec $x &))'
