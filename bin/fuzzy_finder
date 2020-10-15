@@ -1,0 +1,19 @@
+#!/bin/bash
+
+histfile="/tmp/fzfhistory"
+cachefile="/tmp/fuzzylauncher.cache"
+
+if [[ "$1" == "cache" || ! -f "$cachefile" ]]; then
+  history=$(cat "$histfile" 2>/dev/null | sort -u)
+  execs=$(compgen -c | sort -u)
+
+  file1=$(comm -12 --output-delimiter="" <(printf "$history") <(printf "$execs"))
+
+  file2=$(comm -13 --output-delimiter="" <(printf "$history") <(printf "$execs"))
+
+  file1=$(rg --color=never -x -F -f <(printf "$file1") <(cat -n "$histfile" | sort -k2 -s | tac | uniq -f1 | sort -nk1 | cut -f2) | tac)
+
+  printf "$file1\n$file2" > "$cachefile"
+fi
+
+cat "$cachefile"

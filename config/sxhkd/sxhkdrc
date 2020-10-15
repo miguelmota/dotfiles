@@ -8,7 +8,8 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -show run
+	fuzzy_launcher
+	#rofi -show run
 
 super + d
 	fuzzy_launcher
