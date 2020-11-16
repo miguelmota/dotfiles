@@ -75,7 +75,7 @@ filesToLink=(
   "httpie"
   "hushlogin"
   "irssi"
-  "jupyter"
+  "jupyter/nbconfig/edit.json"
   "local/share/konsole/Main.profile"
   "local/share/konsole/Shapeshifter.colorscheme"
   "local/share/fonts"

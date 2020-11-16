@@ -1,0 +1,18 @@
+echo "\
+# shortcuts
+k                     k
+j                     j
+K                     page up
+J                     page down
+l                     subdirectory
+gg                    top
+G                     bottom
+H                     history back
+L                     history forward
+h                     parent directory
+q                     quit
+zh                    toggle hidden files
+
+# config
+ranger --copy-config=all     copy config
+"

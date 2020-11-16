@@ -167,7 +167,11 @@ fi
 
 # Midnight Commander theme
 export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
+
+# Preferred editors
 export EDITOR="/usr/bin/vim"
+export PAGER="/bin/less"
+export VISUAL="/usr/bin/vim"
 
 # dircolors
 export CLICOLOR=YES
@@ -307,3 +311,6 @@ export STATUSBAR=polybar
 
 # snapcraft
 export PATH=$PATH:/var/lib/snapd/snap/bin
+
+# Fix ugly fonts in Java applications
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'

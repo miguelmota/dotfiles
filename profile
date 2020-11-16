@@ -67,6 +67,13 @@ jest() {
     jest "$@"
 }
 
+yarn() {
+    unset -f yarn
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    yarn "$@"
+}
+
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

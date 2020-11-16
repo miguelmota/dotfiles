@@ -1,0 +1,2 @@
+#_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' ~/BurpSuiteCommunity/BurpSuiteCommunity
+_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' ~/BurpSuitePro/BurpSuitePro

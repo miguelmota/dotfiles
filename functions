@@ -145,6 +145,16 @@ git_branch_commits() {
   git cherry -v develop $branch
 }
 
+# show full path of modified files
+git_status_full() {
+  git status --porcelain
+}
+
+# show changed files after commit
+git_changed_files() {
+  git whatchanged -n 1
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -290,10 +300,18 @@ cdmkdir() {
   command mkdir $1 && cd $1
 }
 
+mkdircd() {
+  command mkdir $1 && cd $1
+}
+
 # Make a temp directory and go to it
 # Example
 # $ cdmktemp
 cdmktemp() {
+  cd $(mktemp -d)
+}
+
+mktempcd() {
   cd $(mktemp -d)
 }
 
@@ -411,6 +429,11 @@ grep_search_count() {
 tmux_rotate() {
   TIME=${2:-30}
   watch -n$TIME tmux next-window -t $1
+}
+
+# show TTY ids of panes
+tmux_list_pane_tty() {
+  tmux list-panes -F "#W #{pane_id} #{pane_tty}" -t $(tmux display-message -p '#W')
 }
 
 # Check if command exists
@@ -733,6 +756,10 @@ codepoint() {
 # $ generate_password
 generate_password() {
   openssl rand -base64 32
+}
+
+generate_ethereum_private_key() {
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 }
 
 # Get the DNS host of an EC2 instance
@@ -1069,7 +1096,7 @@ hibernate() {
 }
 
 restart_sxhkd() {
-  pkill sxhkd && sxhkd &
+  pkill sxhkd; sxhkd &
 }
 
 restart_dunst() {
@@ -1235,6 +1262,14 @@ start_bluetooth() {
 
 stop_bluetooth() {
   sudo systemctl stop bluetooth.service
+}
+
+enable_bluetooth() {
+  sudo systemctl enable bluetooth.service
+}
+
+disable_bluetooth() {
+  sudo systemctl enable bluetooth.service
 }
 
 replace_brackets_in_filenames() {
@@ -1511,4 +1546,12 @@ open_cups() {
 
 list_all_executables() {
   compgen -c | sort -u
+}
+
+dec2hex() {
+  node -e "console.log('0x'+Number(\"$1\").toString(16))"
+}
+
+hex2dec() {
+  node -e "console.log(parseInt(\"$1\".replace('0x', ''), 16))"
 }
