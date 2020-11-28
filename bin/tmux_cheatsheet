@@ -1,45 +1,27 @@
 echo "\
 [Tmux](http://tmux.sourceforge.net/)
-
-brew install tmux
-
 ~/.tmux.conf
 
-# Prefix
-Ctrl + b
+Ctrl + b            Prefix
 
-# Paste
-Prefix + ]
+Prefix + ]          Paste
+Prefix + [          Copy mode
+v                   Select mode
+y                   Yank
 
-# Copy mode
-Prefix + [
+Prefix + $          Rename session
+Prefix + ,          Rename window
 
-# Select mode
-v
+prefix + I          Install plugins
+prefix + U          Update plugins
 
-# Yank
-y
+prefix + Ctrl-s -   Resurrect save
+prefix + Ctrl-r -   Resurrect restore
 
-# Rename session
-Prefix + $
+prefix + ' '        Go to window index
+C-b '               Select the window index
 
-# Rename window
-Prefix + ,
+prefix + w          Select window
 
-# Install plugins
-prefix + I
-# Update plugins
-prefix + U
-# Resurrect
-prefix + Ctrl-s - save
-prefix + Ctrl-r - restore
-
-# go to window index
-prefix + ' '
-Use C-b ' to select the window index.
-
-# select window
-prefix + w
-
-:resize-pane -D 10
+:resize-pane -D 10  Resize pane
 "

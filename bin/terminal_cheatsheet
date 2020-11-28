@@ -1,10 +1,7 @@
 echo "\
-# Delete to left
-ctr u
+Terminal shortcuts
 
-# Delete to right
-ctr k
-
-# Delete word backwards
-esc delete
+ctrl + u         delete to left
+ctrl + k         delete to right
+ESC + delete    delete word backwards
 "

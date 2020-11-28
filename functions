@@ -182,9 +182,9 @@ open_port() {
 
 # Open item
 # Example
-# $ open_x http://localhost:3000 # goes to browser
-# $ open_x . # open file explorer
-open_x() {
+# $ open http://localhost:3000 # goes to browser
+# $ open . # open file explorer
+open() {
   if command_exists 'xdg-open'; then
     if [[ ${1} =~ ^[0-9]{4}$ ]]; then
       xdg-open "http://localhost:$1"
@@ -841,9 +841,16 @@ forget_network() {
   nmcli connection delete "$1"
 }
 
+# Example:
+# $ find_systemctl_file docker.service
+find_systemctl_file() {
+  systemctl show -p FragmentPath $1
+}
+
 restart_network_manager() {
   sudo systemctl restart NetworkManager.service
 }
+
 
 # Print all log commit hashes
 # Example
@@ -1141,6 +1148,10 @@ update_pacman() {
   sudo pacman -Syu
 }
 
+pacman_clean_cache() {
+  sudo pacman -Sc
+}
+
 start_vnc() {
   x11vnc -many -usepw -localhost -display :0
 }
@@ -1159,6 +1170,26 @@ vnc_resize_thinkpad() {
 
 vnc_tunnel() {
   ssh -L 5900:localhost:5900 user@host 'x11vnc -localhost -display :0'
+}
+
+xrandr_auto() {
+  xrandr --auto
+}
+
+xrandr_turn_off_main_display() {
+  xrandr --auto && xrandr --output eDP-1 --off
+}
+
+xrandr_list() {
+  xrandr --listactivemonitors
+}
+
+xrandr_change_primary() {
+  xrandr --output eDP-1 --off --output HDMI-2 --primary --mode "2560x1440"
+}
+
+reload_xresources() {
+  xrdb -load ~/.Xresources
 }
 
 renew_dhcp() {
@@ -1228,6 +1259,10 @@ restart_plex() {
   systemctl restart plexmediaserver.service
 }
 
+enable_docker() {
+  systemctl enable docker
+}
+
 start_docker() {
   systemctl start docker
 }
@@ -1236,12 +1271,8 @@ stop_docker() {
   systemctl stop docker
 }
 
-enable_docker() {
-  systemctl enable docker
-}
-
-stop_docker() {
-  systemctl stop docker
+restart_docker() {
+  systemctl restart docker
 }
 
 plex_logs() {
@@ -1450,6 +1481,20 @@ update_mirrorlist() {
   pacman -Syyu
 }
 
+# see which packages depends on supplied package
+pacman_depends_on() {
+  pacman -Qi $1
+  #pacman -Sii $1
+}
+
+# Example:
+# pacman_who_owns
+# $ pacman_who_owns /usr/lib/python3.8/site-packages/OpenSSL/crypto.py
+# error: No package owns /usr/lib/python3.8/site-packages/OpenSSL/crypto.py
+pacman_who_owns() {
+  pacman -Qo $1
+}
+
 restart_polybar() {
   pkill polybar
   ~/.config/polybar/polybar.sh &
@@ -1542,6 +1587,14 @@ restart_pulseaudio() {
 
 open_cups() {
   open http://localhost:631/
+}
+
+enable_cups() {
+  systemctl enable cups-browsed.service
+}
+
+start_cups() {
+  systemctl start cups-browsed.service
 }
 
 list_all_executables() {

@@ -184,7 +184,9 @@ alias dockert='eval "$(docker-machine env default)"' # load docker for new termi
 alias containerport="docker inspect --format '{{ (index (index .NetworkSettings.Ports \"3333/tcp\") 0).HostPort }}'"
 alias dockercmd='docker inspect --format="{{.Config.Cmd}}"'
 alias dockerpslast='docker ps -q -l'
-alias dockerprune='docker system prune -a -f'
+alias dockerprune='docker system prune -a -f && docker network prune'
+alias docker_remove_services="docker service ls | awk '{print $1}' | tail -n +2 | xargs -I {} docker service rm '{}'"
+alias docker_list_services='docker service ls'
 
 # Node/NPM
 alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
@@ -262,7 +264,6 @@ alias populus='~/Library/Python/2.7/bin/populus'
 alias mkdp='mkdir -p'
 #alias mkdirg=mkdir_g
 alias open_port=open_port
-alias open=open_x
 alias cp='cp -r'
 alias cpg=cp_g
 alias mvg=mv_g
@@ -321,10 +322,10 @@ alias ec2_useast1="aws ec2 describe-instances --region=us-east-1 | jq '.Reservat
 alias truffle_fix='rm -rf build && truffle compile && truffle migrate --reset && truffle test'
 #alias kitty='/home/mota/.local/kitty.app/bin/kitty'
 alias power='upower -d'
-alias xresources_reload='xrdb -load ~/.Xresources'
 alias vimi3='vim ~/.config/i3/config'
 alias vimi3status='vim ~/.config/i3status/config'
 alias vimpolybar='vim ~/.config/polybar/config'
+alias vimpolybarsh='vim ~/.config/polybar/polybar.sh'
 alias vimbspwm='vim ~/.config/bspwm/bspwmrc'
 alias vimsxhkdrc='vim ~/.config/sxhkd/sxhkdrc'
 alias vimdunst='vim ~/.config/dunst/dunstrc'
@@ -337,6 +338,7 @@ alias vimpicom='vim ~/.config/picom/config'
 alias vimalacritty='vim ~/.config/alacritty/alacritty.yml'
 alias vimhosts='sudo vim /etc/hosts'
 alias vimxinitrc='vim ~/.xinitrc'
+alias vimxresources='vim ~/.Xresources'
 alias vimpacman='sudo vim /etc/pacman.conf'
 alias vimgrub='sudo vim /etc/default/grub'
 alias vimfonts='sudo vim /etc/fonts/local.conf'
@@ -350,8 +352,6 @@ alias pacman_list_packages='pacman -Qe'
 alias reload_bspwm='$HOME/.config/bspwm/bspwmrc'
 alias calendar='gnome-calendar'
 alias list_systemctl_enabled='systemctl list-unit-files --state=enabled'
-alias xrandr_auto='xrandr --auto'
-alias xrandr_turn_off_display='xrandr --auto && xrandr --output eDP-1 --off'
 alias list_kernels='pacman -Q | grep linux'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'

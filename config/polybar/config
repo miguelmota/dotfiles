@@ -28,7 +28,8 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/top]
-;monitor = ${env:MONITOR:HDMI-1}
+bottom = false
+monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 20
 ;offset-x = 1%
@@ -176,6 +177,8 @@ label-empty-padding = 2
 
 ; Separator in between workspaces
 ; label-separator = |
+
+pin-workspaces = true
 
 [module/i3]
 type = internal/i3

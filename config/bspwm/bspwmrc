@@ -45,7 +45,10 @@ if [ -x "$(command -v dunst)" ]; then
   dunst &
 fi
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+# bspc monitor -d I II III IV V VI VII VIII IX X
+for m in $( xrandr -q | grep -w connected | awk '{print $1}'); do
+    bspc monitor $m -d $m/{1..10}
+done
 
 bspc config border_width         1
 bspc config window_gap          14

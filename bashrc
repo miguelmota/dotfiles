@@ -314,3 +314,5 @@ export PATH=$PATH:/var/lib/snapd/snap/bin
 
 # Fix ugly fonts in Java applications
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
+# Fix menu click issues in Java applications
+export _JAVA_AWT_WM_NONREPARENTING=1

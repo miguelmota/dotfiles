@@ -1,2 +1,10 @@
-#_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' ~/BurpSuiteCommunity/BurpSuiteCommunity
-_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' ~/BurpSuitePro/BurpSuitePro
+#!/bin/env bash
+#
+# notes:
+# _JAVA_AWT_WM_NONREPARENTING fixes GUI menu click issues
+# Dawt.useSystemAAFontSettings fixes ugly fonts
+
+# bin=~/BurpSuiteCommunity/BurpSuiteCommunity
+bin=~/BurpSuitePro/BurpSuitePro
+
+_JAVA_AWT_WM_NONREPARENTING=1 _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' $bin
