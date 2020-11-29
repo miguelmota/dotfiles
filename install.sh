@@ -41,6 +41,7 @@ filesToLink=(
   "config/picom/config"
   "config/polybar/config"
   "config/polybar/battery-combined.sh"
+  "config/polybar/microphone.sh"
   "config/polybar/polybar.sh"
   "config/powerline/colors.json"
   "config/powerline/colorschemes"

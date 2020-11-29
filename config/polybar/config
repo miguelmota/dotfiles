@@ -54,14 +54,16 @@ module-margin-right = 2
 font-0 = firacode:pixelsize=8;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = firacode:pixelsize=8;1
+font-3 = FontAwesome5Free:style=Solid:size=10;4
 
 modules-left = bspwm i3
 ;modules-center = mpd
 ;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 ;modules-right = date
-modules-center = filesystem memory cpu date backlight pulseaudio battery-combined
+modules-center = filesystem memory cpu date backlight pulseaudio microphone battery-combined
 
-tray-position = right
+; note: tray can only be rendered once per X session
+tray-position = ${env:TRAY_POS}
 tray-padding = 2
 ;tray-background = #0063ff
 
@@ -729,3 +731,29 @@ margin-bottom = 5
 
 ; vim:ft=dosini
 
+[module/microphone]
+type = custom/script
+exec = ~/.config/polybar/microphone.sh
+
+; Will the script output continous content?
+; Default: false
+tail = true
+
+; Seconds to sleep between updates
+; Default: 2 (0 if `tail = true`)
+;interval = 2
+
+; Available tags:
+;   <output> - deprecated
+;   <label> (default)
+format = <label>
+format-foreground = ${colors.foreground}
+label-font = 3
+
+; Available tokens:
+;   %counter%
+;   %pid%
+;
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c [command]"
+# click-left = pactl set-source-mute 1 toggle
+click-left = amixer set Capture toggle;
