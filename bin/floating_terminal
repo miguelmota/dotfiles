@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+xdotool search --onlyvisible --classname FloatingTerminal windowunmap || \
+xdotool search --classname FloatingTerminal windowmap || \
+alacritty --option window.dimensions.columns=125 --option window.dimensions.lines=30 --class FloatingTerminal

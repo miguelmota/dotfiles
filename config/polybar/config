@@ -28,7 +28,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/top]
-bottom = false
+bottom = ${env:BOTTOM:false}
 monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 20
@@ -63,7 +63,7 @@ modules-left = bspwm i3
 modules-center = filesystem memory cpu date backlight pulseaudio microphone battery-combined
 
 ; note: tray can only be rendered once per X session
-tray-position = ${env:TRAY_POS}
+tray-position = ${env:TRAY_POS:right}
 tray-padding = 2
 ;tray-background = #0063ff
 
@@ -726,8 +726,8 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini
 

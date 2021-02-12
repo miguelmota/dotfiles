@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/env bash
 
 xdotool search --onlyvisible --classname FuzzyLauncher windowunmap || \
 xdotool search --classname FuzzyLauncher windowmap || \
-alacritty --dimensions 100 10 --class FuzzyLauncher \
+alacritty --option window.dimensions.columns=100 --option window.dimensions.lines=10 --class FuzzyLauncher \
 -e bash -c '~/.bin/fuzzy_finder | fzf --color=bw --reverse --prompt="> " --pointer=" " --history=/tmp/fzfhistory | (x=$(cat); (set -m; (echo $x >> /tmp/fzfhistory; ~/.bin/fuzzy_finder cache &); exec $x &))'

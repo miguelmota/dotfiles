@@ -46,16 +46,24 @@ if [ -x "$(command -v dunst)" ]; then
 fi
 
 # bspc monitor -d I II III IV V VI VII VIII IX X
-for m in $( xrandr -q | grep -w connected | awk '{print $1}'); do
+
+for m in $(xrandr -q | grep -w connected | awk '{print $1}'); do
     bspc monitor $m -d $m/{1..10}
 done
 
-bspc config border_width         1
-bspc config window_gap          14
+bspc config border_width              1
+bspc config window_gap                12
+bspc config split_ratio               0.52
+bspc config borderless_monocle        true
+bspc config gapless_monocle           true
+bspc config top_padding               15
+bspc config bottom_padding            0
+bspc config -m HDMI-2 top_padding     0
+bspc config -m HDMI-2 bottom_padding  15
 
-bspc config split_ratio          0.52
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
+# moves workspaces to active monitor
+bspc config remove_disabled_monitors  true
+bspc config remove_unplugged_monitors true
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
@@ -64,6 +72,7 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Peek desktop='^1' state=floating follow=on
 bspc rule -a \*:"FuzzyLauncher" state=floating center=on sticky=on
+bspc rule -a \*:"FloatingTerminal" state=floating center=on sticky=on
 
 if [ -x "$(command -v wmctrl)" ]; then
   if [ -x "$(command -v alacritty)" ]; then

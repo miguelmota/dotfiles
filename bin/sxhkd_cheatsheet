@@ -7,7 +7,8 @@ super + left click + move         move floating window:
 super + right click + move        resize floating window:
 super + shift + r                 reload config:
 super + {h,j,k,l}                 navigate
-super + shift + right             rotate 90
+super + shift + right             rotate 90 to right
+super + shift + left              rotate 90 to left
 super + shift + {h,j,k,l}         switch window places
 super + alt + {h,j,k,l}           resize window expand
 super + alt + shift + {h,j,k,l}   resize window contract

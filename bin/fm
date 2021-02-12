@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+# alias
+source filemanager $@

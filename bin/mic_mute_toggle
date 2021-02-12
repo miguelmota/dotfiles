@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+
+re_grep='\[\(off\|on\)\]'
+#re_ripgrep='\[(off|on)\]'
+builtin_status=$(amixer get Capture | grep -m1 --color=never -ioe $re_grep)
+webcam_source=$(pactl list short sources | grep -i webcam)
+webcam_index=$(echo $webcam_source | awk '{print $1}')
+
+if [[ $builtin_status = "[off]" ]]; then
+  amixer set Capture cap
+  if [ ! -z $webcam_index ]; then
+    pactl set-source-mute $webcam_index off
+  fi
+else
+  amixer set Capture nocap
+  if [ ! -z $webcam_index ]; then
+    pactl set-source-mute $webcam_index on
+  fi
+fi

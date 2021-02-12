@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+. ~/.functions
+
+declare -i last_called=0
+declare -i throttle_by=1
+
+@throttle() {
+  local -i now=$(date +%s)
+  if (($now - $last_called >= $throttle_by))
+  then
+    "$@"
+  fi
+  last_called=$(date +%s)
+}
+
+while read line; do
+  if [[ $line = "SUBSYSTEM=drm" ]]; then
+    @throttle reload_desktop
+  fi
+done < <(udevadm monitor --property)

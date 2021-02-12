@@ -69,9 +69,11 @@ alias psmem='ps aux | sort -rn -k 6'
 
 # Search aliases
 
+alias realgrep='/bin/grep'
+alias grep='rg'
+# alias grep='grep --color=always'
 alias g='GREP_COLOR="1;37;45" LANG=C grep --color=auto'
 alias egrep='grep --color=always'
-alias grep='grep --color=always'
 alias a='ack -iR'
 alias xml='xmllint --format -'
 alias prettyxml='xmllint --format - | pygmentize -l xml | less -R'
@@ -97,11 +99,14 @@ alias vimbashaliases='vim ~/.bash_aliases'
 alias vimbashrc='vim ~/.bashrc'
 alias vimpromptrc='vim ~/.promptrc'
 alias vimrc='vim ~/.vimrc'
+alias vimvimrc='vim ~/.vimrc'
 alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +PlugInstall'
 alias vimclean='vim +PlugClean'
 alias vimupdate='vim +PlugUpdate'
-alias wiki='cd ~/vimwiki && vim ~/vimwiki/'
+alias vimc='vim --clean'
+alias vimwiki='cd ~/vimwiki && vim ~/vimwiki/'
+alias wiki='vimwiki'
 
 # Emacs aliases
 alias emacs_mac='/usr/local/Cellar/emacs/25.1/bin/emacs'
@@ -184,7 +189,7 @@ alias dockert='eval "$(docker-machine env default)"' # load docker for new termi
 alias containerport="docker inspect --format '{{ (index (index .NetworkSettings.Ports \"3333/tcp\") 0).HostPort }}'"
 alias dockercmd='docker inspect --format="{{.Config.Cmd}}"'
 alias dockerpslast='docker ps -q -l'
-alias dockerprune='docker system prune -a -f && docker network prune'
+alias dockerprune='docker system prune -a -f && docker network prune && docker volume prune'
 alias docker_remove_services="docker service ls | awk '{print $1}' | tail -n +2 | xargs -I {} docker service rm '{}'"
 alias docker_list_services='docker service ls'
 
@@ -194,6 +199,7 @@ alias nstart='npm run start'
 alias ntest='npm run test'
 alias nbtest='npm run build && npm run test'
 alias nbuild='npm run build'
+alias nb='npm run build'
 alias nibuild='npm install && npm run build'
 alias nbstart='npm run build && npm run start'
 alias nlbtest='npm run lint && npm run build && npm test'
@@ -345,6 +351,7 @@ alias vimfonts='sudo vim /etc/fonts/local.conf'
 alias vimpgcli='vim ~/.config/pgcli/config'
 alias vimranger='vim ~/.config/ranger/rifle.conf'
 alias vimrifle='vim ~/.config/ranger/rifle.conf'
+alias vimcointop='vim ~/.config/cointop/config.toml'
 alias gif_recorder='peek'
 alias wifi_setup='nm-applet'
 alias update_grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -364,6 +371,7 @@ alias mount_sda2='sudo mount /dev/sda2 /mnt/root'
 alias umount_boot='sudo umount /mnt/boot'
 alias umount_root='sudo umount /mnt/root'
 alias umount_myhd='sudo umount /mnt/myhd'
+alias ec='ether-converter'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

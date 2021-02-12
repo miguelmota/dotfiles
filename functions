@@ -155,6 +155,10 @@ git_changed_files() {
   git whatchanged -n 1
 }
 
+git_install_submodules() {
+  git submodule update --init --recursive
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -841,6 +845,15 @@ forget_network() {
   nmcli connection delete "$1"
 }
 
+update_dns() {
+  SSID=$(nmcli -t -f name,device connection show --active | grep wlp3s0 | cut -d\: -f1)
+  nmcli con mod "$SSID" ipv4.ignore-auto-dns yes
+  nmcli con mod "$SSID" ipv4.dns "1.1.1.1 8.8.8.8"
+  nmcli con down "$SSID"
+  nmcli con up "$SSID"
+  cat /etc/resolv.conf
+}
+
 # Example:
 # $ find_systemctl_file docker.service
 find_systemctl_file() {
@@ -909,8 +922,8 @@ read_var() {
 
 # Delete all git branches except current one
 # Example
-# $ git_delete_all_branches
-git_delete_all_branches() {
+# $ git_delete_all_local_branches
+git_delete_all_local_branches() {
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
   git branch | grep -vw "$current_branch" | xargs git branch -D
 }
@@ -1152,6 +1165,15 @@ pacman_clean_cache() {
   sudo pacman -Sc
 }
 
+pacman_list_by_install_date() {
+  for i in $(pacman -Qq)
+  do
+    grep "\[ALPM\] installed $i" /var/log/pacman.log
+  done | \
+    sort -u | \
+    sed -e 's/\[ALPM\] installed //' -e 's/(.*$//'
+}
+
 start_vnc() {
   x11vnc -many -usepw -localhost -display :0
 }
@@ -1176,16 +1198,67 @@ xrandr_auto() {
   xrandr --auto
 }
 
+xrandr_mirror() {
+  xrandr --output eDP-1 --mode 1920x1080 --output HDMI-2 --mode 1920x1080 --same-as eDP-1
+}
+
 xrandr_turn_off_main_display() {
-  xrandr --auto && xrandr --output eDP-1 --off
+  xrandr --output eDP-1 --off --auto
+}
+
+xrandr_resize_monitor() {
+  xrandr -s 2560x1440
+}
+
+xrandr_resize_macbook_air() {
+  xrandr -s 1400x900
+}
+
+xrandr_resize_thinkpad() {
+  xrandr -s 1920x1080
+}
+
+xrandr_change_primary() {
+  xrandr --output eDP-1 --off --output HDMI-2 --primary --mode 2560x1440
+}
+
+xrandr_left_of() {
+  xrandr --output eDP-1 --left-of HDMI-2 --auto
+}
+
+xrandr_right_of() {
+  xrandr --output eDP-1 --right-of HDMI-2 --auto
+}
+
+xrandr_bottom_of() {
+  xrandr --output eDP-1 --auto --pos 320x1440 --output HDMI-2 --auto --pos 0x0
 }
 
 xrandr_list() {
   xrandr --listactivemonitors
 }
 
-xrandr_change_primary() {
-  xrandr --output eDP-1 --off --output HDMI-2 --primary --mode "2560x1440"
+reload_workspaces() {
+  monitors=$(xrandr -q | grep -w connected | awk '{print $1}')
+  for m in $monitors; do
+    bspc monitor $m -d $m/{1..10}
+  done
+}
+
+# Organize bspwm desktop workspaces.
+# Call this after doing monitor changes with xrandr.
+reload_desktop() {
+  xrandr_auto
+  monitors=$(xrandr -q | grep -w connected | awk '{print $1}')
+  if [[ $(echo "$monitors" | wc -l) -gt 1 ]]; then
+    xrandr_turn_off_main_display
+    xrandr_resize_monitor
+  fi
+
+  reload_workspaces
+  restart_polybar
+  fkill battery-combine.sh
+  fkill microphone.sh
 }
 
 reload_xresources() {
@@ -1303,6 +1376,18 @@ disable_bluetooth() {
   sudo systemctl enable bluetooth.service
 }
 
+bluetooth_toggle() {
+  echo todo
+}
+
+wifi_toggle() {
+  if [ "$(nmcli radio wifi)" == "enabled" ] ; then
+    nmcli radio wifi off
+  else
+    nmcli radio wifi on
+  fi
+}
+
 replace_brackets_in_filenames() {
   for f in *\ *; do mv "$f" "${f//[/(}"; done
   for f in *\ *; do mv "$f" "${f//]/)}"; done
@@ -1369,7 +1454,7 @@ scan_net() {
   arp -a # show IPs and MACs
 }
 
-arpflush() {
+arp_flush() {
   arp -d -a
 }
 
@@ -1393,8 +1478,13 @@ dnslookup() {
   nslookup -type=soa
 }
 
-flushdns() {
-  sudo killall -HUP mDNSResponder
+dns_flush() {
+  if [[ "$unamestr" == 'Darwin' ]]; then
+    sudo killall -HUP mDNSResponder
+  else
+    systemctl restart nscd.service
+    systemctl restart dnsmasq.service
+  fi
 }
 
 ping_port() {
@@ -1455,6 +1545,10 @@ ip_mac() {
   sudo nmap -sn "$1"
 }
 
+# Example
+# lsblk
+# sudo umount /dev/sd/<?><?>
+# burn_iso ~/Downloads/linux.iso /dev/sd/<?>
 burn_iso() {
   set -eux
   if [ ! -f "$1" ]; then
@@ -1497,7 +1591,7 @@ pacman_who_owns() {
 
 restart_polybar() {
   pkill polybar
-  ~/.config/polybar/polybar.sh &
+  ~/.config/polybar/polybar.sh "$@" &
 }
 
 echostderr() {
@@ -1607,4 +1701,45 @@ dec2hex() {
 
 hex2dec() {
   node -e "console.log(parseInt(\"$1\".replace('0x', ''), 16))"
+}
+
+hex2utf8() {
+  node -e "console.log(Buffer.from(\"$1\".replace('0x', ''), 'hex').toString('utf8'))"
+}
+
+hex2ascii() {
+  node -e "console.log(Buffer.from(\"$1\".replace('0x', ''), 'hex').toString('ascii'))"
+}
+
+# $ ps_info <psid>
+ps_info() {
+  ps -p $1 -o command
+}
+
+# $ ps_port_info 4000
+ps_port_info() {
+  ps_info $(lsof -t -i tcp:$1)
+}
+
+# Returns process id of port
+# $ port_ps 4000
+port_ps() {
+  lsof -t -i tcp:$1
+}
+
+# Find version of GTK installed
+gtk_version() {
+  gtk-launch --version
+}
+
+spellcheck() {
+  for f in *.txt ; do echo $f ; aspell list < $f | sort | uniq -c ; done
+}
+
+pip_install_requirements() {
+  python3 -m pip install -r requirements.txt
+}
+
+yay_build_install() {
+  makepkg --install .
 }

@@ -18,6 +18,13 @@ super + d
 super + shift + d
   rofi -modi windowcd -show windowcd
 
+super + shift + Return
+  floating_terminal
+
+# open file manager
+super + comma
+  pcmanfm
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -149,6 +156,9 @@ super + {Left,Down,Up,Right}
 super + shift + {Right}
   bspc node @/ -R 90
 
+super + shift + {Left}
+  bspc node @/ -R -90
+
 # Pulse Audio controls
 XF86AudioMute
   amixer -D pulse set Master 1+ toggle
@@ -162,9 +172,18 @@ XF86AudioRaiseVolume
   amixer sset 'Master' 3%+
   #pactl -- set-sink-volume 0 +3%
 
-XF86AudioMicMute
+# make stop button be alias to mic mute button for leopold keyboard
+XF86AudioStop
   amixer set Capture toggle
+
+XF86AudioMicMute
+  mic_mute_toggle
+  #amixer set Capture toggle
   #pactl set-source-mute 1 toggle
+
+#XF86AudioPlay
+#XF86AudioPrev
+#XF86AudioNext
 
 XF86Tools
   pavucontrol
@@ -179,6 +198,63 @@ XF86MonBrightnessUp
 ## Printscreen button
 Print
   gnome-screenshot -i
+
+XF86Bluetooth
+  exec_function bluetooth_toggle
+
+XF86WLAN
+ exec_function wifi_toggle
+
+XF86Display
+  exec_function reload_desktop
+
+# list all with `xmodmap -pke`
+
+#XF86TouchpadToggle
+#XF86TouchpadOn
+#XF86TouchpadOff
+#XF86WebCam
+#XF86Messenger
+#XF86Search
+#XF86Go
+#XF86Finance
+#XF86Game
+#XF86Shop
+#XF86AudioMedia
+#XF86Reply
+#XF86MailForward
+#XF86Save
+#XF86Documents
+#XF86Battery
+#XF86KbdLightOnOff
+#XF86KbdBrightnessDown
+#XF86KbdBrightnessUp
+#XF86HomePage
+#XF86MenuKB
+#XF86Calculator
+#XF86Sleep
+#XF86WakeUp
+#XF86Explorer
+#XF86Send
+#XF86Xfer
+#XF86ScreenSaver
+#XF86MyComputer
+#XF86Mail
+#XF86RotateWindows
+#XF86Launch1
+#XF86Launch2
+#XF86Launch3
+#XF86Launch4
+#XF86Launch5
+#XF86Launch6
+#XF86Launch7
+#XF86Launch8
+#XF86Launch9
+#XF86LaunchB
+#XF86Cut
+#XF86Copy
+#XF86Open
+#XF86Paste
 
 # Suspend button
 XF86Favorites

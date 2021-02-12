@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 histfile="/tmp/fzfhistory"
 cachefile="/tmp/fuzzylauncher.cache"
