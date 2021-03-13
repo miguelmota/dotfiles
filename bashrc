@@ -135,7 +135,7 @@ fi
 export PATH="/usr/local/heroku/bin:$PATH"
 
 #export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
-export TERM=screen-256color       # for a tmux -2 session (also for screen)
+export TERM=screen-256color       # for a tmux -2 session (also for screen) (set this)
 #export TERM=rxvt-unicode-256color # for a colorful rxvt unicode session
 #export TERM=rxvt-unicode-256colors
 
@@ -313,6 +313,6 @@ export STATUSBAR=polybar
 export PATH=$PATH:/var/lib/snapd/snap/bin
 
 # Fix ugly fonts in Java applications
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 # Fix menu click issues in Java applications
-export _JAVA_AWT_WM_NONREPARENTING=1
+#export _JAVA_AWT_WM_NONREPARENTING=1

@@ -4,9 +4,9 @@ if [ -x "$(command -v sxhkd)" ]; then
   sxhkd &
 fi
 
-if [ -x "$(command -v clipit)" ]; then
-  clipit &
-fi
+#if [ -x "$(command -v clipit)" ]; then
+#  clipit &
+#fi
 
 # set cursor to be arrow instead of 'x'
 xsetroot -cursor_name left_ptr &

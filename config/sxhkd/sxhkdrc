@@ -197,7 +197,8 @@ XF86MonBrightnessUp
 
 ## Printscreen button
 Print
-  gnome-screenshot -i
+  deepin-screenshot
+  #gnome-screenshot -i
 
 XF86Bluetooth
   exec_function bluetooth_toggle

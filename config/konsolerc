@@ -17,10 +17,10 @@ ToolBarsMovable=Disabled
 Width 1440=673
 Width 1920=424
 Width 2880=1345
-eDP-1 Height 1080=242
-eDP-1 Width 1920=459
-eDP-1 XPosition=1006
-eDP-1 YPosition=327
+eDP-1 Height 1080=1026
+eDP-1 Width 1920=902
+eDP-1 XPosition=1005
+eDP-1 YPosition=41
 
 [TabBar]
 TabBarVisibility=ShowTabBarWhenNeeded

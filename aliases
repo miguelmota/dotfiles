@@ -48,6 +48,8 @@ alias cdrofi='cd ~/.config/rofi'
 alias cdi3='cd ~/.config/i3'
 alias cdpolybar='cd ~/.config/polybar'
 alias cdbin='cd ~/.bin'
+alias cdalacritty='cd ~/.config/alacritty'
+alias cdalacrittythemes='cd ~/.config/alacritty/themes'
 
 # Directory listing aliases
 
@@ -100,6 +102,7 @@ alias vimbashrc='vim ~/.bashrc'
 alias vimpromptrc='vim ~/.promptrc'
 alias vimrc='vim ~/.vimrc'
 alias vimvimrc='vim ~/.vimrc'
+alias vimreadme='vim ~/.vim/README.md'
 alias vimtmux='vim ~/.tmux.conf'
 alias viminstall='vim +PlugInstall'
 alias vimclean='vim +PlugClean'
@@ -194,6 +197,7 @@ alias docker_remove_services="docker service ls | awk '{print $1}' | tail -n +2 
 alias docker_list_services='docker service ls'
 
 # Node/NPM
+alias ni='npm i'
 alias npm_update="npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install %@latest --save"
 alias nstart='npm run start'
 alias ntest='npm run test'

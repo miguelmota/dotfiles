@@ -159,6 +159,11 @@ git_install_submodules() {
   git submodule update --init --recursive
 }
 
+git_reset_origin_head() {
+  git fetch origin
+  git reset --hard origin/master
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -1639,9 +1644,29 @@ cointop_sha256() {
   wget_sha256 "$url"
 }
 
+countdown(){
+  if [ -z "$1" ]; then
+    echo "time in seconds is required"
+    return
+  fi
+  ts=$(($(date +%s) + $1));
+  while [ "$ts" -ge $(date +%s) ]; do
+    echo -ne "$(date -u --date @$(($ts - $(date +%s))) +%H:%M:%S)\r"
+    sleep 0.1
+  done
+}
+
 stopwatch() {
   # ctrl-d to stop
   time read
+}
+
+stopwatch2() {
+  ts=$(date +%s)
+  while true; do
+    echo -ne "$(date -u --date @$(($(date +%s) - $ts)) +%H:%M:%S)\r"
+    sleep 0.1
+  done
 }
 
 rehash() {
@@ -1742,4 +1767,42 @@ pip_install_requirements() {
 
 yay_build_install() {
   makepkg --install .
+}
+
+iplookup() {
+  if [ -f "/etc/arch-release" ]; then
+    if ! command_exists 'geoiplookup'; then
+      yay -S geoip
+    fi
+  fi
+  ip="$1"
+  if [ -z "$1" ]; then
+    ip=$(publicip)
+  fi
+  echo "$ip"
+  geoiplookup $ip
+}
+
+nvm_set_default() {
+  nvm alias default $1
+}
+
+npm_list_symlink_node_modules() {
+  ( ls -l node_modules ; ls -l node_modules/@* ) | grep ^l
+}
+
+pretty_csv() {
+  column -t -s, "$@" | less -S
+}
+
+start_opensnitch() {
+  systemctl start opensnitchd
+}
+
+stop_opensnitch() {
+  systemctl stop opensnitchd
+}
+
+open_opensnitch() {
+  sudo opensnitch-ui
 }
