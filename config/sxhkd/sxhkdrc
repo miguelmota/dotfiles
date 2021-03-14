@@ -278,3 +278,7 @@ super + alt + shift + {1-9}
 # Send window to given desktop
 alt + shift + {1-9,0}
   bspc node -d '^{1-9,10}:focused'
+
+# Toggle terminal background
+super + ctrl + b
+  alacritty_theme toggle
