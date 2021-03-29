@@ -1,0 +1,30 @@
+echo "\
+# list key fingerprints
+keybase pgp list
+
+# sign message
+keybase pgp sign
+
+# verify signature
+cat sig.txt | keybase pgp verify
+
+# export public key
+keybase pgp export
+
+# export public key and import into gpg
+keybase pgp export | gpg --import
+
+# export private key
+keybase pgp export --secret
+
+# export private key and import into gpg
+keybase pgp export --secret | gpg --allow-secret-key --import
+
+# list gpg imported private keys
+gpg --list-secret-keys
+
+# trust key
+gpg --edit-key <key-id>
+> trust
+> 5 (trust ultimately)
+"

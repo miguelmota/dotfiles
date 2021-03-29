@@ -592,9 +592,15 @@ cert_dates() {
 # example:
 # fkill someapp :8080 node :1111
 fkill() {
-  for i in $@;do export q=$i;if [[ $i == :* ]];then lsof -i$i|sed -n '1!p';
-  else ps aux|grep -i $i|grep -v grep;fi|awk '{print $2}'|\
-  xargs -I@ sh -c 'kill -9 @&&printf "X %s->%s\n" $q @';done
+  for i in $@;
+  do
+      export q=$i;
+      if [[ $i == :* ]]; then
+          lsof -i$i | sed -n '1!p';
+      else
+          ps aux | grep --color=auto -i $i | grep --color=auto -v grep;
+      fi | awk '{print $2}' | xargs -I@ sh -c 'kill -9 @ 2&>1 &&printf "X %s->%s\n" $q @';
+  done
 }
 
 # Convert bytes to human readable format.
@@ -1546,6 +1552,12 @@ restart_gpg() {
   gpgconf --kill gpg-agent
 }
 
+fix_gnupg_file_permissions() {
+  sudo chown -R $(whoami) ~/.gnupg/;
+  sudo find ~/.gnupg -type f -exec chmod 600 {} \;
+  sudo find ~/.gnupg -type d -exec chmod 700 {} \;
+}
+
 ip_mac() {
   sudo nmap -sn "$1"
 }
@@ -1805,4 +1817,30 @@ stop_opensnitch() {
 
 open_opensnitch() {
   sudo opensnitch-ui
+}
+
+4byte() {
+  local id="$1"
+  if [ -z "$id" ]; then
+    echo "4byte id is required"
+    return
+  fi
+  local url="https://www.4byte.directory/api/v1/signatures/?hex_signature=$id"
+  curl -s "$url" | jq -r '.results[].text_signature'
+}
+
+ssh_public_key_fingerprint_md5() {
+  local pub_key="$HOME/.ssh/id_rsa.pub"
+  if [ ! -z "$1" ]; then
+    pub_key="$1"
+  fi
+  ssh-keygen -lf "$pub_key" -E md5
+}
+
+ssh_public_key_fingerprint_sha256() {
+  local pub_key="$HOME/.ssh/id_rsa.pub"
+  if [ ! -z "$1" ]; then
+    pub_key="$1"
+  fi
+  ssh-keygen -lf "$pub_key" -E sha256
 }

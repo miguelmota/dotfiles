@@ -270,6 +270,10 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
+[ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
+
+#export FZF_CTRL_R_OPTS='--sort --exact'
 
 # Turn off Ubuntu bell error bell sound
 #bind 'set bell-style none'
