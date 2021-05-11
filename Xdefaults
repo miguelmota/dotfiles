@@ -4,9 +4,10 @@ urxvt.scrollBar: false
 urxvt.background: black
 urxvt.foreground: gray
 !! Font prefferenes
-urxvt.font: xft:Fira Code:pixelsize=14
-urxvt.boldFont: xft:Fira Code:pixelsize=14:weight=bold
-urxvt.letterSpace: -1
+urxvt.font: xft:DejaVu Sans Mono:pixelsize=14,xft:Symbola,xft:Noto Emoji:minspace=False
+!!urxvt.font: xft:Fira Code:pixelsize=14
+!!urxvt.boldFont: xft:Fira Code:pixelsize=14:weight=bold
+urxvt.letterSpace: 0
 !! Larger history limit
 urxvt.saveLines: 1000000
 

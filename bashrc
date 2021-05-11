@@ -182,10 +182,11 @@ if [ -d "$HOME/Library/Python/2.7/bin" ]; then
 	export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 fi
 
-if [ -f ~/.powerline/powerline/bindings/bash/powerline.sh ]; then
-  source ~/.powerline/powerline/bindings/bash/powerline.sh
+# disabled because it's causing prompt to be slow
+#if [ -f ~/.powerline/powerline/bindings/bash/powerline.sh ]; then
+  #  source ~/.powerline/powerline/bindings/bash/powerline.sh
   # . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
-fi
+#fi
 
 # Homebrew Github API Token
 if [ -f ~/.homebrew/github_api_token ]; then
@@ -319,4 +320,4 @@ export PATH=$PATH:/var/lib/snapd/snap/bin
 # Fix ugly fonts in Java applications
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 # Fix menu click issues in Java applications
-#export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_AWT_WM_NONREPARENTING=1

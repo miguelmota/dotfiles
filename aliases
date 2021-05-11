@@ -128,6 +128,7 @@ alias tmux_new='tmux new -s'
 alias tmux_rotate=tmux_rotate
 alias tmux_attach='tmux attach -t 0'
 alias tmuxload='tmuxp_load'
+alias tmux_detach='tmux detach-client -s'
 
 # Curl aliases
 
@@ -185,6 +186,7 @@ alias dockerrm='docker rm -f $(docker ps -aq)'
 alias dockerrmi='docker rmi -f $(docker images -aq)'
 alias dockerrmi_dangling='docker rmi $(docker images -f "dangling=true" -q)'
 #alias dockerd='docker-machine start default;docker-machine regenerate-certs default;eval "$(docker-machine env default)";'
+alias dockerrmvolumes='docker volume rm $(docker volume ls -q)'
 alias dockerd='echo "use docker app"'
 alias dockerip='docker-machine ip'
 alias dockerrestart='docker-machine restart default && eval "$(docker-machine env default)"'
@@ -376,6 +378,7 @@ alias umount_boot='sudo umount /mnt/boot'
 alias umount_root='sudo umount /mnt/root'
 alias umount_myhd='sudo umount /mnt/myhd'
 alias ec='ether-converter'
+alias address='ethereum_private_key_to_address'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

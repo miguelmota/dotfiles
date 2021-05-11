@@ -1,0 +1,3 @@
+#!/bin/bash
+
+play -nq -t alsa synth 0.4 sine 200

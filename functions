@@ -113,6 +113,23 @@ list_port_procceses() {
   lsof -i tcp:"${1}"
 }
 
+lsof_watch_dir() {
+  local dir="."
+  if [ ! -z "$1" ]; then
+    dir="$1"
+  fi
+  #  note: use lowercase "+d" to not descend directories
+  lsof +D "$dir" -r 1
+}
+
+lsof_watch_user() {
+  local user=$(whoami)
+  if [ ! -z "$1" ]; then
+    user="$1"
+  fi
+  lsof -u "$user" -r 1
+}
+
 # Git push shortcut
 # Example
 # $ git_add_commit_push "my message"
@@ -637,7 +654,7 @@ ssh_agent_add_key() {
 # Example
 # $ ssh_password root@example.com
 ssh_password() {
-  ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no "$1"
+  ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no "$@"
 }
 
 # Make a temporary directory and enter it
@@ -1829,6 +1846,14 @@ open_opensnitch() {
   curl -s "$url" | jq -r '.results[].text_signature'
 }
 
+json_array_to_table() {
+  jq -r '(.[0] | with_entries(select(.value | type | . != "array" and . != "object")) | ([keys[] | .] |(., map(length*"-")))), (.[] | with_entries(select(.value | type | . != "array" and . != "object")) | ([keys[] as $k | .[$k]])) | @tsv' | column -t -s $'\t'
+}
+
+chainid() {
+  curl -s https://chainid.network/chains.json | json_array_to_table | awk "NR <= 2 || /$1/"
+}
+
 ssh_public_key_fingerprint_md5() {
   local pub_key="$HOME/.ssh/id_rsa.pub"
   if [ ! -z "$1" ]; then
@@ -1843,4 +1868,40 @@ ssh_public_key_fingerprint_sha256() {
     pub_key="$1"
   fi
   ssh-keygen -lf "$pub_key" -E sha256
+}
+
+pip_package_build() {
+  # pip install -U pip setuptools
+  python setup.py sdist
+}
+
+pip_publish() {
+  # pip install -U pip twine
+  twine upload dist/*
+}
+
+pcal_run() {
+  local filename="$1"
+  pcal $filename && tlc $filename
+}
+
+tla_run() {
+  tlc "$@" && echo PASS || echo FAIL
+}
+
+tla_pdf() {
+  local filename="$1"
+  local tex_filename=$(echo $filename | sed 's/.tla/.tex/')
+  tlatex $filename && pdflatex $tex_filename
+}
+
+
+factorial () {
+  if (($1 == 1))
+  then
+    echo 1
+    return
+  else
+    echo $(( $( factorial $(($1 - 1)) ) * $1 ))
+  fi
 }
