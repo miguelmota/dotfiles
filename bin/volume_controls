@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+index=$(pactl list short sinks | awk 'NR==1{print $1}')
+cmd="$1"
+
+if [[ $cmd = "down" ]]; then
+  pactl -- set-sink-volume $index -3%
+  # amixer sset 'Master' 3%-
+fi
+if [[ $cmd = "up" ]]; then
+  pactl -- set-sink-volume $index +3%
+  # amixer sset 'Master' 3%+
+fi
+if [[ $cmd = "mute" ]]; then
+  amixer -D pulse set Master 1+ toggle
+  #pactl set-sink-mute 0 toggle && notify-send -u low -t 650 'Volume' "$(pacmd list-sinks | grep muted --color=never | sed -e 's/^[ \t]*//')"
+fi

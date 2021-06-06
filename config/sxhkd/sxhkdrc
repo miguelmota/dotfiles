@@ -161,16 +161,13 @@ super + shift + {Left}
 
 # Pulse Audio controls
 XF86AudioMute
-  amixer -D pulse set Master 1+ toggle
-  #pactl set-sink-mute 0 toggle && notify-send -u low -t 650 'Volume' "$(pacmd list-sinks | grep muted --color=never | sed -e 's/^[ \t]*//')"
+  ~/.bin/volume_controls mute
 
 XF86AudioLowerVolume
-  pactl -- set-sink-volume 0 -3%
-  #amixer sset 'Master' 3%-
+  ~/.bin/volume_controls down
 
 XF86AudioRaiseVolume
-  pactl -- set-sink-volume 0 +3%
-  #amixer sset 'Master' 3%+
+  ~/.bin/volume_controls up
 
 # make stop button be alias to mic mute button for leopold keyboard
 XF86AudioStop

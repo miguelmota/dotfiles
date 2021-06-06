@@ -19,9 +19,9 @@ if [ -x "$(command -v pasystray)" ]; then
   pasystray &
 fi
 
-if [ -x "$(command -v blueman-applet)" ]; then
-  blueman-applet &
-fi
+#if [ -x "$(command -v blueman-applet)" ]; then
+#  blueman-applet &
+#fi
 
 bg="$HOME/.local/share/wallpaper2.jpg"
 

@@ -282,7 +282,6 @@ alias mvg=mv_g
 alias cp_p=cp_p
 alias phpserver='php -S 0.0.0.0:8080'
 alias resize=resize
-alias sha3=sha3
 # alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias screenshot='screencapture -x out.png'
 alias digzonetransfer='dig -t axfr @<dns or parent> <domain> -p <dns port>'
@@ -365,6 +364,8 @@ alias pacman_list_packages='pacman -Qe'
 alias reload_bspwm='$HOME/.config/bspwm/bspwmrc'
 alias calendar='gnome-calendar'
 alias list_systemctl_enabled='systemctl list-unit-files --state=enabled'
+alias list_systemctl_active='systemctl list-units --type=service --state=active'
+alias list_systemctl_types='systemctl -t help'
 alias list_kernels='pacman -Q | grep linux'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'

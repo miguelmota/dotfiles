@@ -393,13 +393,13 @@ volume_toggle() {
 
 volume_inc() {
   if [[ "$unamestr" == 'Linux' ]]; then
-    amixer sset 'Master' 3%+
+    ~/.bin/volume_controls up
   fi
 }
 
 volume_dec() {
   if [[ "$unamestr" == 'Linux' ]]; then
-    amixer sset 'Master' 3%-
+    ~/.bin/volume_controls down
   fi
 }
 
@@ -577,6 +577,10 @@ resize() {
 # sha3 'hello' # 3338be694f50c5f338814986cdf0686453a888b84f424d792af4b9202398f392
 sha3() {
   echo -n "$1" | rhash --sha3-256 -
+}
+
+keccak256() {
+  echo -n "$1" | keccak-256sum
 }
 
 # Capture stdout of process
@@ -1455,7 +1459,16 @@ gateway_address() {
 }
 
 nameservers() {
-  scutil --dns | grep "nameserver\[[0-9]*\]"
+  # macOS
+  if command_exists 'scutil'; then
+    scutil --dns | grep "nameserver\[[0-9]*\]"
+  else
+    cat /etc/resolv.conf
+  fi
+}
+
+dnsserver() {
+  nameservers
 }
 
 scan() {
@@ -1904,4 +1917,32 @@ factorial () {
   else
     echo $(( $( factorial $(($1 - 1)) ) * $1 ))
   fi
+}
+
+matic_checkpoint_check() {
+  local block=$1
+  curl -s "https://apis.matic.network/api/v1/mumbai/block-included/$block"
+}
+
+disable_snapd() {
+  systemctl stop snapd.service
+  systemctl stop snapd.socket
+  systemctl stop snap.lxd.activate.service
+  systemctl stop snap.lxd.daemon.unix.socket
+  systemctl disable snapd.service
+  systemctl disable snapd.socket
+  systemctl disable snap.lxd.activate.service
+  systemctl disable snap.lxd.daemon.unix.socket
+}
+
+awk_first() {
+  read r && echo $r | awk 'NR==1{print $1}'
+}
+
+eth_rpc_client_version() {
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' "$1" | jq -r '.result'
+}
+
+eth_rpc_chain_id() {
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$1" | jq -r '.result'
 }
