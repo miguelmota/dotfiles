@@ -127,6 +127,7 @@ alias tmux_source='tmux source-file ~/.tmux.conf'
 alias tmux_new='tmux new -s'
 alias tmux_rotate=tmux_rotate
 alias tmux_attach='tmux attach -t 0'
+alias tmux_0='tmux attach -t 0'
 alias tmuxload='tmuxp_load'
 alias tmux_detach='tmux detach-client -s'
 
@@ -380,6 +381,8 @@ alias umount_root='sudo umount /mnt/root'
 alias umount_myhd='sudo umount /mnt/myhd'
 alias ec='ether-converter'
 alias address='ethereum_private_key_to_address'
+alias toggle_theme='alacritty_theme toggle'
+alias volatility3='/bin/vol'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

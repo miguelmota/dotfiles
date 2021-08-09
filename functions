@@ -276,6 +276,10 @@ base64_decode() {
   node -e "process.stdout.write(Buffer.from(process.argv[1], 'base64').toString('utf8'))" ${1}
 }
 
+base64_encode_stdin() {
+  openssl base64 -in - | tr -d '\n'
+}
+
 # Unarchive files
 # Example
 # $ extract file.tar.gz
@@ -1303,6 +1307,16 @@ renew_dhcp() {
   restart_network_manager
 }
 
+restart_dhcpd() {
+  systemctl restart dhcpcd.service
+}
+
+change_nameservers() {
+  sudo vim /etc/dhcpcd.conf
+  # add the following line:
+  # static domain_name_servers=8.8.8.8 8.8.4.4
+}
+
 start_ufw() {
   systemctl start ufw.service
 }
@@ -1483,6 +1497,8 @@ scan_host() {
   sudo nmap -O -v -sV # ip
 }
 
+# example
+# scan_ports 127.0.0.1
 scan_ports() {
   sudo nmap -p 1-65535 -T4 -A -v
 }
@@ -1564,7 +1580,7 @@ systemd_blame() {
 }
 
 
-ssh_permissions() {
+ssh_dir_permissions() {
   # TODO: automate
   echo "
   .ssh directory: 700 (drwx------)
@@ -1572,6 +1588,10 @@ ssh_permissions() {
   private key (id_rsa): 600 (-rw-------)
   home directory should not be writeable by the group or others (at most 755 (drwxr-xr-x))
   "
+}
+
+ssh_pem_permissions() {
+  chmod 600 $1
 }
 
 git_ignore_blame() {
@@ -1940,9 +1960,40 @@ awk_first() {
 }
 
 eth_rpc_client_version() {
+  set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' "$1" | jq -r '.result'
+  set +x
 }
 
 eth_rpc_chain_id() {
+  set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$1" | jq -r '.result'
+  set +x
+}
+
+eth_receipt() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$1\"],\"id\":1}" "$2"
+  set +x
+}
+
+change_shell() {
+  # chsh -s /bin/bash username
+  chsh
+}
+
+delete_user() {
+  sudo deluser --remove-home "$1"
+}
+
+shred_history() {
+  shred -u ~/.bash_history && touch ~/.bash_history
+}
+
+list_users() {
+  cut -d: -f1 /etc/passwd
+}
+
+kill_xorg() {
+  killall xinit
 }
