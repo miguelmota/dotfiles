@@ -98,6 +98,12 @@ server() {
   fi
 }
 
+server-open() {
+  port="$1"
+  open_port "$port"
+  server "$port"
+}
+
 # Display local IP
 # Example
 # $ ip_address # 10.10.10.192
@@ -179,6 +185,14 @@ git_install_submodules() {
 git_reset_origin_head() {
   git fetch origin
   git reset --hard origin/master
+}
+
+git_list_recent_branches() {
+  git branch --sort=-committerdate | head -n 10
+}
+
+git_list_recent_branches_all() {
+  git branch --sort=-committerdate
 }
 
 # Get load average
@@ -985,10 +999,10 @@ length() {
 # $ lock
 lock() {
   if [[ "$unamestr" == 'Linux' ]]; then
-    if command_exists 'xscreensaver-command'; then
-      xscreensaver-command -lock
-    elif command_exists 'i3lock'; then
+    if command_exists 'i3lock'; then
       i3lock -n -c 000000
+    elif command_exists 'xscreensaver-command'; then
+      xscreensaver-command -lock
     else
       echo 'no lock program found'
     fi
@@ -1031,6 +1045,10 @@ resolution() {
 
 ps_top_memory() {
   ps aux --sort=-%mem | awk 'NR<=10{print $0}'
+}
+
+ps_top_cpu() {
+  ps -aux --sort -pcpu | head
 }
 
 keyboard_disable() {
@@ -1155,7 +1173,7 @@ restart_sxhkd() {
   pkill sxhkd; sxhkd &
 }
 
-restart_dunst() {
+reload_dunst() {
   pkill dunst && dunst &
 }
 
@@ -1199,6 +1217,9 @@ update_pacman() {
 
 pacman_clean_cache() {
   sudo pacman -Sc
+  if command_exists 'yay'; then
+    yay -Sc
+  fi
 }
 
 pacman_list_by_install_date() {
@@ -1428,8 +1449,10 @@ bluetooth_toggle() {
 
 wifi_toggle() {
   if [ "$(nmcli radio wifi)" == "enabled" ] ; then
+    echo 'turning wifi off'
     nmcli radio wifi off
   else
+    echo 'turning wifi on'
     nmcli radio wifi on
   fi
 }
@@ -1700,8 +1723,8 @@ showcolor() {
 }
 
 cointop_sha256() {
-  local version=$(curl --silent "https://api.github.com/repos/miguelmota/cointop/releases/latest" | grep -Po --color=never '"tag_name": "\K.*?(?=")')
-  local url="https://github.com/miguelmota/cointop/archive/$version.tar.gz"
+  local version=$(curl --silent "https://api.github.com/repos/cointop-sh/cointop/releases/latest" | grep -Po --color=never '"tag_name": "\K.*?(?=")')
+  local url="https://github.com/cointop-sh/cointop/archive/$version.tar.gz"
   echo $url
   wget_sha256 "$url"
 }
@@ -1783,11 +1806,11 @@ list_all_executables() {
 }
 
 dec2hex() {
-  node -e "console.log('0x'+Number(\"$1\").toString(16))"
+  node -e "console.log('0x'+BigInt(\"$1\").toString(16))"
 }
 
 hex2dec() {
-  node -e "console.log(parseInt(\"$1\".replace('0x', ''), 16))"
+  node -e "console.log(BigInt('0x'+\"$1\".replace('0x', '')).toString())"
 }
 
 hex2utf8() {
@@ -1877,6 +1900,10 @@ open_opensnitch() {
   fi
   local url="https://www.4byte.directory/api/v1/signatures/?hex_signature=$id"
   curl -s "$url" | jq -r '.results[].text_signature'
+}
+
+json_object_to_table() {
+  jq -r '([keys[] | .] |(., map(length*"-"))), ([values[] as $v | $v]) | @tsv' | column -t -s $'\t'
 }
 
 json_array_to_table() {
@@ -1971,6 +1998,12 @@ eth_rpc_chain_id() {
   set +x
 }
 
+eth_rpc_head_block_number() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' "$1" | jq -r '.result'
+  set +x
+}
+
 eth_receipt() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$1\"],\"id\":1}" "$2"
@@ -1997,3 +2030,28 @@ list_users() {
 kill_xorg() {
   killall xinit
 }
+
+view_incoming_outgoing_connections() {
+  sudo netstat -tulpn
+}
+
+github_followers() {
+  username="$1"
+  username=${username:-miguelmota}
+  curl --silent -H "Accept: application/json" "https://api.github.com/users/$username" | jq ".followers"
+}
+
+monitor_network_connections() {
+  sudo nethogs
+}
+
+open_stickies() {
+  if [[ "$unamestr" == 'Linux' ]]; then
+    xpad
+  fi
+}
+
+pid_info() {
+  ps -Flww -p "$1"
+}
+

@@ -152,6 +152,10 @@ gitconfig
 # don't ignore these files
 !/config/i3blocks
 !/config/alacritty
+!/config/Code
+!/config/Code
+!/config/Code/User/settings.json
+!/config/Code/User/keybindings.json
 !/config/cointop
 !config/bspwm
 !config/sxhkd
@@ -163,6 +167,7 @@ gitconfig
 !/config/i3
 !/config/i3status
 !/config/fontconfig
+!/config/jgmenu/jgmenurc
 !/config/kitty
 !/config/lxpanel/launchtaskbar.cfg
 !/config/lxterminal

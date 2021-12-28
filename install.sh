@@ -15,6 +15,8 @@ filesToLink=(
   "bin"
   "coffeelint.json"
   "config/alacritty/alacritty.yml"
+  "config/Code/User/settings.json"
+  "config/Code/User/keybindings.json"
   "config/fontconfig/conf.d/10-powerline-symbols.conf"
   "config/fontconfig/fonts.conf"
   "config/bspwm/bspwmrc"

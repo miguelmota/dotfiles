@@ -251,7 +251,8 @@
     # where there are multiple screens with very different dpi values.
     per_monitor_dpi = false
 
-[shortcuts]
+# deprecated
+#[shortcuts]
 
     # Shortcuts are specified as [modifier+][modifier+]...key
     # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
@@ -259,33 +260,33 @@
     # Xev might be helpful to find names for keys.
 
     # Close notification.
-    close = ctrl+space
+    #close = ctrl+space
 
     # Close all notifications.
-    close_all = ctrl+shift+space
+    #close_all = ctrl+shift+space
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1". Make sure this key actually exists on your keyboard layout,
     # e.g. check output of 'xmodmap -pke'
-    history = ctrl+grave
+    #history = ctrl+grave
 
     # Context menu.
-    context = ctrl+shift+period
+    #context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#323136"
     foreground = "#cccccc"
-    timeout = 10
+    timeout = 0
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_normal]
     background = "#403d4a"
     foreground = "#ffffff"
-    timeout = 10
+    timeout = 0
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
 

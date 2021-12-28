@@ -18,8 +18,10 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #00000000
-background-alt = #00000000
+;background = #00000000
+background = #121212
+;background-alt = #111111
+background-alt = #222222
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
@@ -31,10 +33,13 @@ alert = #bd2c40
 bottom = ${env:BOTTOM:false}
 monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 20
+height = 25
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
+offset-x = 0
+offset-y = 0
+;radius = 6.0
+radius = 0
 fixed-center = true
 
 background = ${colors.background}
@@ -42,7 +47,7 @@ foreground = ${colors.foreground}
 line-size = 1
 line-color = #fff
 
-border-size = 4
+border-size = 0
 border-color = #00000000
 
 padding-left = 0
@@ -56,7 +61,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = firacode:pixelsize=8;1
 font-3 = FontAwesome5Free:style=Solid:size=10;4
 
-modules-left = bspwm i3
+modules-left = jgmenu bspwm i3
 ;modules-center = mpd
 ;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 ;modules-right = date
@@ -757,3 +762,9 @@ label-font = 3
 ; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c [command]"
 # click-left = pactl set-source-mute 1 toggle
 click-left = amixer set Capture toggle;
+
+[module/jgmenu]
+type = custom/text
+content-padding = 2
+content = Menu
+click-left = jgmenu_run

@@ -72,6 +72,18 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
+ctrl + space
+  dunstctl close
+
+ctrl + shift + space
+  dunstctl close-all
+
+ctrl + shift + period
+  dunstctl context
+
+ctrl + grave
+  dunstctl history-pop
+
 #
 # focus/swap
 #
@@ -279,3 +291,7 @@ alt + shift + {1-9,0}
 # Toggle terminal background
 super + ctrl + t
   alacritty_theme toggle
+
+# Toggle sticky notes
+super + u
+  xpad --toggle
