@@ -195,6 +195,10 @@ git_list_recent_branches_all() {
   git branch --sort=-committerdate
 }
 
+git_show_patch_head() {
+  git diff HEAD~1 HEAD
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -1680,7 +1684,7 @@ pacman_who_owns() {
 }
 
 restart_polybar() {
-  pkill polybar
+  fkill polybar
   ~/.config/polybar/polybar.sh "$@" &
 }
 
@@ -1998,6 +2002,12 @@ eth_rpc_chain_id() {
   set +x
 }
 
+eth_rpc_chain_id2() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$1"
+  set +x
+}
+
 eth_rpc_head_block_number() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' "$1" | jq -r '.result'
@@ -2055,3 +2065,43 @@ pid_info() {
   ps -Flww -p "$1"
 }
 
+list_active_shell() {
+  echo $SHELL
+}
+
+# TODO: fix
+unix2date() {
+  date -ud "@$1" +'%Y-%m-%d %H:%M:%S'
+}
+
+clear_clipboard() {
+  xsel -bc
+}
+
+rmtrash() {
+  sudo rm -rf ~/.local/share/Trash/files/*
+}
+
+dnslink_hash() {
+  dig "_dnslink.$1" -t TXT +short | sed -e 's/.*ipfs\/\(.*\)"/\1/'
+}
+
+floor() {
+  collection="$1"
+  curl -s "https://api.opensea.io/api/v1/collection/$collection" | jq '.collection.stats.floor_price'
+}
+
+list_process_using_mic() {
+  grep owner_pid /proc/asound/card*/pcm*/sub*/status
+}
+
+clean_varlog() {
+  /var/log -type f -name "*.gz" -exec rm -f {} \;
+}
+
+# vim "multiline cursor"
+#Ctrl-v ................ start visual block selection
+#6j .................... go down 6 lines
+#I" .................... inserts " at the beginning
+#<Esc><Esc> ............ finishes start
+#2fdl. ................. second 'd' l (goes right) . (repeats insertion)

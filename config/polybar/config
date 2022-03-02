@@ -65,7 +65,7 @@ modules-left = jgmenu bspwm i3
 ;modules-center = mpd
 ;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 ;modules-right = date
-modules-center = filesystem memory cpu date backlight pulseaudio microphone battery-combined
+modules-center = filesystem memory cpu date backlight pulseaudio battery-combined
 
 ; note: tray can only be rendered once per X session
 tray-position = ${env:TRAY_POS:right}

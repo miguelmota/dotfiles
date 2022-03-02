@@ -401,9 +401,6 @@
 	// Lines above this length will not be tokenized for performance reasons
 	"editor.maxTokenizationLineLength": 20000,
 
-	// Controls whether the minimap is shown.
-	"editor.minimap.enabled": false,
-
 	// Limit the width of the minimap to render at most a certain number of columns.
 	"editor.minimap.maxColumn": 120,
 
@@ -717,7 +714,7 @@
 	"editor.suggestFontSize": 0,
 
 	// Line height for the suggest widget. When set to `0`, the value of `editor.lineHeight` is used. The minimum value is 8.
-	"editor.suggestLineHeight": 0,
+	"editor.suggestLineHeight": 24,
 
 	// Controls whether suggestions should automatically show up when typing trigger characters.
 	"editor.suggestOnTriggerCharacters": true,
@@ -898,15 +895,27 @@
 	//  - focus: Focus side bar if the clicked item is already visible.
 	"workbench.activityBar.iconClickBehavior": "toggle",
 
-	// Controls the visibility of the activity bar in the workbench.
-	"workbench.activityBar.visible": false,
-
 	// Overrides colors from the currently selected color theme.
 	"workbench.colorCustomizations": {
 		"statusBar.background": "#0f0f0f",
 		"statusBar.noFolderBackground": "#0f0f0f",
 		"statusBar.debuggingBackground": "#0f0f0f",
-		"statusBar.foreground": "#ffffff"
+		"statusBar.foreground": "#15202b",
+		"activityBar.activeBackground": "#48e555",
+		"activityBar.activeBorder": "#7d73eb",
+		"activityBar.background": "#48e555",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#7d73eb",
+		"activityBarBadge.foreground": "#15202b",
+		"sash.hoverBorder": "#48e555",
+		"statusBarItem.hoverBackground": "#19ae25",
+		"statusBarItem.remoteBackground": "#1fdb2f",
+		"statusBarItem.remoteForeground": "#15202b",
+		"titleBar.activeBackground": "#1fdb2f",
+		"titleBar.activeForeground": "#15202b",
+		"titleBar.inactiveBackground": "#1fdb2f99",
+		"titleBar.inactiveForeground": "#15202b99"
 	},
 
 	// Specifies the color theme used in the workbench.
@@ -1280,9 +1289,6 @@
 	// - `${dirty}`: an indicator for when the active editor has unsaved changes.
 	// - `${separator}`: a conditional separator (" - ") that only shows when surrounded by variables with values or static text.
 	"window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}",
-
-	// Adjust the appearance of the window title bar. On Linux and Windows, this setting also affects the application and context menu appearances. Changes require a full restart to apply.
-	"window.titleBarStyle": "native",
 
 	// Separator used by `window.title`.
 	"window.titleSeparator": " - ",
@@ -5373,5 +5379,8 @@
       }
     ],
     "peacock.affectAccentBorders": true,
-    "peacock.surpriseMeOnStartup": true,
+	"peacock.surpriseMeOnStartup": true,
+	"editor.minimap.enabled": false,
+	"tabnine.experimentalAutoImports": true,
+	"window.titleBarStyle": "native",
 }
