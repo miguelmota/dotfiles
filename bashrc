@@ -169,9 +169,9 @@ fi
 export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
 
 # Preferred editors
-export EDITOR="/usr/bin/vim"
+export EDITOR="/usr/bin/nvim"
 export PAGER="/bin/less"
-export VISUAL="/usr/bin/vim"
+export VISUAL="/usr/bin/nvim"
 
 # dircolors
 export CLICOLOR=YES

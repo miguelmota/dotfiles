@@ -2099,6 +2099,11 @@ clean_varlog() {
   /var/log -type f -name "*.gz" -exec rm -f {} \;
 }
 
+# note: if it has minus then there is no support
+vim_clipboard_support() {
+  vim --version | grep .xterm_clipboard -o
+}
+
 # vim "multiline cursor"
 #Ctrl-v ................ start visual block selection
 #6j .................... go down 6 lines
