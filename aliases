@@ -63,7 +63,7 @@ alias df='df -h'
 alias disksize='df -h'
 alias dirsize='du -sh * | sort -n'
 alias dirsize2='du -bsh .'
-alias topmem='ps_top_mem'
+alias topmem='ps_top_memory'
 alias topcpu='ps_top_cpu'
 alias disk_usage='sudo iotop'
 alias disk_usage_visualizer='ncdu --color dark'
@@ -400,6 +400,7 @@ alias exit_startx='kill_xorg'
 alias xfce_shortcut_settings='xfwm4-settings'
 alias xfce_settings='xfce4-settings-manager'
 alias change_wallpaper='update_wallpaper'
+alias bspwm_cheatsheet='sxhkd_cheatsheet'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

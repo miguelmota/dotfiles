@@ -199,6 +199,14 @@ git_show_patch_head() {
   git diff HEAD~1 HEAD
 }
 
+git_rm_cached() {
+  git rm -r --cached .
+}
+
+github_action_status() {
+  gh run watch --exit-status && echo "run completed and successful"
+}
+
 # Get load average
 # Example
 # $ load_average
@@ -1013,6 +1021,10 @@ lock() {
   fi
 }
 
+delayed_lock() {
+  sleep 7; lock
+}
+
 # Get all local IP addreses in network
 # Example
 # $ scan_ips
@@ -1216,7 +1228,12 @@ disable_smb() {
 }
 
 update_pacman() {
+  sudo pacman -Sy archlinux-keyring
   sudo pacman -Syu
+}
+
+remove_corrupt_pacman_files() {
+  sudo find /var/cache/pacman/pkg/ -iname "*.part" -delete
 }
 
 pacman_clean_cache() {
@@ -2102,6 +2119,17 @@ clean_varlog() {
 # note: if it has minus then there is no support
 vim_clipboard_support() {
   vim --version | grep .xterm_clipboard -o
+}
+
+# run this if you're entering user password correctly but it still fails
+reset_faillock() {
+  faillog --user $USER --reset
+}
+
+generate_ethereum_private_key_show_address() {
+  privateKey=$(generate_ethereum_private_key)
+  echo $privateKey
+  ethereum-private-key-to-address $privateKey
 }
 
 # vim "multiline cursor"
