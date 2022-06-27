@@ -29,6 +29,7 @@ ctrl + v            paste
 ctrl + z            undo
 ctrl + u            view page source
 ctrl + i            view page info
+ctrl + n            open new window
 ctrl + +            zoom in
 ctrl + -            zoom out
 ctrl + 0            zoon default

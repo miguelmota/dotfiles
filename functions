@@ -119,6 +119,10 @@ list_port_procceses() {
   lsof -i tcp:"${1}"
 }
 
+list_systemctl_ports() {
+  sudo ss -lpntu
+}
+
 lsof_watch_dir() {
   local dir="."
   if [ ! -z "$1" ]; then
@@ -1380,6 +1384,10 @@ restart_ufw() {
   sudo ufw enable
 }
 
+ufw_list() {
+  sudo ufw status numbered
+}
+
 enable_sshd() {
   systemctl enable sshd.service
 }
@@ -2031,9 +2039,15 @@ eth_rpc_head_block_number() {
   set +x
 }
 
-eth_receipt() {
+eth_rpc_receipt() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$1\"],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_json() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "$1" "$2"
   set +x
 }
 
@@ -2130,6 +2144,38 @@ generate_ethereum_private_key_show_address() {
   privateKey=$(generate_ethereum_private_key)
   echo $privateKey
   ethereum-private-key-to-address $privateKey
+}
+
+# see who is groups: root, wheel, adm, admin
+get_root_users() {
+  getent group root wheel adm admin
+}
+
+view_hashed_password() {
+  sudo getent shadow $USER
+}
+
+security_checklist() {
+  echo "check open ports"
+  sudo ufw status
+
+  echo "checking if ufw is running"
+  sudo systemctl status ufw
+
+  echo "listing active services"
+  sudo systemctl list-units --type=service --state=active
+
+  echo "disable sshd if not needed"
+}
+
+# lists current number of threads for each user
+list_thread_usage() {
+  ps --no-headers -Leo user | sort | uniq --count
+}
+
+# list items like apple tv, fire stick, chromecasts, ipads, printers, etc
+list_local_network_items() {
+  avahi-browse -a
 }
 
 # vim "multiline cursor"

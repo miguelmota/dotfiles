@@ -206,7 +206,7 @@ XF86MonBrightnessUp
 
 ## Printscreen button
 Print
-  deepin-screenshot
+  deepin-screenshot --save-path ~/Downloads/Screenshots
   #gnome-screenshot -i
 
 XF86Bluetooth
