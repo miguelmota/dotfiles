@@ -114,6 +114,7 @@ alias vimwiki='cd ~/vimwiki && vim ~/vimwiki/'
 alias wiki='vimwiki'
 alias vimgit='vim ~/.gitconfig'
 alias vimgitconfig='vim ~/.gitconfig'
+alias vimnoplugins='vim -u NONE'
 
 # Emacs aliases
 alias emacs_mac='/usr/local/Cellar/emacs/25.1/bin/emacs'
@@ -234,6 +235,7 @@ alias height=image_height
 alias diga=dig_all
 alias epoch2date='date -r'
 alias speedtest='speedtest-cli'
+alias speedtest_fast='npx fast-cli'
 alias since_epoch='date +%s'
 alias untar='tar -zxvf'
 

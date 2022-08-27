@@ -1939,6 +1939,10 @@ json_array_to_table() {
   jq -r '(.[0] | with_entries(select(.value | type | . != "array" and . != "object")) | ([keys[] | .] |(., map(length*"-")))), (.[] | with_entries(select(.value | type | . != "array" and . != "object")) | ([keys[] as $k | .[$k]])) | @tsv' | column -t -s $'\t'
 }
 
+text_list_to_json_array() {
+  jq -nR '[inputs]' $1
+}
+
 chainid() {
   curl -s https://chainid.network/chains.json | json_array_to_table | awk "NR <= 2 || /$1/"
 }
@@ -2027,12 +2031,6 @@ eth_rpc_chain_id() {
   set +x
 }
 
-eth_rpc_chain_id2() {
-  set -x
-  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$1"
-  set +x
-}
-
 eth_rpc_head_block_number() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' "$1" | jq -r '.result'
@@ -2043,6 +2041,18 @@ eth_rpc_receipt() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$1\"],\"id\":1}" "$2"
   set +x
+}
+
+eth_rpc_base_fee() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",false],"id":1}' "$1" | jq -r '.result.baseFeePerGas'
+  set +x
+}
+
+gas_price() {
+  RPC="https://cloudflare-eth.com"
+  GAS_PRICE_HEX=$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",false],"id":1}' "$RPC" | jq -r '.result.baseFeePerGas')
+  ethereum-unit-converter "$GAS_PRICE_HEX" gwei eth
 }
 
 eth_rpc_json() {
@@ -2176,6 +2186,12 @@ list_thread_usage() {
 # list items like apple tv, fire stick, chromecasts, ipads, printers, etc
 list_local_network_items() {
   avahi-browse -a
+}
+
+docker_kill_all() {
+  docker rm -f $(docker ps -aq)
+  docker rmi -f $(docker images -aq)
+  docker swarm leave --force
 }
 
 # vim "multiline cursor"

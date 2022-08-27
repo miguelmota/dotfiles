@@ -62,7 +62,7 @@ fi
 
 if [ "$state" == "fully-charged" ]; then
   if (( level >= 99 )); then
-    notify -u normal -t 5000 'Battery Fully Charged' "$level% battery charged"
+    #notify -u normal -t 5000 'Battery Fully Charged' "$level% battery charged"
     exit 0
   fi
 fi
