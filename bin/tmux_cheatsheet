@@ -24,4 +24,7 @@ C-b '               Select the window index
 prefix + w          Select window
 
 :resize-pane -D 10  Resize pane
+
+C-S-Left            Move window left
+C-S-Right           Move window right
 "

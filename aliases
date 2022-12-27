@@ -50,6 +50,7 @@ alias cdpolybar='cd ~/.config/polybar'
 alias cdbin='cd ~/.bin'
 alias cdalacritty='cd ~/.config/alacritty'
 alias cdalacrittythemes='cd ~/.config/alacritty/themes'
+alias cdssh='cd ~/.ssh'
 
 # Directory listing aliases
 
@@ -396,6 +397,8 @@ alias tg='telegram'
 alias rg='rg -i -a'
 alias fkzoom='fkill zoom'
 alias fktg='fkill telegram'
+alias fkslack='fkill slack'
+alias fktelegram='fkill telegram'
 alias startx='ssh-agent startx'
 alias s='startx'
 alias exit_xinit='kill_xorg'
@@ -407,6 +410,14 @@ alias bspwm_cheatsheet='sxhkd_cheatsheet'
 alias vimbashhistory='vim ~/.bash_history'
 alias eth_price='cointop price --coin ethereum'
 alias btc_price='cointop price --coin bitcoin'
+alias wt='wifi_toggle'
+alias prompt_custom='custom_prompt'
+alias prompt_standard='standard_prompt'
+alias prompt_basic='basic_prompt'
+alias standard='npx standard --fix'
+alias lint_fix='standard'
+alias diff_files='diff'
+alias py='python'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

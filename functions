@@ -98,10 +98,15 @@ server() {
   fi
 }
 
-server-open() {
+server_open() {
   port="$1"
   open_port "$port"
   server "$port"
+}
+
+server_cors() {
+  port="$1"
+  npx http-server -p $port --cors="*"
 }
 
 # Display local IP
@@ -256,7 +261,7 @@ open() {
 # Example
 # $ file_search 'index.js' ./
 file_search() {
-  find ${2} -name ${1}
+  find ${2} -name ${1} -not -path '*/node_modules/*'
 }
 
 # Recursive search and replace text
@@ -994,6 +999,10 @@ git_delete_all_local_branches() {
   git branch | grep -vw "$current_branch" | xargs git branch -D
 }
 
+git_delete_local_branch() {
+  git branch -D "$1"
+}
+
 # Alias hub to git if exists
 # Example
 # $ git pull-request
@@ -1458,6 +1467,7 @@ stop_vpn() {
 
 start_bluetooth() {
   sudo systemctl start bluetooth.service
+  # blueman-applet &
 }
 
 stop_bluetooth() {
@@ -1580,7 +1590,12 @@ tcpflow80() {
 }
 
 http80() {
-  sudo httpry -i en0
+  #sudo httpry -i en0
+  sudo httpry -i wlan0
+}
+
+start_wireshark() {
+  sudo wireshark
 }
 
 dnslookup() {
@@ -2192,6 +2207,72 @@ docker_kill_all() {
   docker rm -f $(docker ps -aq)
   docker rmi -f $(docker images -aq)
   docker swarm leave --force
+}
+
+firefox_latest_version() {
+  curl -s -L -I "https://www.mozilla.org/en-US/firefox/latest/releasenotes/" | grep location
+}
+
+coingecko_price() {
+  coinId=$1
+  days=${2:-1}
+  url="https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=usd&days=$days&interval=daily"
+  echo $url
+  curl "$url"
+}
+
+start_opensnitch() {
+  sudo opensnitchd
+  sudo opensnitch-ui
+}
+
+# avahi-daemon is like bonjour on mac; it's for service discovery (ie printers)
+disable_avahi() {
+  sudo systemctl stop avahi-daemon
+  sudo systemctl disable avahi-daemon
+}
+
+start_proxy_web() {
+  mitmweb
+}
+
+start_proxy_chrome() {
+  google-chrome-stable --proxy-server="http://localhost:8080"https://rpc.ankr.com/eth
+}
+
+disable_notifications() {
+  fkill dunst
+}
+
+enable_notifications() {
+  dunst &
+}
+
+list_services() {
+  systemctl list-units --type=service
+}
+
+siege_rpc_json() {
+  data=$1
+  rpc=$2
+  siege --content-type "application/json" "$rpc POST $data"
+}
+
+siege_rpc_chainId() {
+  rpc=$1
+  siege --content-type "application/json" "$rpc POST {\"jsonrpc\":\"2.0\",\"method\":\"eth_chainId\",\"params\":[],\"id\":1}"
+}
+
+function pascalCase() {
+  perl -pe 's#(_|^)(.)#\u$2#g'
+}
+
+function snakeCase() {
+  perl -pe 's#([A-Z])#_\L$1#g' | perl -pe 's#^_##'
+}
+
+markdown_viewer() {
+  pandoc "$1" | firefox "data:text/html;base64,$(base64 -w 0 <&0)";
 }
 
 # vim "multiline cursor"

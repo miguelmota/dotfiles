@@ -321,3 +321,5 @@ export PATH=$PATH:/var/lib/snapd/snap/bin
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 # Fix menu click issues in Java applications
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+export PATH="$PATH:/home/mota/.foundry/bin"
