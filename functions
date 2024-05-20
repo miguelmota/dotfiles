@@ -212,6 +212,13 @@ git_rm_cached() {
   git rm -r --cached .
 }
 
+git_merge_theirs() {
+  branch=$1
+  git merge --abort
+  # git pull -X theirs
+  git merge $branch -X theirs
+}
+
 github_action_status() {
   gh run watch --exit-status && echo "run completed and successful"
 }
@@ -689,6 +696,8 @@ start_ssh_agent() {
   ssh-agent bash
 }
 
+# Example
+# ssh_agent_add_key ~/.ssh/id_rsa
 ssh_agent_add_key() {
   ssh-add "$1"
 }
@@ -698,6 +707,19 @@ ssh_agent_add_key() {
 # $ ssh_password root@example.com
 ssh_password() {
   ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no "$@"
+}
+
+ssh_remove_cached_keys() {
+  ssh-add -D
+}
+
+ssh_list_cached_keys() {
+  ssh-add -l
+}
+
+ssh_test_connection() {
+  ssh -T git@github.com
+  # ssh -T git@github.com-example
 }
 
 # Make a temporary directory and enter it
@@ -1038,6 +1060,11 @@ delayed_lock() {
   sleep 7; lock
 }
 
+start_screensaver() {
+  xscreensaver &
+  xscreensaver-settings
+}
+
 # Get all local IP addreses in network
 # Example
 # $ scan_ips
@@ -1208,7 +1235,7 @@ reload_dunst() {
 
 localip() {
   if [ -f "/etc/arch-release" ]; then
-    ip addr show wlp3s0 | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}'
+    ip addr show wlan0 | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}'
   elif [[ "$unamestr" == 'Darwin' ]]; then
     ifconfig wlan0 | awk '$1 == "inet" {print $2}'
   else
@@ -1287,6 +1314,8 @@ vnc_tunnel() {
 
 xrandr_auto() {
   xrandr --auto
+  xlayoutdisplay
+  # autorandr
 }
 
 xrandr_mirror() {
@@ -1327,6 +1356,10 @@ xrandr_bottom_of() {
 
 xrandr_list() {
   xrandr --listactivemonitors
+}
+
+xrandr_gui() {
+  arandr
 }
 
 reload_workspaces() {
@@ -1446,7 +1479,8 @@ start_docker() {
 }
 
 stop_docker() {
-  systemctl stop docker
+  sudo systemctl stop docker
+  sudo systemctl stop docker.socket
 }
 
 restart_docker() {
@@ -1457,12 +1491,28 @@ plex_logs() {
   tail -f /var/lib/plex/Plex\ Media\ Server/Logs/Plex\ Media\ Server.log
 }
 
-start_vpn() {
+start_wireguard_vpn() {
   sudo wg-quick up wg0
 }
 
-stop_vpn() {
+stop_wireguard_vpn() {
   sudo wg-quick down wg0
+}
+
+vpn_connect() {
+  mullvad connect
+  sleep 1
+  iplookup
+}
+
+vpn_disconnect() {
+  mullvad disconnect
+  sleep 1
+  iplookup
+}
+
+vpn_status() {
+  mullvad status
 }
 
 start_bluetooth() {
@@ -1978,6 +2028,16 @@ ssh_public_key_fingerprint_sha256() {
   ssh-keygen -lf "$pub_key" -E sha256
 }
 
+ssh_key_test_pass() {
+  keyfile="$1"
+  ssh-keygen -y -f $keyfile
+}
+
+ssh_get_public_key_from_private() {
+  keyfile="$1"
+  ssh-keygen -y -f $keyfile
+}
+
 pip_package_build() {
   # pip install -U pip setuptools
   python setup.py sdist
@@ -2034,25 +2094,40 @@ awk_first() {
   read r && echo $r | awk 'NR==1{print $1}'
 }
 
-eth_rpc_client_version() {
+number_diff() {
+  echo "scale=2;($1 / $2)*100" | bc
+}
+
+eth_rpc_url() {
+  RPC_URL="$1"
+  if [[ $1 != http* ]]; then
+    RPC_URL="http://localhost:$1"
+  fi
+}
+
+eth_rpc_clientVersion() {
   set -x
-  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' "$1" | jq -r '.result'
+  RPC_URL=$1
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' "$RPC_URL" | jq -r '.result'
   set +x
 }
 
-eth_rpc_chain_id() {
+eth_rpc_chainId() {
   set -x
-  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$1" | jq -r '.result'
+  RPC_URL=$1
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$RPC_URL" | jq -r '.result'
   set +x
 }
 
-eth_rpc_head_block_number() {
+eth_rpc_blockNumber() {
   set -x
-  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' "$1" | jq -r '.result'
+  RPC_URL="$1"
+  result=$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' "$RPC_URL" | jq -r '.result')
+  hex2dec $result
   set +x
 }
 
-eth_rpc_receipt() {
+eth_rpc_getTransactionReceipt() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"$1\"],\"id\":1}" "$2"
   set +x
@@ -2064,8 +2139,78 @@ eth_rpc_base_fee() {
   set +x
 }
 
+eth_rpc_gasPrice() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":1}' "$1" | jq -r '.result'
+  set +x
+}
+
+eth_rpc_getBalance() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"$1\", \"latest\"],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_getCode() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"$1\", \"latest\"],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_getBlockByHash() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"$1\", true],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_getBlockByNumber() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"$1\", true],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_getBlockByHash() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"$1\", true],\"id\":1}" "$2"
+  set +x
+}
+
+eth_rpc_getBlockRange () {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockRange\",\"params\":[\"0x1\", \"0x2\", false],\"id\":1}" "$1"
+  set +x
+}
+
+eth_rpc_getBlockSafe () {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"safe\", false],\"id\":1}" "$1"
+  set +x
+}
+
+eth_rpc_getBlockFinal () {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"finalized\", false],\"id\":1}" "$1"
+  set +x
+}
+
+eth_rpc_traceTransaction () {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"debug_traceTransaction\",\"params\":[\"$2\", {\"tracer\": \"callTracer\"}],\"id\":1}" "$1"
+  set +x
+}
+
+eth_rpc_replayBlockTransactions () {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"trace_replayBlockTransactions\",\"params\":[\"$2\", [\"trace\"]],\"id\":1}" "$1"
+  set +x
+}
+
 gas_price() {
-  RPC="https://cloudflare-eth.com"
+  nvm use 14
+  RPC=${1:-"https://cloudflare-eth.com"}
+  if [ "$1" == "goerli" ]; then
+    RPC="https://rpc.ankr.com/eth_goerli"
+  fi
   GAS_PRICE_HEX=$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",false],"id":1}' "$RPC" | jq -r '.result.baseFeePerGas')
   ethereum-unit-converter "$GAS_PRICE_HEX" gwei eth
 }
@@ -2209,6 +2354,16 @@ docker_kill_all() {
   docker swarm leave --force
 }
 
+docker_cleanall() {
+  dockerrm
+  dockerrmi
+  docker system prune -a -f
+  docker container prune -f
+  docker image prune -a -f
+  docker builder prune -a -f
+  docker volume prune -a -f
+}
+
 firefox_latest_version() {
   curl -s -L -I "https://www.mozilla.org/en-US/firefox/latest/releasenotes/" | grep location
 }
@@ -2237,7 +2392,9 @@ start_proxy_web() {
 }
 
 start_proxy_chrome() {
-  google-chrome-stable --proxy-server="http://localhost:8080"https://rpc.ankr.com/eth
+  # make sure to start `mitmweb` first
+  google-chrome-stable --proxy-server="http://localhost:8080"
+  # and then import Authority certificate into chrome settings ~/.mitmproxy/mitmproxy-ca-cert.pem
 }
 
 disable_notifications() {
@@ -2273,6 +2430,80 @@ function snakeCase() {
 
 markdown_viewer() {
   pandoc "$1" | firefox "data:text/html;base64,$(base64 -w 0 <&0)";
+}
+
+get_default_browser() {
+  xdg-settings get default-web-browser
+}
+
+set_default_browser_firefox() {
+  xdg-settings set default-web-browser firefox.desktop
+}
+
+set_default_browser_chrome() {
+  xdg-settings set default-web-browser google-chrome.desktop
+}
+
+# find lines in file2 that match lines from file1
+# example:
+# line_match_files myaccounts.txt bigfile.csv
+line_match_files() {
+  file1="$1"
+  file2="$2"
+  cat $file1 | xargs -I {} sh -c "rg -i {} $file2"
+}
+
+reload_bspwm() {
+  bspc wm -r
+}
+
+quit_bspwm() {
+  bspc quit
+}
+
+bspwm_kill_nodes_in_workspace() {
+  bspc query -N -d $desk -n .leaf | xargs -I {} bspc node {} --kill
+}
+
+cointop_price() {
+  value="$2"
+  price=$(cointop price --coin $1)
+  if [ ! -z "$value" ]; then
+    node -e "console.log(Number('$price'.replace(/[$,]/gi, '')) * Number('$value'))"
+  else
+    echo $price
+  fi
+}
+
+eth_price() {
+  cointop_price ethereum $1
+}
+
+btc_price() {
+  cointop_price bitcoin $1
+}
+
+# example
+# type
+# ngrok is hashed (/home/mota/.bin/ngrok)
+# rm ~/.bin/ngrok
+# hash -l ngrok
+# type ngrok
+# ngrok is hashed (/bin/ngrok)
+remove_type_hash() {
+  hash -l $1
+}
+
+# returns "true" if file or dir is symlink
+is_symlink() {
+  test -L "$1" && echo true || echo false
+}
+
+load_direnv() {
+  # # this doesn't work:
+  # direnv allow .
+  # this works:
+  eval "$(direnv hook bash)"
 }
 
 # vim "multiline cursor"

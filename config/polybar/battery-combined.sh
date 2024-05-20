@@ -6,6 +6,10 @@ red="%{F#ff5555}"
 white="%{F#fff}"
 gray="%{F#555}"
 
+notify() {
+  DISPLAY=:0.0 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus" /usr/bin/notify-send "$@"
+}
+
 battery_print() {
     PATH_AC="/sys/class/power_supply/AC"
     PATH_BATTERY_0="/sys/class/power_supply/BAT0"
@@ -23,35 +27,59 @@ battery_print() {
         ac=$(cat "$PATH_AC/online")
     fi
 
-    if [ -f "$PATH_BATTERY_0/energy_now" ]; then
-        battery_level_0=$(cat "$PATH_BATTERY_0/energy_now")
+    mybool=false
+    if $mybool; then
+      if [ -f "$PATH_BATTERY_0/energy_now" ]; then
+          battery_level_0=$(cat "$PATH_BATTERY_0/energy_now")
+      fi
+
+      if [ -f "$PATH_BATTERY_0/energy_full" ]; then
+          battery_max_0=$(cat "$PATH_BATTERY_0/energy_full")
+      fi
+
+      if [ -f "$PATH_BATTERY_0/status" ]; then
+          battery_status_0=$(cat "$PATH_BATTERY_0/status")
+      fi
+
+      if [ -f "$PATH_BATTERY_1/energy_now" ]; then
+          battery_level_1=$(cat "$PATH_BATTERY_1/energy_now")
+      fi
+
+      if [ -f "$PATH_BATTERY_1/energy_full" ]; then
+          battery_max_1=$(cat "$PATH_BATTERY_1/energy_full")
+      fi
+
+      if [ -f "$PATH_BATTERY_1/status" ]; then
+          battery_status_1=$(cat "$PATH_BATTERY_1/status")
+      fi
+
+      battery_level=$(("$battery_level_0 + $battery_level_1"))
+      battery_max=$(("$battery_max_0 + $battery_max_1"))
+
+      battery_percent=$(("$battery_level * 100"))
+      battery_percent=$(("$battery_percent / $battery_max"))
+    else
+      count=1
+      if [ -f "$PATH_BATTERY_0/energy_now" ]; then
+          battery_level_0=$(cat "$PATH_BATTERY_0/capacity")
+      fi
+
+      if [ -f "$PATH_BATTERY_0/status" ]; then
+          battery_status_0=$(cat "$PATH_BATTERY_0/status")
+      fi
+
+      if [ -f "$PATH_BATTERY_1/energy_now" ]; then
+          battery_level_1=$(cat "$PATH_BATTERY_1/capacity")
+          count=2
+      fi
+
+      if [ -f "$PATH_BATTERY_1/status" ]; then
+          battery_status_1=$(cat "$PATH_BATTERY_1/status")
+      fi
+
+      battery_level=$(("$battery_level_0 + $battery_level_1"))
+      battery_percent=$(("($battery_level / $count) / 2"))
     fi
-
-    if [ -f "$PATH_BATTERY_0/energy_full" ]; then
-        battery_max_0=$(cat "$PATH_BATTERY_0/energy_full")
-    fi
-
-    if [ -f "$PATH_BATTERY_0/status" ]; then
-        battery_status_0=$(cat "$PATH_BATTERY_0/status")
-    fi
-
-    if [ -f "$PATH_BATTERY_1/energy_now" ]; then
-        battery_level_1=$(cat "$PATH_BATTERY_1/energy_now")
-    fi
-
-    if [ -f "$PATH_BATTERY_1/energy_full" ]; then
-        battery_max_1=$(cat "$PATH_BATTERY_1/energy_full")
-    fi
-
-    if [ -f "$PATH_BATTERY_1/status" ]; then
-        battery_status_1=$(cat "$PATH_BATTERY_1/status")
-    fi
-
-    battery_level=$(("$battery_level_0 + $battery_level_1"))
-    battery_max=$(("$battery_max_0 + $battery_max_1"))
-
-    battery_percent=$(("$battery_level * 100"))
-    battery_percent=$(("$battery_percent / $battery_max"))
 
     status=""
 
@@ -84,6 +112,10 @@ battery_print() {
             label="BAT:"
         else
           label="BAT$status:"
+        fi
+
+        if [ "$battery_percent" -lt 26 ]; then
+          notify -u critical -t 60000 'Critical Low Battery' "$battery_percent% of battery remaining"
         fi
 
         bar=$(gen_bar $battery_percent)

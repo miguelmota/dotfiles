@@ -39,40 +39,70 @@ ulimit -n 2048
 
  # Load NVM
 
+# nvm() {
+#     unset -f nvm
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#     nvm "$@"
+# }
+
+# node() {
+#     unset -f node
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#     node "$@"
+# }
+
+# npm() {
+#     unset -f npm
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#     npm "$@"
+# }
+
+# jest() {
+#     unset -f jest
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#     jest "$@"
+# }
+
+# yarn() {
+#     unset -f yarn
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#     yarn "$@"
+# }
+
+# export PATH=~/.nvm/versions/node/v16.5.0/bin:$PATH
+# export NVM_DIR=~/.nvm
+# [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
+
+export NVM_DIR="$HOME/.nvm"
+
+# This lazy loads nvm
 nvm() {
-    unset -f nvm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    nvm "$@"
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+  nvm $@
 }
 
-node() {
-    unset -f node
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    node "$@"
-}
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-npm() {
-    unset -f npm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    npm "$@"
-}
+# This resolves the default node version
+DEFAULT_NODE_VER="$((cat "$NVM_DIR/alias/default" || cat ~/.nvmrc) 2> /dev/null)"
+while [ -s "$NVM_DIR/alias/$DEFAULT_NODE_VER" ] && [ ! -z "$DEFAULT_NODE_VER" ]; do
+  DEFAULT_NODE_VER="$(cat "$NVM_DIR/alias/$DEFAULT_NODE_VER")"
+done
 
-jest() {
-    unset -f jest
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    jest "$@"
-}
+# This resolves the path to the default node version
+DEFAULT_NODE_VER_PATH="$(find $NVM_DIR/versions/node -maxdepth 1 -name "v${DEFAULT_NODE_VER#v}*" | sort -rV | head -n 1)"
 
-yarn() {
-    unset -f yarn
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    yarn "$@"
-}
+# This adds the default node version path to PATH
+if [ ! -z "$DEFAULT_NODE_VER_PATH" ]; then
+  export PATH="$DEFAULT_NODE_VER_PATH/bin:$PATH"
+fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 

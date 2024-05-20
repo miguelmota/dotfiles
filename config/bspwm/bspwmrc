@@ -1,5 +1,7 @@
 #!/bin/bash
 
+xrdb -load ~/.Xresources
+
 if [ -x "$(command -v sxhkd)" ]; then
   sxhkd &
 fi
@@ -17,6 +19,10 @@ fi
 
 if [ -x "$(command -v pasystray)" ]; then
   pasystray &
+fi
+
+if [ -x "$(command -v powerkit)" ]; then
+  powerkit &
 fi
 
 #if [ -x "$(command -v blueman-applet)" ]; then
@@ -45,9 +51,10 @@ if [ -x "$(command -v dunst)" ]; then
   dunst &
 fi
 
-# bspc monitor -d I II III IV V VI VII VIII IX X
+# bspc monitor -d II III IV V VI VII VIII IX X
 
 for m in $(xrandr -q | grep -w connected | awk '{print $1}'); do
+    # bspc monitor eDP-1 -d eDP-1/{1..10}
     bspc monitor $m -d $m/{1..10}
 done
 
@@ -75,11 +82,11 @@ bspc rule -a \*:"FuzzyLauncher" state=floating center=on sticky=on
 bspc rule -a \*:"FloatingTerminal" state=floating center=on sticky=on
 
 if [ -x "$(command -v wmctrl)" ]; then
-  if [ -x "$(command -v alacritty)" ]; then
-    (alacritty -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "alacritty" -t 1)
-  fi
+  # if [ -x "$(command -v alacritty)" ]; then
+  #   (alacritty -e tmux new-session -A -s 0 &) && (sleep 0.5 && wmctrl -r "alacritty" -t 1)
+  # fi
 
-  if [ -x "$(command -v firefox)" ]; then
-    (firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)
-  fi
+  # if [ -x "$(command -v firefox)" ]; then
+  #   (firefox &) && (sleep 0.5 && wmctrl -r "firefox" -t 0)
+  # fi
 fi

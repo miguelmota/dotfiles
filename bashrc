@@ -297,7 +297,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 #[[ -s "/home/mota/.gvm/scripts/gvm" ]] && source "/home/mota/.gvm/scripts/gvm"
 
 # go path
-export GOPATH=~/go
+export GOPATH=$HOME/go
 #export GOROOT=$GOPATH/bin
 #export GOROOT=/usr/bin/go
 export PATH=$PATH:$GOPATH/bin

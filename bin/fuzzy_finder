@@ -16,4 +16,10 @@ if [[ "$1" == "cache" || ! -f "$cachefile" ]]; then
   printf "$file1\n$file2" > "$cachefile"
 fi
 
-cat "$cachefile"
+# Process the cachefile to extract string after the colon
+processed_content=""
+while IFS= read -r line; do
+  processed_content+="${line#*:}\n"
+done < "$cachefile"
+
+echo -e "$processed_content"

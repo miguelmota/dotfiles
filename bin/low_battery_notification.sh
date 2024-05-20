@@ -18,7 +18,7 @@ level_0=$(upower -i $battery_path_0 | grep percentage | awk '{print $2}' | sed '
 level_1=$(upower -i $battery_path_1 | grep percentage | awk '{print $2}' | sed 's/%//')
 
 max=$(("$level_0 + $level_1"))
-level=$(("$max / 2"))
+level=$(("$max / 2 / 2"))
 state="$state_0"
 
 if [ "$state_0" == "charging" ] || [ "$state_1" == "charging" ]; then
