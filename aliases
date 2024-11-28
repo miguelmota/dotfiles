@@ -220,6 +220,7 @@ alias nstart='npm run start'
 alias ntest='npm run test'
 alias nbtest='npm run build && npm run test'
 alias nbuild='npm run build'
+alias ncompile='npm run compile'
 alias nb='npm run build'
 alias nibuild='npm install && npm run build'
 alias nbstart='npm run build && npm run start'
@@ -230,8 +231,12 @@ alias lint='nlint'
 alias nlbuild='npm run lint && npm run build'
 alias nbump='npm run bump'
 alias nrelease='npm run release'
+alias nlink='npm link'
 alias ntypes='npm run types'
 alias npmi='npm i --save-exact'
+alias pnpmi='pnpm i'
+alias pnpmb='pnpm build'
+alias pnpmc='pnpm clean'
 
 # Utils
 alias width=image_width
@@ -401,8 +406,9 @@ alias volatility3='/bin/vol'
 alias toggle_wifi='wifi_toggle'
 alias tw='wifi_toggle'
 alias tg='telegram'
-alias rg='rg -i -a'
-alias rawrg='/bin/rg'
+alias rg='rg -i -a --hidden --no-ignore'
+alias rg_exclude_no_modules="rg --glob '!node_modules/**'"
+alias rg_original='/bin/rg'
 alias fkzoom='fkill zoom'
 alias fktg='fkill telegram'
 alias fkslack='fkill slack'
@@ -426,6 +432,7 @@ alias diff_files='diff' # diff_files file1 file2
 alias diff_files2='comm -23' # diff_files2 file1 file2
 alias py='python'
 alias nvm_use='nvm use 14'
+alias fnm_use_root='fnm use $(cat ../../.nvmrc)'
 alias send_notification='notify-send'
 alias open_spotify='flatpak run com.spotify.Client'
 alias pts='tty'
@@ -439,6 +446,7 @@ alias cspell_check='cspell --config ~/.config/cspell/cspell.json src/** --exclud
 alias cspell_filenames="grep '^\./'"
 alias cspell_unique_words="sed -E 's/.*\((.*)\)/\1/' > /tmp/cspell_unique.txt && (cat /tmp/cspell_unique.txt | sort | uniq | sed 's/.*/\"&\",/')"
 alias pacman_remove_lock='sudo rm /var/lib/pacman/db.lck'
+alias watch_with_aliases='watch -x bash -ic'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

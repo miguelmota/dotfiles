@@ -323,3 +323,12 @@ export PATH=$PATH:/var/lib/snapd/snap/bin
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 export PATH="$PATH:/home/mota/.foundry/bin"
+
+# fnm
+FNM_PATH="/home/mota/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+eval "$(fnm env --use-on-cd --shell bash)"

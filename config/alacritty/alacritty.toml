@@ -1,5 +1,7 @@
-live_config_reload = true
 working_directory = "None"
+
+[general]
+live_config_reload = true
 
 [bell]
 animation = "EaseOutExpo"
@@ -23,7 +25,7 @@ render_timer = false
 WINIT_X11_SCALE_FACTOR = "1.6"
 
 [font]
-size = 7
+size = 5
 
 [font.glyph_offset]
 x = 0

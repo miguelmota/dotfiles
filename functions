@@ -219,6 +219,11 @@ git_merge_theirs() {
   git merge $branch -X theirs
 }
 
+git_show_last_few_commit_changes() {
+  number="${1:-3}" # default to 3
+  git log -p "-$number"
+}
+
 github_action_status() {
   gh run watch --exit-status && echo "run completed and successful"
 }
@@ -855,7 +860,7 @@ generate_password() {
   openssl rand -base64 32
 }
 
-generate_ethereum_private_key() {
+ethereum_generate_private_key() {
   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 }
 
@@ -1199,6 +1204,11 @@ update_wallpaper() {
 
     feh --bg-scale --zoom fill ~/.local/share/wallpaper.jpg
   fi
+}
+
+# usage: set_wallpaper ~/Downloads/wallpaper.jpg
+set_wallpaper() {
+  feh --bg-scale --zoom fill "$1"
 }
 
 somafm_stream() {
@@ -1888,10 +1898,12 @@ open_cups() {
 }
 
 enable_cups() {
+  systemctl enable cups.service
   systemctl enable cups-browsed.service
 }
 
 start_cups() {
+  systemctl start cups.service
   systemctl start cups-browsed.service
 }
 
@@ -2133,6 +2145,20 @@ eth_rpc_getTransactionReceipt() {
   set +x
 }
 
+eth_rpc_getTransactionCount() {
+  set -x
+  result=$(curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"$1\", \"latest\"],\"id\":1}" "$2" | jq -r '.result')
+  hex2dec $result
+  set +x
+}
+
+eth_rpc_getTransactionCountPending() {
+  set -x
+  result=$(curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"$1\", \"pending\"],\"id\":1}" "$2" | jq -r '.result')
+  hex2dec $result
+  set +x
+}
+
 eth_rpc_base_fee() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",false],"id":1}' "$1" | jq -r '.result.baseFeePerGas'
@@ -2142,6 +2168,12 @@ eth_rpc_base_fee() {
 eth_rpc_gasPrice() {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":1}' "$1" | jq -r '.result'
+  set +x
+}
+
+eth_rpc_blobBaseFee() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blobBaseFee","params":[],"id":1}' "$1" | jq -r '.result'
   set +x
 }
 
@@ -2193,6 +2225,12 @@ eth_rpc_getBlockFinal () {
   set +x
 }
 
+eth_rpc_blockNumberSafe() {
+  result=$(eth_rpc_getBlockSafe $1 | jq -r '.result.number')
+  echo $result
+  hex2dec $result
+}
+
 eth_rpc_traceTransaction () {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"debug_traceTransaction\",\"params\":[\"$2\", {\"tracer\": \"callTracer\"}],\"id\":1}" "$1"
@@ -2202,6 +2240,16 @@ eth_rpc_traceTransaction () {
 eth_rpc_replayBlockTransactions () {
   set -x
   curl -s -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"trace_replayBlockTransactions\",\"params\":[\"$2\", [\"trace\"]],\"id\":1}" "$1"
+  set +x
+}
+
+eth_rpc_beacon_syncing() {
+  curl "http://localhost:3500/eth/v1/node/syncing"
+}
+
+eth_rpc_syncing() {
+  set -x
+  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' "$1"
   set +x
 }
 
@@ -2310,8 +2358,8 @@ reset_faillock() {
   faillog --user $USER --reset
 }
 
-generate_ethereum_private_key_show_address() {
-  privateKey=$(generate_ethereum_private_key)
+ethereum_generate_private_key_show_address() {
+  privateKey=$(ethereum_generate_private_key)
   echo $privateKey
   ethereum-private-key-to-address $privateKey
 }
