@@ -447,6 +447,9 @@ alias cspell_filenames="grep '^\./'"
 alias cspell_unique_words="sed -E 's/.*\((.*)\)/\1/' > /tmp/cspell_unique.txt && (cat /tmp/cspell_unique.txt | sort | uniq | sed 's/.*/\"&\",/')"
 alias pacman_remove_lock='sudo rm /var/lib/pacman/db.lck'
 alias watch_with_aliases='watch -x bash -ic'
+alias mate_appearance_settings='mate-appearance-properties'
+alias mate_keyboard_settings='mate-keybinding-properties'
+alias mate_default_settings='mate-default-applications-properties'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

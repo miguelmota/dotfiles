@@ -697,8 +697,12 @@ ssh_add_public_key() {
   cat ~/.ssh/id_rsa.pub | ssh $1 "cat >> ~/.ssh/authorized_keys"
 }
 
-start_ssh_agent() {
-  ssh-agent bash
+ssh_agent_start() {
+  systemctl --user enable ssh-agent
+  systemctl --user start ssh-agent
+  eval "$(ssh-agent -s)"
+  # ssh-agent bash # for local shell only
+  ssh-add -l
 }
 
 # Example
@@ -2552,6 +2556,16 @@ load_direnv() {
   # direnv allow .
   # this works:
   eval "$(direnv hook bash)"
+}
+
+screenshot_ui() {
+  if command_exists 'gnome-screenshot'; then
+    gnome-screenshot -i
+  else
+    if command_exists 'mate-screenshot'; then
+      mate-screenshot -i
+    fi
+  fi
 }
 
 # vim "multiline cursor"

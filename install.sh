@@ -279,17 +279,59 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -S --noconfirm alsa-utils
   sudo pacman -S --noconfirm python-pywal
 
-  # todo: if arch
-  # install yay: https://gist.github.com/miguelmota/cd12465fe82548d20d8a8cbadf04732a
-  # install vim-11: https://gist.github.com/miguelmota/08c7b5bedda4ba42563594af48618def
+  if ! command -v yay &> /dev/null; then
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+  fi
 
-  # image viewer
-  # yay -S mirage # right click image -> open with -> set default image viewer
+  if command -v yay &> /dev/null; then
+    # image viewer
+    yay -S mirage --noconfirm # right click image -> open with -> set default image viewer
 
-  # pdf viewer
-  # yay -S okular
+    # pdf viewer
+    yay -S okular --noconfirm
+
+    # vim with clipboard support
+    yay -S gvim --noconfirm
+
+    # git and hub
+    yay -S git
+    yay -S github-cli
+
+    # ebook reader
+    yay -S calibre --noconfirm
+
+    # GTK+ various command line archivers
+    yay -S xarchiver --noconfirm
+
+    # GTK2 file manager (default in LXDE)
+    yay -S pcmanfm --noconfirm
+
+    # GTK+ image viewer
+    yay -S mirage --noconfirm
+
+    # browsers
+    yay -S google-chrome --noconfirm
+    yay -S google-chrome-canary --noconfirm
+    yay -S brave-bin --noconfirm
+    yay -S firefox --noconfirm
+
+    # other
+    yay -S ripgrep --noconfirm
+    yay -S vlc --noconfirm
+    yay -S mullvad-vpn --noconfirm
+    yay -S audacity --noconfirm
+
+    # screenshot
+    yay -S deepin-screenshot --noconfirm
+
+    # gif screen recorder
+    yay -S peek --noconfirm
+  fi
 
   # add user to 'audio' and 'video' groups
+  sudo usermod -aG audio,video $USER
 fi
 
 if [[ "$OSTYPE" == "freebsd"* ]]; then
@@ -315,7 +357,7 @@ fi
 
 if [ ! -d "/usr/lib/urxvt/perl" ]; then
   echo "Copying urxvt perls"
-  sudo mkdir -p /usr/lib/urxvt/perl`
+  sudo mkdir -p /usr/lib/urxvt/perl
   sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
 fi
 
@@ -347,10 +389,12 @@ source ~/.bashrc
 
 if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; then
   (
-  echo "installing tmux plugin dependencies"
-  cd $TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load
-  cmake .
-  make
+  if [ -d "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load" ]; then
+    echo "installing tmux plugin dependencies"
+    cd $TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load
+    cmake .
+    make
+  fi
 )
 fi
 

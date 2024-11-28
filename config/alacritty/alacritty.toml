@@ -25,7 +25,7 @@ render_timer = false
 WINIT_X11_SCALE_FACTOR = "1.6"
 
 [font]
-size = 5
+size = 12
 
 [font.glyph_offset]
 x = 0
@@ -577,8 +577,8 @@ opacity = 1
 startup_mode = "Windowed"
 
 [window.dimensions]
-columns = 0
-lines = 0
+columns = 120
+lines = 30
 
 [window.padding]
 x = 10
