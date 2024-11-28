@@ -183,6 +183,7 @@ alias git_delete_remote_branch='git push origin --delete'
 alias gpdev='git pull origin develop'
 alias gitstats='git diff --shortstat'
 alias git_open='hub browse'
+alias git_show_last_signature='git log --show-signature -1'
 
 # System aliases
 

@@ -314,8 +314,13 @@ if [ -f "/etc/arch-release" ]; then
     # browsers
     yay -S google-chrome --noconfirm
     yay -S google-chrome-canary --noconfirm
+    yay -S google-chrome-dev --noconfirm
     yay -S brave-bin --noconfirm
     yay -S firefox --noconfirm
+
+    # emoji fonts
+    yay -S noto-fonts-emoji --noconfirm
+    fc-cache -fv # update cache, will require restart of applications to take effect
 
     # other
     yay -S ripgrep --noconfirm

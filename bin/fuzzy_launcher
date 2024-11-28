@@ -1,5 +1,15 @@
 #!/bin/env bash
 
+if ! command -v "xdotool" &> /dev/null; then
+  echo "missing package xdotool, installing"
+  yay -S xdotool
+fi
+
+if ! command -v "fzf" &> /dev/null; then
+  echo "missing package fzf, installing"
+  yay -S fzf
+fi
+
 xdotool search --onlyvisible --classname FuzzyLauncher windowunmap || \
 xdotool search --classname FuzzyLauncher windowmap || \
 alacritty --option window.dimensions.columns=100 --option window.dimensions.lines=10 --class FuzzyLauncher \

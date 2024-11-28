@@ -2360,6 +2360,7 @@ vim_clipboard_support() {
 # run this if you're entering user password correctly but it still fails
 reset_faillock() {
   faillog --user $USER --reset
+  faillock --reset
 }
 
 ethereum_generate_private_key_show_address() {
