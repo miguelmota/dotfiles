@@ -1546,8 +1546,8 @@ disable_bluetooth() {
   sudo systemctl enable bluetooth.service
 }
 
-bluetooth_toggle() {
-  echo todo
+bluetooth_applet() {
+  blueman-applet
 }
 
 wifi_toggle() {
@@ -1731,6 +1731,7 @@ git_ignore_blame() {
 
 restart_gpg() {
   gpgconf --kill gpg-agent
+  gpgconf --launch gpg-agent
 }
 
 fix_gnupg_file_permissions() {
@@ -2366,7 +2367,53 @@ reset_faillock() {
 ethereum_generate_private_key_show_address() {
   privateKey=$(ethereum_generate_private_key)
   echo $privateKey
-  ethereum-private-key-to-address $privateKey
+  ethereum_generate_address_from_private_key $privateKey
+}
+
+ethereum_generate_keys_openssl() {
+  # Generate the private key and public key
+  local key=$(openssl ecparam -name secp256k1 -genkey -noout | openssl ec -text -noout 2>/dev/null)
+
+  # Extract and clean the public key
+  local pub=$(echo "$key" | grep pub -A 5 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^04//')
+
+  # Extract and clean the private key
+  local priv=$(echo "$key" | grep priv -A 3 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^00//')
+
+  # Generate the address
+  local address=0x$(echo "$pub" | keccak-256sum -x -l | tr -d ' -' | tail -c 41)
+
+  # Print the results
+  echo "Private Key: $priv"
+  echo "Public Key: $pub"
+  echo "Address: $address"
+}
+
+ethereum_hex_private_key_to_pem() {
+  local private_key_hex="$1"
+
+  # Wrap the private key in ASN.1 structure and pass directly to openssl
+  echo "302e0201010420$private_key_hex a00706052b8104000a" | \
+  xxd -r -p | openssl ec -inform DER -outform PEM 2>/dev/null
+}
+
+ethereum_generate_address_from_private_key() {
+  private_key_hex="$1"
+
+  local priv_pem=$(ethereum_hex_private_key_to_pem $private_key_hex)
+  local key=$(openssl ec -in <(echo "$priv_pem") -text -noout 2>/dev/null)
+
+  # Extract and clean the public key
+  local pub=$(echo "$key" | grep pub -A 5 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^04//')
+
+  # Extract and clean the private key
+  local priv=$(echo "$key" | grep priv -A 3 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^00//')
+
+  # Generate the address
+  local address=0x$(echo "$pub" | keccak-256sum -x -l | tr -d ' -' | tail -c 41)
+
+  # Print the results
+  echo "Address: $address"
 }
 
 # see who is groups: root, wheel, adm, admin

@@ -119,6 +119,7 @@ alias vimgit='vim ~/.gitconfig'
 alias vimgitconfig='vim ~/.gitconfig'
 alias vimnoplugins='vim -u NONE'
 alias vimcspell='vim ~/.config/cspell/cspell.json'
+alias vimnviminit='vim ~/.config/nvim/init.vim'
 
 # Emacs aliases
 alias emacs_mac='/usr/local/Cellar/emacs/25.1/bin/emacs'
@@ -318,7 +319,7 @@ alias svg2png='rsvg-convert'
 alias shodan_history='shodan host --history'
 alias bashlint='shellcheck'
 #alias cat='bat'
-alias bat='battery'
+#alias bat='battery'
 alias ci='circleci'
 alias unixtimestamp='date +%s'
 alias files='pcmanfm'
@@ -451,6 +452,8 @@ alias watch_with_aliases='watch -x bash -ic'
 alias mate_appearance_settings='mate-appearance-properties'
 alias mate_keyboard_settings='mate-keybinding-properties'
 alias mate_default_settings='mate-default-applications-properties'
+alias nvidia_htop='nvtop'
+alias nvidia_watch_processes='watch -n 1 nvidia-smi'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local

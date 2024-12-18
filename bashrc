@@ -334,3 +334,6 @@ if command -v fnm &> /dev/null; then
 
   eval "$(fnm env --use-on-cd --shell bash)"
 fi
+
+export PATH=/opt/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH

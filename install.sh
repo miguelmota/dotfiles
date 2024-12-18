@@ -279,6 +279,9 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -S --noconfirm alsa-utils
   sudo pacman -S --noconfirm python-pywal
 
+  # keccak-256sum
+  sudo pacman -S --noconfirm sha3sum
+
   if ! command -v yay &> /dev/null; then
     git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -317,6 +320,9 @@ if [ -f "/etc/arch-release" ]; then
     yay -S google-chrome-dev --noconfirm
     yay -S brave-bin --noconfirm
     yay -S firefox --noconfirm
+
+    # excel, word, etc
+    yay -S libreoffice-still --noconfirm
 
     # emoji fonts
     yay -S noto-fonts-emoji --noconfirm
