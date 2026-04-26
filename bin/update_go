@@ -1,0 +1,123 @@
+#!/bin/bash
+
+# Go Update Script - Official Installation Method
+# Downloads and installs the latest Go version from golang.org
+
+set -e  # Exit on error
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}=== Go Update Script (Official Method) ===${NC}\n"
+
+# Check if running as root
+if [ "$EUID" -eq 0 ]; then
+    echo -e "${RED}Please do not run this script as root (it will use sudo when needed)${NC}"
+    exit 1
+fi
+
+# Check current Go version if installed
+if command -v go &> /dev/null; then
+    CURRENT_VERSION=$(go version | awk '{print $3}')
+    echo -e "${YELLOW}Current Go version: ${CURRENT_VERSION}${NC}\n"
+else
+    echo -e "${YELLOW}Go is not currently installed${NC}\n"
+fi
+
+# Fetch the latest version from Go's download page
+echo -e "${BLUE}Fetching latest Go version...${NC}"
+LATEST_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
+echo -e "${GREEN}Latest Go version: ${LATEST_VERSION}${NC}\n"
+
+# Determine architecture
+ARCH=$(uname -m)
+case $ARCH in
+    x86_64)
+        GO_ARCH="amd64"
+        ;;
+    aarch64)
+        GO_ARCH="arm64"
+        ;;
+    armv6l)
+        GO_ARCH="armv6l"
+        ;;
+    *)
+        echo -e "${RED}Unsupported architecture: $ARCH${NC}"
+        exit 1
+        ;;
+esac
+
+# Construct download URL
+GO_TARBALL="${LATEST_VERSION}.linux-${GO_ARCH}.tar.gz"
+DOWNLOAD_URL="https://go.dev/dl/${GO_TARBALL}"
+
+echo -e "${BLUE}Downloading ${GO_TARBALL}...${NC}"
+# Download to /tmp
+cd /tmp
+wget -q --show-progress "$DOWNLOAD_URL" || {
+    echo -e "${RED}Failed to download Go${NC}"
+    exit 1
+}
+
+# Remove old Go installation
+echo -e "\n${YELLOW}Removing old Go installation (if exists)...${NC}"
+sudo rm -rf /usr/local/go
+
+# Extract new Go installation
+echo -e "${GREEN}Extracting Go to /usr/local...${NC}"
+sudo tar -C /usr/local -xzf "$GO_TARBALL"
+
+# Clean up downloaded tarball
+rm "$GO_TARBALL"
+
+# Check if PATH is already configured
+PATH_CONFIGURED=false
+if grep -q "/usr/local/go/bin" "$HOME/.profile" 2>/dev/null; then
+    PATH_CONFIGURED=true
+fi
+
+if grep -q "/usr/local/go/bin" "$HOME/.bashrc" 2>/dev/null; then
+    PATH_CONFIGURED=true
+fi
+
+# Add to PATH if not already configured
+if [ "$PATH_CONFIGURED" = false ]; then
+    echo -e "\n${BLUE}Adding Go to PATH in ~/.profile...${NC}"
+    echo '' >> "$HOME/.profile"
+    echo '# Go installation' >> "$HOME/.profile"
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> "$HOME/.profile"
+    echo -e "${GREEN}✓ Added to ~/.profile${NC}"
+
+    # Also add to current session
+    export PATH=$PATH:/usr/local/go/bin
+else
+    echo -e "\n${GREEN}✓ Go already in PATH configuration${NC}"
+    # Make sure it's in current session
+    export PATH=$PATH:/usr/local/go/bin
+fi
+
+# Verify installation
+echo -e "\n${GREEN}Verifying installation...${NC}"
+if /usr/local/go/bin/go version &> /dev/null; then
+    NEW_VERSION=$(/usr/local/go/bin/go version)
+    echo -e "${GREEN}✓ Go successfully installed!${NC}"
+    echo -e "${GREEN}${NEW_VERSION}${NC}"
+
+    # Show Go environment
+    echo -e "\n${GREEN}Go Environment:${NC}"
+    echo "GOROOT: $(/usr/local/go/bin/go env GOROOT)"
+    echo "GOPATH: $(/usr/local/go/bin/go env GOPATH)"
+
+    echo -e "\n${YELLOW}Note: You may need to restart your terminal or run:${NC}"
+    echo -e "${BLUE}source ~/.profile${NC}"
+    echo -e "${YELLOW}for the PATH changes to take effect in this session.${NC}"
+else
+    echo -e "\n${RED}✗ Failed to install Go${NC}"
+    exit 1
+fi
+
+echo -e "\n${GREEN}Done!${NC}"

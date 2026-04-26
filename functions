@@ -192,8 +192,14 @@ git_install_submodules() {
 }
 
 git_reset_origin_head() {
+  local branch="${1:-master}"
   git fetch origin
-  git reset --hard origin/master
+  git reset --hard "origin/$branch"
+}
+
+git_reset_file() {
+  path_to_file="$1"
+  git reset HEAD~1 -- $path_to_file
 }
 
 git_list_recent_branches() {
@@ -219,9 +225,34 @@ git_merge_theirs() {
   git merge $branch -X theirs
 }
 
+git_merge_squash() {
+  other_branch="$1"
+  git merge $other_branch --squash
+  git commit
+}
+
+# git merge master into some branch without commit message
+git_merge_master() {
+  git merge master --no-commit --no-ff
+}
+
+# git merge develop into some branch without commit message
+git_merge_develop() {
+  git merge develop --no-commit --no-ff
+}
+
+git_pull_rebase() {
+  branch="$1"
+  git pull --rebase origin $branch
+}
+
 git_show_last_few_commit_changes() {
   number="${1:-3}" # default to 3
   git log -p "-$number"
+}
+
+git_switch_master() {
+  git switch master
 }
 
 github_action_status() {
@@ -491,6 +522,13 @@ mic() {
 # $ kill_regex /node/
 kill_regex() {
   kill $(ps aux | grep $1 | awk '{print $2}')
+}
+
+# Kill process at the port, good for killing zombie processes
+# Example
+# $ kill_port 3000
+kill_port() {
+  fuser -k $1/tcp
 }
 
 # Grep search count
@@ -1538,12 +1576,16 @@ stop_bluetooth() {
   sudo systemctl stop bluetooth.service
 }
 
+status_bluetooth() {
+  sudo systemctl status bluetooth.service
+}
+
 enable_bluetooth() {
   sudo systemctl enable bluetooth.service
 }
 
 disable_bluetooth() {
-  sudo systemctl enable bluetooth.service
+  sudo systemctl disable bluetooth.service
 }
 
 bluetooth_applet() {
@@ -1746,8 +1788,8 @@ ip_mac() {
 
 # Example
 # lsblk
-# sudo umount /dev/sd/<?><?>
-# burn_iso ~/Downloads/linux.iso /dev/sd/<?>
+# sudo umount /dev/sd<?><?>
+# burn_iso ~/Downloads/linux.iso /dev/sd<?>
 burn_iso() {
   set -eux
   if [ ! -f "$1" ]; then
@@ -1809,6 +1851,10 @@ google() {
 }
 
 streamhut_shell() {
+  exec &> >(nc streamhut.io 1337)
+}
+
+streamhut_shell_local() {
   exec &> >(nc localhost 1337)
 }
 
@@ -1987,6 +2033,12 @@ npm_list_symlink_node_modules() {
   ( ls -l node_modules ; ls -l node_modules/@* ) | grep ^l
 }
 
+# List org repos (check if org exists)
+# npm_list_org @someorg
+npm_list_org() {
+  npm search "$1/" --searchlimit=5
+}
+
 pretty_csv() {
   column -t -s, "$@" | less -S
 }
@@ -2009,6 +2061,11 @@ open_opensnitch() {
     echo "4byte id is required"
     return
   fi
+
+  # Normalize and trim to first 4 bytes
+  id="${id#0x}"               # Remove 0x if present
+  id="0x${id:0:4}"            # Add 0x and take first 8 hex digits
+
   local url="https://www.4byte.directory/api/v1/signatures/?hex_signature=$id"
   curl -s "$url" | jq -r '.results[].text_signature'
 }
@@ -2132,7 +2189,8 @@ eth_rpc_clientVersion() {
 eth_rpc_chainId() {
   set -x
   RPC_URL=$1
-  curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$RPC_URL" | jq -r '.result'
+  result=$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "$RPC_URL" | jq -r '.result')
+  hex2dec $result
   set +x
 }
 
@@ -2378,7 +2436,7 @@ ethereum_generate_keys_openssl() {
   local pub=$(echo "$key" | grep pub -A 5 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^04//')
 
   # Extract and clean the private key
-  local priv=$(echo "$key" | grep priv -A 3 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^00//')
+  local priv=$(echo "$key" | grep priv -A 3 | tail -n +2 | tr -d '\n[:space:]:' | sed 's/^00//' | sed 's/^priv//')
 
   # Generate the address
   local address=0x$(echo "$pub" | keccak-256sum -x -l | tr -d ' -' | tail -c 41)
@@ -2400,7 +2458,10 @@ ethereum_hex_private_key_to_pem() {
 ethereum_generate_address_from_private_key() {
   private_key_hex="$1"
 
+  # Convert the hexadecimal private key into PEM format using the helper function
   local priv_pem=$(ethereum_hex_private_key_to_pem $private_key_hex)
+
+  # Use OpenSSL to parse the PEM private key and extract its details (private key, public key, curve info)
   local key=$(openssl ec -in <(echo "$priv_pem") -text -noout 2>/dev/null)
 
   # Extract and clean the public key
@@ -2413,7 +2474,24 @@ ethereum_generate_address_from_private_key() {
   local address=0x$(echo "$pub" | keccak-256sum -x -l | tr -d ' -' | tail -c 41)
 
   # Print the results
-  echo "Address: $address"
+  echo "$address"
+}
+
+ethereum_generate_mnemonic() {
+  cast wallet new-mnemonic
+}
+
+ethereum_menmonic_address() {
+# Loop through first 5 accounts
+  for i in {0..4}; do
+    echo "Account $i:"
+    cast wallet address --mnemonic "$1" --mnemonic-index $i
+    echo
+  done
+}
+
+ethereum_private_key_from_mnemonic() {
+  cast wallet derive-private-key "$1" ${2:-0}
 }
 
 # see who is groups: root, wheel, adm, admin
@@ -2474,6 +2552,14 @@ coingecko_price() {
   url="https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=usd&days=$days&interval=daily"
   echo $url
   curl "$url"
+}
+
+coingecko_price_pro() {
+  coinId=$1
+  days=${2:-1}
+  url="https://pro-api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=usd&days=$days&interval=daily"
+  echo $url
+  curl -H "X-Cg-Pro-Api-Key: $COINGECKO_API_KEY" "$url"
 }
 
 start_opensnitch() {
@@ -2583,6 +2669,10 @@ btc_price() {
   cointop_price bitcoin $1
 }
 
+pol_price() {
+  cointop_price pol $1
+}
+
 # example
 # type
 # ngrok is hashed (/home/mota/.bin/ngrok)
@@ -2615,6 +2705,164 @@ screenshot_ui() {
     fi
   fi
 }
+
+python_env_activate() {
+  python -m venv venv
+  source venv/bin/activate
+}
+
+calculate() {
+  bc <<< "$@"
+}
+
+# useful for resetting system time,
+# such as to fix 2fa code generation issues
+resync_timedate() {
+  timedatectl set-ntp true
+}
+
+print_current_seconds() {
+  watch -n1 'date +%S'
+}
+
+print_current_time() {
+  watch -n1 'date'
+}
+
+watch_folder_add() {
+  sudo auditctl -w /tmp/custom_folder_to_watch -p r -k custom_test_watch_key
+}
+
+watch_folder_remove() {
+  sudo auditctl -W /tmp/custom_folder_to_watch -p r -k custom_test_watch_key
+}
+
+watch_folder_logs() {
+  sudo ausearch -k custom_test_watch_key
+}
+
+watch_folder_list() {
+  sudo auditctl -l
+}
+
+audio_record_cli() {
+  outfile="${1:-audio_recordins}.wav"
+  arecord -vv -fdat "$outfile"
+  echo "saved to $PWD/$outfile"
+  echo "play it with \"play $PWD/$outfile\""
+}
+
+clear_clipboard_selection() {
+  echo -n "" | xclip -selection clipboard
+}
+
+print_clipboard_selection() {
+  xclip -o -selection clipboard
+}
+
+direnv_hook_bash() {
+  eval "$(direnv hook bash)"
+}
+
+# shows live captions on screen while speaking to microphone
+open_live_captions() {
+  # install:
+  # flatpak install flathub net.sapples.LiveCaptions
+  flatpak run net.sapples.LiveCaptions
+}
+
+# Time format function - update this to change format everywhere
+_time_format() {
+    echo '+%I:%M:%S%p %Z - %A, %B %d, %Y'
+}
+
+spain_time() {
+    TZ='Europe/Madrid' date "$(_time_format)"
+}
+tokyo_time() {
+    TZ='Asia/Tokyo' date "$(_time_format)"
+}
+japan_time() {
+    TZ='Asia/Tokyo' date "$(_time_format)"
+}
+toronto_time() {
+    TZ='America/Toronto' date "$(_time_format)"
+}
+newzealand_time() {
+    TZ='Pacific/Auckland' date "$(_time_format)"
+}
+losangeles_time() {
+    TZ='America/Los_Angeles' date "$(_time_format)"
+}
+newyork_time() {
+    TZ='America/New_York' date "$(_time_format)"
+}
+london_time() {
+    TZ='Europe/London' date "$(_time_format)"
+}
+paris_time() {
+    TZ='Europe/Paris' date "$(_time_format)"
+}
+sydney_time() {
+    TZ='Australia/Sydney' date "$(_time_format)"
+}
+dubai_time() {
+    TZ='Asia/Dubai' date "$(_time_format)"
+}
+ukraine_time() {
+    TZ='Europe/Kyiv' date "$(_time_format)"
+}
+romania_time() {
+    TZ='Europe/Bucharest' date "$(_time_format)"
+}
+local_time() {
+    date "$(_time_format)"
+}
+
+display_server_show() {
+  echo $XDG_SESSION_TYPE
+  echo $WAYLAND_DISPLAY
+  echo $DISPLAY
+  echo $XDG_CURRENT_DESKTOP
+  echo "Session: $XDG_SESSION_TYPE | Desktop: $XDG_CURRENT_DESKTOP"
+}
+
+start_speech_to_text() {
+  nerd-dictation begin
+}
+
+stop_speech_to_text() {
+  nerd-dictation end
+}
+
+# list file watchers
+# example output:
+# 367085 /home/mota/.nvm/versions/node/v22.11.0/lib/node_modules/@bio
+# 142880 /proc/self/exe --type=utility --utility-sub-type=node.mojom.
+# 12654 /home/mota/Sandbox/sequence/trails/node_modules/.pnpm/turbo-
+# 1082 /proc/self/exe --type=utility --utility-sub-type=node.mojom.
+# 81 /usr/lib/xdg-desktop-portal-gnome
+#
+inotify_file_listing() {
+# Per-process watch count, sorted
+for pid in /proc/[0-9]*/fdinfo; do
+  count=$(grep -l inotify "$pid"/* 2>/dev/null | xargs grep -h "^inotify wd" 2>/dev/null | wc -l)
+  if [ "$count" -gt 0 ]; then
+    name=$(cat "${pid%/fdinfo}/cmdline" 2>/dev/null | tr '\0' ' ' | cut -c1-60)
+    echo "$count $name"
+  fi
+done | sort -rn | head -20
+}
+
+
+# usage
+# git_rebase_branch → uses current branch
+# git_rebase_branch feat/new-feature → uses passed branch
+git_rebase_branch() {
+    local b="${1:-$(git rev-parse --abbrev-ref HEAD)}"
+    [ -n "$b" ] || { echo "Branch is empty"; return 1; }
+    git fetch origin && git rebase "origin/${b}"
+  }
 
 # vim "multiline cursor"
 #Ctrl-v ................ start visual block selection

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Set variables
+INPUT="${1:-input.mp4}"
+PALETTE="palette.png"
+OUTPUT="output_$(date +%s).gif"
+WIDTH=960   # Increase size here (default was 480)
+
+# Step 1: Generate palette
+ffmpeg -y -i "$INPUT" -vf "fps=10,scale=${WIDTH}:-1:flags=lanczos,palettegen" "$PALETTE"
+
+# Step 2: Create GIF using palette
+ffmpeg -y -i "$INPUT" -i "$PALETTE" -filter_complex "fps=10,scale=${WIDTH}:-1:flags=lanczos[x];[x][1:v]paletteuse" "$OUTPUT"
+
+echo "Saved to $OUTPUT"

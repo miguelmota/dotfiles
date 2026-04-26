@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ -z "${1:-}" ]; then
+  echo "Usage: npm_most_downloaded_dependents <package-name>"
+  exit 1
+fi
+
+PACKAGE="$1"
+SAFE_PACKAGE_NAME=$(echo "$PACKAGE" | sed 's|/|__|g')
+DEPENDENTS_FILE="/tmp/npm-dependents-${SAFE_PACKAGE_NAME}.txt"
+TMP_FILE=$(mktemp)
+
+# Auto-run scraper if file doesn't exist
+if [ ! -f "$DEPENDENTS_FILE" ]; then
+  echo "📂 Dependent list not found at: $DEPENDENTS_FILE"
+  echo "🚀 Running: npm_scrape_dependents $PACKAGE"
+  if ! command -v npm_scrape_dependents >/dev/null 2>&1; then
+    echo "❌ 'npm_scrape_dependents' not found in PATH. Please install it first."
+    exit 1
+  fi
+  npm_scrape_dependents "$PACKAGE"
+fi
+
+# Clean input
+mapfile -t unique_packages < <(sort -u "$DEPENDENTS_FILE")
+
+echo "📄 Reading ${#unique_packages[@]} package names from: $DEPENDENTS_FILE"
+echo "📦 Fetching weekly download counts from npm..."
+
+echo ""
+echo "📊 Per-package log:"
+echo "-------------------"
+
+for name in "${unique_packages[@]}"; do
+  (
+    echo "🔍 Fetching: $name" >&2
+    response=$(curl -s "https://api.npmjs.org/downloads/point/last-week/$name")
+    count=$(echo "$response" | jq -r '.downloads // 0')
+    echo "✅ $name: $count downloads" >&2
+    printf "%s|%s\n" "$name" "$count" >> "$TMP_FILE"
+  ) &
+done
+
+wait
+
+echo ""
+echo "📈 Sorted Results:"
+echo "Package Name                      | Weekly Downloads"
+echo "----------------------------------|-----------------"
+
+total_downloads=0
+
+while IFS='|' read -r name count; do
+  printf "%-34s | %s\n" "$name" "$count"
+  total_downloads=$((total_downloads + count))
+done < <(sort -t '|' -k2 -nr "$TMP_FILE")
+
+echo "----------------------------------|-----------------"
+printf "%-34s | %s\n" "TOTAL" "$total_downloads"
+
+rm -f "$TMP_FILE"

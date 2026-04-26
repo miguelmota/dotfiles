@@ -295,3 +295,7 @@ super + ctrl + t
 # Toggle sticky notes
 super + u
   xpad --toggle
+
+# super + r
+#   nerd-dictation begin
+#   nerd-dictation end

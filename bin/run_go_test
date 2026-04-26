@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Script to run Go tests by name, converting spaces to underscores
+# Usage: ./run_go_test.sh <test_name>
+# Example: ./run_go_test.sh "GetTokens for all chains - no limit"
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <test_name>"
+    echo "Example: $0 'GetTokens for all chains - no limit'"
+    exit 1
+fi
+
+# Get the test name from arguments
+TEST_NAME="$*"
+
+# Go converts spaces to underscores in test names
+# So "GetTokens for all chains - no limit" becomes "GetTokens_for_all_chains_-_no_limit"
+NORMALIZED_NAME=$(echo "$TEST_NAME" | sed 's/ /_/g')
+
+# Default to current directory, but can be overridden with TEST_PKG env var
+TEST_PKG="${TEST_PKG:-./}"
+
+# Try to match as a subtest (parent/subtest pattern)
+# Go test runner uses / to separate parent and subtest
+# We'll try to match any parent test that contains this subtest
+go test "$TEST_PKG" -v -run ".*/${NORMALIZED_NAME}"

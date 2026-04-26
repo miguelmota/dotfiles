@@ -337,3 +337,19 @@ fi
 
 export PATH=/opt/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/mota/.lmstudio/bin"
+
+# Start ssh-agent on login
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+  eval "$(ssh-agent -s)"
+fi
+
+# Ensure SSH_AUTH_SOCK is set for this shell (in case agent was already running)
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  export SSH_AUTH_SOCK=$(find /tmp -type s -user "$USER" -name agent.\* 2>/dev/null | head -n 1)
+fi
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/mota/.pulumi/bin

@@ -56,6 +56,7 @@ filesToLink=(
   "config/rofi/themes"
   "config/cava/config"
   "config/terminator/config"
+  "config/firejail"
   "cortex"
   "dircolors"
   "docker"
@@ -281,6 +282,9 @@ if [ -f "/etc/arch-release" ]; then
 
   # keccak-256sum
   sudo pacman -S --noconfirm sha3sum
+
+  # github hub cli
+  sudo pacman -S hub
 
   if ! command -v yay &> /dev/null; then
     git clone https://aur.archlinux.org/yay.git

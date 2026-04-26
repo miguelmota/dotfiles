@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Replace with the GitHub username you want to check
+username="${1:-miguelmota}"
+
+# GitHub API endpoint to fetch source repositories
+url="https://api.github.com/users/$username/repos?fork=false&per_page=100&page=1"
+
+# Function to fetch and collect repo names and forks count
+fetch_repos() {
+    # Initialize an array to hold all repositories
+    all_repos=()
+
+    # Initialize page counter
+    page=1
+
+    echo "Fetching repositories for user: $username..."
+
+    while true; do
+        # Print status log for the current page
+        echo "Fetching page $page..."
+
+        # Make the API call for the current page
+        response=$(curl -s "$1&page=$page")
+
+        # Extract repository names and forks counts
+        while IFS= read -r repo; do
+            repo_name=$(echo "$repo" | jq -r '.name')
+            forks_count=$(echo "$repo" | jq -r '.forks_count')
+            all_repos+=("$forks_count $repo_name")
+        done < <(echo "$response" | jq -c '.[]')
+
+        # Check if the response contains fewer than 100 repositories (last page)
+        if [[ $(echo "$response" | jq '. | length') -lt 100 ]]; then
+            echo "No more pages to fetch. Reached the last page."
+            break
+        fi
+
+        # Increment page number and continue fetching next page
+        ((page++))
+    done
+
+    # Sort the repositories by forks count (descending) and print with line numbers
+    echo "Sorting and displaying repositories..."
+    printf "%s\n" "${all_repos[@]}" | sort -nr | nl -s'. ' | while read -r line; do
+        echo "$line"
+    done
+
+    echo "Done!"
+}
+
+# Start fetching and sorting repos
+fetch_repos "$url"

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# check_ssh_keys_encryption.sh
+#
+# This script recursively searches ~/.ssh for files that appear to be SSH private keys
+# (using common file name patterns), and then tries to extract their public key using an empty passphrase.
+# If the extraction succeeds, the key is considered UNENCRYPTED (printed in red);
+# if it fails, the key is considered ENCRYPTED (printed in green).
+#
+# Usage: ./check_ssh_keys_encryption.sh
+
+# Define ANSI color codes.
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'  # No Color
+
+# Find files in ~/.ssh that match common SSH private key patterns.
+KEY_FILES=$(find ~/.ssh/ -type f \( -iname "*.key" -o -iname "*.pem" -o -name "id_*" \))
+
+if [[ -z "$KEY_FILES" ]]; then
+    echo "No key files found in ~/.ssh."
+    exit 0
+fi
+
+echo "Checking SSH key encryption status in ~/.ssh:"
+echo "------------------------------------------------"
+
+# Loop through each file found.
+for key in $KEY_FILES; do
+    # Ensure the file appears to be a private key.
+    if file "$key" | grep -qi "private"; then
+        echo "File: $key"
+        # Attempt to extract the public key with an empty passphrase.
+        if ssh-keygen -y -P "" -f "$key" >/dev/null 2>&1; then
+            # Unencrypted key: print status in red.
+            echo -e "${RED}Status: UNENCRYPTED (no passphrase)${NC}"
+        else
+            # Encrypted key: print status in green.
+            echo -e "${GREEN}Status: ENCRYPTED (passphrase-protected)${NC}"
+        fi
+        echo "------------------------------------------------"
+    else
+        echo "Skipping $key (not recognized as a private key)"
+        echo "------------------------------------------------"
+    fi
+done

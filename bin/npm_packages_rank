@@ -1,0 +1,22 @@
+#!/bin/bash
+
+USERNAME="${1:-miguelmota}"
+NPM_API="https://registry.npmjs.org/-/v1/search?text=maintainer:$USERNAME&size=100"
+
+echo "Fetching npm packages for user: $USERNAME..."
+packages=$(curl -s "$NPM_API" | jq -r '.objects[].package.name')
+
+declare -A downloads
+
+# Fetch download count for each package
+for package in $packages; do
+    count=$(curl -s "https://api.npmjs.org/downloads/point/last-month/$package" | jq '.downloads')
+    downloads["$package"]=$count
+    echo "Fetched: $package - $count downloads"
+done
+
+# Sort packages by download count
+echo -e "\nRanking packages by downloads..."
+for package in "${!downloads[@]}"; do
+    echo "${downloads[$package]} $package"
+done | sort -rn | column -t

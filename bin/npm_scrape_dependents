@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ -z "${1:-}" ]; then
+  echo "Usage: npm_scrape_dependents <package-name>"
+  exit 1
+fi
+
+PACKAGE="$1"
+SAFE_PACKAGE_NAME=$(echo "$PACKAGE" | sed 's|/|__|g')
+OFFSET=0
+LIMIT=36
+BASE_URL="https://www.npmjs.com/browse/depended/$PACKAGE"
+OUTPUT_FILE="/tmp/npm-dependents-${SAFE_PACKAGE_NAME}.txt"
+
+> "$OUTPUT_FILE"  # Clear or create
+
+echo "📦 Scraping dependents of '$PACKAGE' from npmjs.com..."
+echo "📝 Writing to: $OUTPUT_FILE"
+
+while true; do
+  URL="${BASE_URL}?offset=${OFFSET}"
+  echo "🔍 Fetching offset ${OFFSET}..."
+
+  html=$(curl -s "$URL")
+
+  # Extract full package names (supports scoped and unscoped)
+  packages=$(echo "$html" | grep -oE '/package/[^"]+' | sed 's#/package/##')
+
+  if [ -z "$packages" ]; then
+    echo "✅ Done. No more results at offset $OFFSET."
+    break
+  fi
+
+  echo "$packages" | grep -v "^${PACKAGE}$" >> "$OUTPUT_FILE"
+
+  OFFSET=$((OFFSET + LIMIT))
+  sleep 0.5
+done
+
+# Deduplicate and sort
+sort -u "$OUTPUT_FILE" -o "$OUTPUT_FILE"
+
+echo ""
+echo "🎉 Finished. Total unique packages: $(wc -l < "$OUTPUT_FILE")"
+echo "📄 Output file: $OUTPUT_FILE"
