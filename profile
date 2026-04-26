@@ -78,43 +78,53 @@ ulimit -n 2048
 # export NVM_DIR=~/.nvm
 # [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
 
-export NVM_DIR="$HOME/.nvm"
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
 
-# This lazy loads nvm
-nvm() {
-  unset -f nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-  nvm $@
-}
+  # This lazy loads nvm
+  nvm() {
+    unset -f nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+    nvm $@
+  }
 
-# This loads nvm bash_completion
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  # This loads nvm bash_completion
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# This resolves the default node version
-DEFAULT_NODE_VER="$((cat "$NVM_DIR/alias/default" || cat ~/.nvmrc) 2> /dev/null)"
-while [ -s "$NVM_DIR/alias/$DEFAULT_NODE_VER" ] && [ ! -z "$DEFAULT_NODE_VER" ]; do
-  DEFAULT_NODE_VER="$(cat "$NVM_DIR/alias/$DEFAULT_NODE_VER")"
-done
+  # This resolves the default node version
+  DEFAULT_NODE_VER="$((cat "$NVM_DIR/alias/default" || cat ~/.nvmrc) 2> /dev/null)"
+  while [ -s "$NVM_DIR/alias/$DEFAULT_NODE_VER" ] && [ ! -z "$DEFAULT_NODE_VER" ]; do
+    DEFAULT_NODE_VER="$(cat "$NVM_DIR/alias/$DEFAULT_NODE_VER")"
+  done
 
-# This resolves the path to the default node version
-DEFAULT_NODE_VER_PATH="$(find $NVM_DIR/versions/node -maxdepth 1 -name "v${DEFAULT_NODE_VER#v}*" | sort -rV | head -n 1)"
+  # This resolves the path to the default node version
+  DEFAULT_NODE_VER_PATH="$(find $NVM_DIR/versions/node -maxdepth 1 -name "v${DEFAULT_NODE_VER#v}*" | sort -rV | head -n 1)"
 
-# This adds the default node version path to PATH
-if [ ! -z "$DEFAULT_NODE_VER_PATH" ]; then
-  export PATH="$DEFAULT_NODE_VER_PATH/bin:$PATH"
+  # This adds the default node version path to PATH
+  if [ ! -z "$DEFAULT_NODE_VER_PATH" ]; then
+    export PATH="$DEFAULT_NODE_VER_PATH/bin:$PATH"
+  fi
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+if [ -d "$HOME/.rvm/bin" ]; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 #eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.lmstudio/bin"
+if [ -d "$HOME/.lmstudio/bin" ]; then
+  export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
 
 # Go installation
-export PATH=$PATH:/usr/local/go/bin
+if [ -d "/usr/local/go/bin" ]; then
+  export PATH=$PATH:/usr/local/go/bin
+fi
