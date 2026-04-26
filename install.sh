@@ -1,12 +1,18 @@
 #!/bin/bash
 
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Dotfiles/dotfiles}"
+INSTALL_PACKAGES="${INSTALL_PACKAGES:-false}"
+WALLPAPER_URL="https://user-images.githubusercontent.com/168240/73391163-56ca8d80-42cf-11ea-8f37-8693f161b618.jpg"
+
+cd "$DOTFILES_DIR" || { echo "Error: DOTFILES_DIR '$DOTFILES_DIR' not found."; exit 1; }
+
 unamestr=$(uname)
 
 filesToLink=(
   "aliases"
   "ackrc"
   "agignore"
-  "apache2"
+  #"apache2" # system service config; machine-specific, not a user dotfile
 
   "bash_aliases"
   "bash_profile"
@@ -39,7 +45,7 @@ filesToLink=(
   "config/pcmanfm/lubuntu/pcmanfm.conf"
   "config/pcmanfm/LXDE/desktop-items-0.conf"
   "config/pcmanfm/LXDE/pcmanfm.conf"
-  "config/pgcli/config"
+  #"config/pgcli/config" # may contain stored database passwords
   "config/picom/config"
   "config/polybar/config"
   "config/polybar/battery-combined.sh"
@@ -59,15 +65,15 @@ filesToLink=(
   "config/firejail"
   "cortex"
   "dircolors"
-  "docker"
+  #"docker" # config.json stores registry auth tokens
   "elinks"
   "emacs.d"
-  "exports"
-  "filezilla"
+  #"exports" # commonly contains exported API keys and secrets
+  #"filezilla" # stores saved FTP/SFTP passwords
   "functions"
   "fonts"
 
-  "gcalcli"
+  #"gcalcli" # stores Google OAuth tokens
   "gemrc"
   "ghci"
   "gitattributes"
@@ -76,25 +82,25 @@ filesToLink=(
   "gitradarrc"
   "gitignore"
 
-  "httpie"
+  #"httpie" # session files can contain auth tokens
   "hushlogin"
-  "irssi"
+  #"irssi" # may contain NickServ and server passwords
   "jupyter/nbconfig/edit.json"
   "local/share/konsole/Main.profile"
   "local/share/konsole/Shapeshifter.colorscheme"
   "local/share/fonts"
   "mc"
-  "mongo"
-  "mutt"
-  "muttrc"
+  #"mongo" # may contain connection strings with credentials
+  #"mutt"  # email client config, may contain passwords
+  #"muttrc" # email client config, may contain passwords
   "NERDTreeBookmarks"
   "powerline"
   "powerline-shell"
   "profile"
   "promptrc"
   "pyhn"
-  "redis"
-  "s3cfg"
+  #"redis" # may contain auth passwords
+  #"s3cfg" # contains AWS access key and secret key
   #"ssh"
   "terminal"
   "termite"
@@ -111,7 +117,7 @@ filesToLink=(
   #"vimrc"
   #viminfo"
 
-  "wegorc"
+  #"wegorc" # contains weather API key
   "w3m"
   "weinre"
 
@@ -133,23 +139,20 @@ filesToLink=(
   "zprofile"
 )
 
-for f in ${filesToLink[@]}; do
-  if [ -d ~/.$f ] || [ -f ~/.$f ]; then
-    if [ -d $f ] || [ -f $f ]; then
-      if [ -L ~/.$f ]; then
-        echo "~/.$f exists and is symlink; skipping."
-      else
-        echo "~/.$f exists (not a symlink but parent might be); skipping."
-      fi
-    fi
-  else
-    if [ -d $f ] || [ -f $f ]; then
-      echo "symlinking ~/Dotfiles/dotfiles/$f -> ~/.$f"
-      mkdir -p ~/.$(dirname $f)
-      ln -snf ~/Dotfiles/dotfiles/$f ~/.$f
+for f in "${filesToLink[@]}"; do
+  target=~/."$f"
+  if [ -d "$target" ] || [ -f "$target" ] || [ -L "$target" ]; then
+    if [ -L "$target" ]; then
+      echo "$target already exists (symlink); skipping."
     else
-      echo "$f not found; skipping."
+      echo "$target already exists; skipping."
     fi
+  elif [ -d "$f" ] || [ -f "$f" ]; then
+    echo "symlinking $DOTFILES_DIR/$f -> $target"
+    mkdir -p ~/.$(dirname "$f")
+    ln -sn "$DOTFILES_DIR/$f" "$target"
+  else
+    echo "$f not found; skipping."
   fi
 done
 
@@ -167,8 +170,8 @@ if [[ "$unamestr" == 'Darwin' ]]; then
       echo "~/.homebrew exists (not a symlink). skipping."
     fi
   else
-    echo "symlinking ~/Dotfiles/dotfiles/homebrew -> ~/.homebrew"
-    ln -snf ~/Dotfiles/dotfiles/homebrew ~/.homebrew
+    echo "symlinking $DOTFILES_DIR/homebrew -> ~/.homebrew"
+    ln -snf "$DOTFILES_DIR/homebrew" ~/.homebrew
   fi
 fi
 
@@ -187,8 +190,8 @@ if [ -f ~/.z.sh ]; then
     echo "~/.z.sh exists (not a symlink). skipping."
   fi
 else
-  echo "symlinking ~/Dotfiles/dotfiles/z/z.sh -> ~/.z.sh"
-  ln -snf ~/Dotfiles/dotfiles/z/z.sh ~/.z.sh
+  echo "symlinking $DOTFILES_DIR/z/z.sh -> ~/.z.sh"
+  ln -snf "$DOTFILES_DIR/z/z.sh" ~/.z.sh
 fi
 
 # Packages
@@ -210,7 +213,7 @@ if [[ "$unamestr" == 'Darwin' ]]; then
   pip install powerline
 fi
 
-if [ -f "/etc/debian_version" ]; then
+if [ -f "/etc/debian_version" ] && [[ "$INSTALL_PACKAGES" == "true" ]]; then
   sudo apt-get update -y
   sudo apt-get install -y git
   sudo apt-get install -y vim
@@ -221,14 +224,13 @@ if [ -f "/etc/debian_version" ]; then
   sudo apt-get install -y make
   sudo apt-get install -y cmake
   sudo apt-get install -y build-essential
-  sudo apt-get install -y gnome-tweak-tool
-  sudo apt-get install -y dconf-tools
+  sudo apt-get install -y gnome-tweaks
+  sudo apt-get install -y dconf-editor
   sudo apt-get install -y xclip
   sudo apt-get install -y net-tools
   sudo apt-get install -y nmap
   sudo apt-get install -y gnome-screenshot
   sudo apt-get install -y font-manager
-  sudo apt-get install -y neofetch
 fi
 
 if grep NAME=Fedora /etc/os-release; then
@@ -360,10 +362,16 @@ else
   fc-cache -vf
 fi
 
-if [ ! -f $HOME/.tmux/plugins/tpm/bin/install_plugins ]; then
+if [ ! -f "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
   echo "Installing ~/.tmux/plugins/tpm"
-  rm -rf $HOME/.tmux/plugins/*
-  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+  if [ -d "$HOME/.tmux/plugins" ] && [ -n "$(ls -A "$HOME/.tmux/plugins" 2>/dev/null)" ]; then
+    read -r -p "This will remove all existing tmux plugins in ~/.tmux/plugins. Continue? [y/N] " confirm
+    [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Skipping tmux plugin install."; goto_end=true; }
+  fi
+  if [[ "$goto_end" != "true" ]]; then
+    rm -rf "$HOME"/.tmux/plugins/*
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+  fi
 fi
 
 # For powerline
@@ -371,15 +379,20 @@ fi
 #pip install --upgrade pip
 
 if [ ! -d "/usr/lib/urxvt/perl" ]; then
-  echo "Copying urxvt perls"
-  sudo mkdir -p /usr/lib/urxvt/perl
-  sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
+  read -r -p "Copy urxvt perls to /usr/lib/urxvt/perl? This may overwrite existing files. [y/N] " confirm
+  if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    echo "Copying urxvt perls"
+    sudo mkdir -p /usr/lib/urxvt/perl
+    sudo cp urxvt/ext/* /usr/lib/urxvt/perl/
+  else
+    echo "Skipping urxvt perl copy."
+  fi
 fi
 
 if [ ! -f "$HOME/.local/share/konsole/Main.profile" ]; then
   echo "Adding konsole profiles"
   mkdir -p $HOME/.local/share/konsole
-  ln -snf $HOME/Dotfiles/dotfiles/local/share/konsole/Main.profile $HOME/.local/share/konsole/Main.profile
+  ln -snf "$DOTFILES_DIR/local/share/konsole/Main.profile" "$HOME/.local/share/konsole/Main.profile"
 else
   if [ -L "$HOME/.local/share/konsole/Main.profile" ]; then
     echo "konsolerc profiles exists and is symlink. skipping."
@@ -392,9 +405,13 @@ if [ ! -f "$HOME/.local/share/wallpaper.jpg" ]; then
   (
     cd /tmp
     echo "Downloading wallpaper"
-    wget https://user-images.githubusercontent.com/168240/73391163-56ca8d80-42cf-11ea-8f37-8693f161b618.jpg -O wallpaper.jpg
-    mkdir -p $HOME/.local/share
-    mv wallpaper.jpg $HOME/.local/share/wallpaper.jpg
+    if wget -q --spider "$WALLPAPER_URL" 2>/dev/null; then
+      wget -q "$WALLPAPER_URL" -O wallpaper.jpg
+      mkdir -p "$HOME/.local/share"
+      mv wallpaper.jpg "$HOME/.local/share/wallpaper.jpg"
+    else
+      echo "Wallpaper URL unavailable; skipping."
+    fi
   )
 fi
 
@@ -402,15 +419,17 @@ echo "sourcing ~/.bashrc"
 source ~/.bashrc
 
 
-if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; then
-  (
-  if [ -d "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load" ]; then
-    echo "installing tmux plugin dependencies"
-    cd $TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load
-    cmake .
-    make
+if [ -n "$TMUX_PLUGIN_MANAGER_PATH" ]; then
+  if [ ! -f "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load" ]; then
+    if [ -d "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load" ]; then
+      echo "installing tmux plugin dependencies"
+      (
+        cd "$TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load"
+        cmake .
+        make
+      )
+    fi
   fi
-)
 fi
 
 mkdir -p ~/Desktop
