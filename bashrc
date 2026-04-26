@@ -115,15 +115,21 @@ fi
 #    . ~/.bash_profile
 #fi
 
-if [ -f ~/.profile ]; then
-    . ~/.profile
+if [ -f ~/.profile ] && [ -z "$_BASHRC_SOURCING_PROFILE" ]; then
+  _BASHRC_SOURCING_PROFILE=1
+  . ~/.profile
+  unset _BASHRC_SOURCING_PROFILE
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 # fedora
@@ -132,7 +138,9 @@ if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
 fi
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+if [ -d "/usr/local/heroku/bin" ]; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
 
 #export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
 export TERM=screen-256color       # for a tmux -2 session (also for screen) (set this)
@@ -149,7 +157,9 @@ parse_git_branch() {
 }
 
 # Git radar
-export PATH=$PATH:$HOME/.git-radar
+if [ -d "$HOME/.git-radar" ]; then
+  export PATH=$PATH:$HOME/.git-radar
+fi
 
 # z - jump around
 if [ -f ~/.z.sh ]; then
@@ -157,16 +167,22 @@ if [ -f ~/.z.sh ]; then
 fi
 
 # Android SDK
-ANDROID_PATH="~/Dropbox/Development/adt-bundle-mac-x86_64-20131030/sdk/tools"
-export PATH="$PATH:$ANDROID_PATH"
+ANDROID_PATH="~/Development/adt-bundle-mac-x86_64-20131030/sdk/tools"
+if [ -d "$ANDROID_PATH" ]; then
+  export PATH="$PATH:$ANDROID_PATH"
+fi
 
 # /usr/local/bin/tmux list-sessions
 if [ $? -ne 0 ]; then
-	/usr/local/bin/tmux
+  if [ -x "/usr/local/bin/tmux" ]; then
+    /usr/local/bin/tmux
+  fi
 fi
 
 # Midnight Commander theme
-export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
+if [ -f "$HOME/.mc/lib/mc-solarized-skin/solarized.ini" ]; then
+  export MC_SKIN="$HOME/.mc/lib/mc-solarized-skin/solarized.ini"
+fi
 
 # Preferred editors
 export EDITOR="/usr/bin/nvim"
@@ -185,7 +201,7 @@ fi
 # disabled because it's causing prompt to be slow
 #if [ -f ~/.powerline/powerline/bindings/bash/powerline.sh ]; then
   #  source ~/.powerline/powerline/bindings/bash/powerline.sh
-  # . /Users/moogs/Dropbox/dotfiles/powerline/powerline/bindings/bash/powerline.sh
+  # . $HOME/Dotfiles/dotfiles/powerline/powerline/bindings/bash/powerline.sh
 #fi
 
 # Homebrew Github API Token
@@ -206,10 +222,12 @@ export ANSIBLE_TRANSPORT="ssh"
 export ANSIBLE_SSH_ARGS="-o ForwardAgent=yes"
 
 # Bin path
-export PATH="~/.bin:$PATH"
+if [ -d "$HOME/.bin" ]; then
+  export PATH="$HOME/.bin:$PATH"
+fi
 
 # ClosureScript
-#export CLOJURESCRIPT_HOME="~Dropbox/Development/workspace/clojurescript"
+#export CLOJURESCRIPT_HOME="~/Development/workspace/clojurescript"
 
 # Sublime Text Link
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
@@ -217,15 +235,16 @@ export PATH="~/.bin:$PATH"
 export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 function _update_ps1() {
-    export PS1="$(~/Dropbox/dotfiles/powerline-shell/powerline-shell.py $? 2> /dev/null)"
+    export PS1="$($HOME/Dotfiles/dotfiles/powerline-shell/powerline-shell.py $? 2> /dev/null)"
 }
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
-#if [ -e ~/.nvm ]; then
-#  export NVM_DIR=$(echo $HOME)/.nvm
-#  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#fi
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
 
 # ctrl-r reverse
 stty -ixon
@@ -246,7 +265,7 @@ fi
 #export PEBBLE_PHONE=192.168.0.2
 
 # Artifactory exports
-#export ARTIFACTORY_HOME=$(echo $HOME)/Dropbox/Development/acorns/artifactory-3.9.2
+#export ARTIFACTORY_HOME=$(echo $HOME)/Development/acorns/artifactory-3.9.2
 
 # Alexa Voice Service
 #export LD_LIBRARY_PATH=/Applications/VLC.app/Contents/MacOS/lib
@@ -256,9 +275,11 @@ fi
 export PATH=$PATH:/bin/git
 
 # Fortune quote
-alias f='command_exists fortune && command_exists cowsay && command_exists lolcat && fortune | cowsay -f $(ls /usr/local/Cellar/cowsay/3.03/share/cows | shuf | sed -n '1p') | lolcat'
+alias f='command_exists fortune && command_exists cowsay && command_exists lolcat && fortune | cowsay | lolcat'
 
-f;
+if [ -n "$DISPLAY" ] && command -v fortune &>/dev/null && command -v cowsay &>/dev/null && command -v lolcat &>/dev/null; then
+  fortune | cowsay | lolcat
+fi
 
 #export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
 #export PATH=$PATH:$HOME/Sandbox/reportal-e2e/slimerjs-0.10.0
@@ -268,7 +289,9 @@ if [ -f ~/.env ]; then
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+if [ -d "$HOME/.rvm/bin" ]; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
@@ -291,17 +314,20 @@ fi
 	#exec tmux
 #fi
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export DENO_INSTALL="$HOME/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-#[[ -s "/home/mota/.gvm/scripts/gvm" ]] && source "/home/mota/.gvm/scripts/gvm"
+if [ -d "$HOME/.deno" ]; then
+  export DENO_INSTALL="$HOME/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
+fi
+#[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # go path
-export GOPATH=$HOME/go
-#export GOROOT=$GOPATH/bin
-#export GOROOT=/usr/bin/go
-export PATH=$PATH:$GOPATH/bin
-unset GOROOT
+if [ -d "$HOME/go" ]; then
+  export GOPATH=$HOME/go
+  #export GOROOT=$GOPATH/bin
+  #export GOROOT=/usr/bin/go
+  export PATH=$PATH:$GOPATH/bin
+  unset GOROOT
+fi
 
 # https://github.com/mattn/go-sqlite3/issues/803
 # export CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
@@ -315,18 +341,22 @@ export STATUSBAR=polybar
 #echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 
 # snapcraft
-export PATH=$PATH:/var/lib/snapd/snap/bin
+if [ -d "/var/lib/snapd/snap/bin" ]; then
+  export PATH=$PATH:/var/lib/snapd/snap/bin
+fi
 
 # Fix ugly fonts in Java applications
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 # Fix menu click issues in Java applications
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export PATH="$PATH:/home/mota/.foundry/bin"
+if [ -d "$HOME/.foundry/bin" ]; then
+  export PATH="$PATH:$HOME/.foundry/bin"
+fi
 
 if command -v fnm &> /dev/null; then
   # fnm
-  FNM_PATH="/home/mota/.local/share/fnm"
+  FNM_PATH="$HOME/.local/share/fnm"
   if [ -d "$FNM_PATH" ]; then
     export PATH="$FNM_PATH:$PATH"
     eval "`fnm env`"
@@ -335,11 +365,15 @@ if command -v fnm &> /dev/null; then
   eval "$(fnm env --use-on-cd --shell bash)"
 fi
 
-export PATH=/opt/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
+if [ -d "/opt/cuda" ]; then
+  export PATH=/opt/cuda/bin:$PATH
+  export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
+fi
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/mota/.lmstudio/bin"
+if [ -d "$HOME/.lmstudio/bin" ]; then
+  export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
 
 # Start ssh-agent on login
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -352,4 +386,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 # add Pulumi to the PATH
-export PATH=$PATH:/home/mota/.pulumi/bin
+if [ -d "$HOME/.pulumi/bin" ]; then
+  export PATH=$PATH:$HOME/.pulumi/bin
+fi

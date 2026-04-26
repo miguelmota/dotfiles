@@ -114,7 +114,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 #eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/mota/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # Go installation
 export PATH=$PATH:/usr/local/go/bin
