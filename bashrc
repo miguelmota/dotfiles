@@ -240,11 +240,7 @@ function _update_ps1() {
 
 # export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
-if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-fi
+# NVM is lazy-loaded via ~/.profile
 
 # ctrl-r reverse
 stty -ixon
@@ -277,9 +273,7 @@ export PATH=$PATH:/bin/git
 # Fortune quote
 alias f='command_exists fortune && command_exists cowsay && command_exists lolcat && fortune | cowsay | lolcat'
 
-if [ -n "$DISPLAY" ] && command -v fortune &>/dev/null && command -v cowsay &>/dev/null && command -v lolcat &>/dev/null; then
-  fortune | cowsay | lolcat
-fi
+# fortune | cowsay | lolcat disabled (slow startup)
 
 #export SLIMERJSLAUNCHER=/Applications/Firefox.app/Contents/MacOS/firefox
 #export PATH=$PATH:$HOME/Sandbox/reportal-e2e/slimerjs-0.10.0

@@ -2862,7 +2862,13 @@ git_rebase_branch() {
     local b="${1:-$(git rev-parse --abbrev-ref HEAD)}"
     [ -n "$b" ] || { echo "Branch is empty"; return 1; }
     git fetch origin && git rebase "origin/${b}"
-  }
+}
+
+# helps with unfocused frozen windows in ubuntu
+# https://askubuntu.com/a/1305680
+restart_gnome_shell() {
+  killall -3 gnome-shell
+}
 
 # vim "multiline cursor"
 #Ctrl-v ................ start visual block selection

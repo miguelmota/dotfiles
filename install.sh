@@ -231,6 +231,11 @@ if [ -f "/etc/debian_version" ] && [[ "$INSTALL_PACKAGES" == "true" ]]; then
   sudo apt-get install -y nmap
   sudo apt-get install -y gnome-screenshot
   sudo apt-get install -y font-manager
+  sudo apt-get install -y pcmanfm
+  sudo apt-get install -y postgresql-client
+  sudo apt-get install -y make
+  # sudo apt-get install -y docker-ce
+  sudo apt-get install -y htop
 fi
 
 if grep NAME=Fedora /etc/os-release; then

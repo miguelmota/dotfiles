@@ -116,7 +116,7 @@
 	"editor.cursorBlinking": "blink",
 
 	// Controls whether the smooth caret animation should be enabled.
-	"editor.cursorSmoothCaretAnimation": false,
+	"editor.cursorSmoothCaretAnimation": "off",
 
 	// Controls the cursor style.
 	"editor.cursorStyle": "line",
@@ -341,7 +341,7 @@
 	"editor.hover.delay": 300,
 
 	// Controls whether the hover is shown.
-	"editor.hover.enabled": true,
+	"editor.hover.enabled": "on",
 
 	// Controls whether the hover should remain visible when mouse is moved over it.
 	"editor.hover.sticky": true,
@@ -372,9 +372,6 @@
 
 	// Controls the letter spacing in pixels.
 	"editor.letterSpacing": 0,
-
-	// Enables the code action lightbulb in the editor.
-	"editor.lightbulb.enabled": true,
 
 	// Controls the line height. 
 	//  - Use 0 to automatically compute the line height from the font size.
@@ -442,7 +439,7 @@
 	"editor.multiCursorPaste": "spread",
 
 	// Controls whether the editor should highlight semantic symbol occurrences.
-	"editor.occurrencesHighlight": true,
+	"editor.occurrencesHighlight": "singleFile",
 
 	// Controls whether a border should be drawn around the overview ruler.
 	"editor.overviewRulerBorder": true,
@@ -485,7 +482,7 @@
 	"editor.renderControlCharacters": true,
 
 	// Render last line number when the file ends with a newline.
-	"editor.renderFinalNewline": true,
+	"editor.renderFinalNewline": "on",
 
 	// Controls how the editor should render the current line highlight.
 	//  - none
@@ -585,10 +582,6 @@
 
 	// Emulate selection behavior of tab characters when using spaces for indentation. Selection will stick to tab stops.
 	"editor.stickyTabStops": false,
-
-	// This setting is deprecated, please use separate settings like 'editor.suggest.showKeywords' or 'editor.suggest.showSnippets' instead.
-	// 
-	"editor.suggest.filteredTypes": {},
 
 	// Controls whether filtering and sorting suggestions accounts for small typos.
 	"editor.suggest.filterGraceful": true,
@@ -768,7 +761,7 @@
 	"editor.useTabStops": true,
 
 	// Controls whether completions should be computed based on words in the document.
-	"editor.wordBasedSuggestions": true,
+	"editor.wordBasedSuggestions": "matchingDocuments",
 
 	// Controls from which documents word based completions are computed.
 	//  - currentDocument: Only suggest words from the active document.
@@ -1026,7 +1019,7 @@
 	"workbench.editor.showIcons": true,
 
 	// Controls whether opened editors should show in tabs or not.
-	"workbench.editor.showTabs": true,
+	"workbench.editor.showTabs": "multiple",
 
 	// Controls the layout for when an editor is split in an editor group to be either vertical or horizontal.
 	//  - vertical: Editors are positioned from top to bottom.
@@ -1125,10 +1118,10 @@
 	"workbench.panel.opensMaximized": "preserve",
 
 	// Specifies the preferred color theme for dark OS appearance when `window.autoDetectColorScheme` is enabled.
-	"workbench.preferredDarkColorTheme": "Default Dark+",
+	"workbench.preferredDarkColorTheme": "Dark+",
 
 	// Specifies the preferred color theme for light OS appearance when `window.autoDetectColorScheme` is enabled.
-	"workbench.preferredLightColorTheme": "Default Light+",
+	"workbench.preferredLightColorTheme": "Light+",
 
 	// Specifies the product icon theme used.
 	//  - Default: Default
@@ -1477,9 +1470,6 @@
 
 	// Controls whether turning on Zen Mode also hides the status bar at the bottom of the workbench.
 	"zenMode.hideStatusBar": true,
-
-	// Controls whether turning on Zen Mode also hides workbench tabs.
-	"zenMode.hideTabs": true,
 
 	// Controls whether a window should restore to zen mode if it was exited in zen mode.
 	"zenMode.restore": true,
@@ -3098,9 +3088,6 @@
 	// Controls whether bold text in the terminal will always use the "bright" ANSI color variant.
 	"terminal.integrated.drawBoldTextInBrightColors": true,
 
-	// Controls whether the terminal bell is enabled, this shows up as a visual bell next to the terminal's name.
-	"terminal.integrated.enableBell": false,
-
 	// Whether to enable file links in the terminal. Links can be slow when working on a network drive in particular because each file link is verified against the file system. Changing this will take effect only in new terminals.
 	"terminal.integrated.enableFileLinks": true,
 
@@ -3791,7 +3778,11 @@
 	"[markdown]":  {
 		"editor.unicodeHighlight.ambiguousCharacters": false,
 		"editor.wordWrap": "on",
-		"editor.quickSuggestions": false
+		"editor.quickSuggestions": {
+			"comments": "off",
+			"strings": "off",
+			"other": "off"
+		}
 	},
 
 	// Configure settings to be overridden for [plaintext] language.
@@ -4040,7 +4031,7 @@
 	"git.ignoreWindowsGit27Warning": false,
 
 	// Controls when to show commit message input validation.
-	"git.inputValidation": "warn",
+	"git.inputValidation": true,
 
 	// Controls the commit message length threshold for showing a warning.
 	"git.inputValidationLength": 72,
@@ -5384,4 +5375,10 @@
 	"editor.minimap.enabled": false,
 	"tabnine.experimentalAutoImports": true,
 	"window.titleBarStyle": "native",
+	"workbench.editor.tabActionLocation": "right",
+	"zenMode.showTabs": "single",
+	"accessibility.signals.terminalBell": {
+		"sound": "off"
+	},
+	"terminal.integrated.enableVisualBell": false,
 }

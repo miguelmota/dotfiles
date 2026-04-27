@@ -1,16 +1,78 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-if ! command -v "xdotool" &> /dev/null; then
-  echo "missing package xdotool, installing"
-  yay -S xdotool
-fi
+set -euo pipefail
 
-if ! command -v "fzf" &> /dev/null; then
-  echo "missing package fzf, installing"
-  yay -S fzf
-fi
+launcher_class="FuzzyLauncher"
+launcher_cmd='~/.bin/fuzzy_finder | fzf --color=bw --reverse --prompt="> " --pointer=" " --history=/tmp/fzfhistory | (x=$(cat); (set -m; (echo "$x" >> /tmp/fzfhistory; ~/.bin/fuzzy_finder cache &); exec "$x" &))'
 
-xdotool search --onlyvisible --classname FuzzyLauncher windowunmap || \
-xdotool search --classname FuzzyLauncher windowmap || \
-alacritty --option window.dimensions.columns=100 --option window.dimensions.lines=10 --class FuzzyLauncher \
--e bash -c '~/.bin/fuzzy_finder | fzf --color=bw --reverse --prompt="> " --pointer=" " --history=/tmp/fzfhistory | (x=$(cat); (set -m; (echo $x >> /tmp/fzfhistory; ~/.bin/fuzzy_finder cache &); exec $x &))'
+install_package() {
+  local pkg="$1"
+
+  if command -v yay &> /dev/null; then
+    yay -S --needed --noconfirm "$pkg"
+    return
+  fi
+
+  if command -v apt-get &> /dev/null; then
+    sudo apt-get install -y "$pkg"
+    return
+  fi
+
+  if command -v pacman &> /dev/null; then
+    sudo pacman -S --needed --noconfirm "$pkg"
+    return
+  fi
+
+  echo "missing dependency: $pkg" >&2
+  echo "install it manually; no supported package manager found" >&2
+  exit 1
+}
+
+require_command() {
+  local cmd="$1"
+  local pkg="${2:-$1}"
+
+  if ! command -v "$cmd" &> /dev/null; then
+    echo "missing package $pkg, installing"
+    install_package "$pkg"
+  fi
+}
+
+launch_terminal() {
+  if command -v alacritty &> /dev/null; then
+    exec alacritty \
+      --option window.dimensions.columns=100 \
+      --option window.dimensions.lines=10 \
+      --class "$launcher_class" \
+      -e bash -lc "$launcher_cmd"
+  fi
+
+  if command -v gnome-terminal &> /dev/null; then
+    exec gnome-terminal \
+      --class="$launcher_class" \
+      -- bash -lc "$launcher_cmd"
+  fi
+
+  if command -v kitty &> /dev/null; then
+    exec kitty \
+      --class "$launcher_class" \
+      bash -lc "$launcher_cmd"
+  fi
+
+  if command -v xterm &> /dev/null; then
+    exec xterm \
+      -class "$launcher_class" \
+      -geometry 100x10 \
+      -e bash -lc "$launcher_cmd"
+  fi
+
+  echo "no supported terminal found (tried alacritty, gnome-terminal, kitty, xterm)" >&2
+  exit 1
+}
+
+require_command xdotool
+require_command fzf
+
+xdotool search --onlyvisible --classname "$launcher_class" windowunmap || \
+xdotool search --classname "$launcher_class" windowmap || \
+launch_terminal
