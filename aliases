@@ -187,10 +187,13 @@ alias git_delete_remote_branch='git push origin --delete'
 alias gpdev='git pull origin develop'
 alias gitstats='git diff --shortstat'
 alias git_open='hub browse'
+alias ghview='gh repo view --web'
+alias ghbrowse='ghview'
 alias git_show_last_signature='git log --show-signature -1'
 alias git_show_staged_files='git diff --name-only --cached'
 alias gfa='git fetch --all'
 alias gwm='git switch master'
+alias gl='git log'
 
 # System aliases
 

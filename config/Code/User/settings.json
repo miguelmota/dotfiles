@@ -912,10 +912,6 @@
 		"commandCenter.border": "#e7e7e799"
 	},
 
-	// Specifies the color theme used in the workbench.
-	// "workbench.colorTheme": "Default Dark+",
-    "workbench.colorTheme": "Gruvbox Dark (Hard)",
-
 	// Controls the number of recently used commands to keep in history for the command palette. Set to 0 to disable command history.
 	"workbench.commandPalette.history": 50,
 

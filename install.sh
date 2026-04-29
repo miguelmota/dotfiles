@@ -236,6 +236,7 @@ if [ -f "/etc/debian_version" ] && [[ "$INSTALL_PACKAGES" == "true" ]]; then
   sudo apt-get install -y make
   # sudo apt-get install -y docker-ce
   sudo apt-get install -y htop
+  sudo apt-get install -y hub
 fi
 
 if grep NAME=Fedora /etc/os-release; then
