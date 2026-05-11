@@ -5313,6 +5313,7 @@
 
 	// Peacock extension settings
     "peacock.favoriteColors": [
+
       {
         "name": "Angular Red",
         "value": "#b52e31"
@@ -5366,8 +5367,8 @@
         "value": "#42b883"
       }
     ],
-    "peacock.affectAccentBorders": true,
-	"peacock.surpriseMeOnStartup": true,
+    "peacock.affectAccentBorders": false,
+	"peacock.surpriseMeOnStartup": false,
 	"editor.minimap.enabled": false,
 	"tabnine.experimentalAutoImports": true,
 	"window.titleBarStyle": "native",
@@ -5377,4 +5378,9 @@
 		"sound": "off"
 	},
 	"terminal.integrated.enableVisualBell": false,
+	"peacock.affectActivityBar": true,
+	"peacock.affectSashHover": false,
+	"peacock.affectStatusBar": false,
+	"peacock.affectTitleBar": true,
+	"peacock.darkForegroundColor": "#000",
 }
