@@ -2870,6 +2870,18 @@ restart_gnome_shell() {
   killall -3 gnome-shell
 }
 
+pcb() {
+  echo "$(pwd) branch $(git branch --show-current)" | copy
+}
+
+diff_changes() {
+  local base="${1:-master}"
+  local branch
+  branch="$(git branch --show-current)"
+
+  git diff "$base..$branch"
+}
+
 # vim "multiline cursor"
 #Ctrl-v ................ start visual block selection
 #6j .................... go down 6 lines

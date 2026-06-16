@@ -72,6 +72,7 @@ filesToLink=(
   #"filezilla" # stores saved FTP/SFTP passwords
   "functions"
   "fonts"
+  "fzf.bash"
 
   #"gcalcli" # stores Google OAuth tokens
   "gemrc"
@@ -217,7 +218,7 @@ if [ -f "/etc/debian_version" ] && [[ "$INSTALL_PACKAGES" == "true" ]]; then
   sudo apt-get update -y
   sudo apt-get install -y git
   sudo apt-get install -y vim
-  sudo apt-get install -y tmux
+  sudo apt-get install -y tmux # remember to install plugins (Ctrl-b + I) after installing
   sudo apt-get install -y wget
   sudo apt-get install -y curl
   sudo apt-get install -y jq
@@ -237,6 +238,7 @@ if [ -f "/etc/debian_version" ] && [[ "$INSTALL_PACKAGES" == "true" ]]; then
   # sudo apt-get install -y docker-ce
   sudo apt-get install -y htop
   sudo apt-get install -y hub
+  sudo apt-get install -y fzf
 fi
 
 if grep NAME=Fedora /etc/os-release; then
@@ -262,7 +264,7 @@ fi
 if [ -f "/etc/arch-release" ]; then
   sudo pacman -S --noconfirm git
   sudo pacman -S --noconfirm vim
-  sudo pacman -S --noconfirm tmux
+  sudo pacman -S --noconfirm tmux # remember to install plugins (Ctrl-b + I) after installing
   sudo pacman -S --noconfirm wget
   sudo pacman -S --noconfirm curl
   sudo pacman -S --noconfirm jq

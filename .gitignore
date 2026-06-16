@@ -142,6 +142,7 @@ gitconfig
 /azure
 /vnc
 /tmux/resurrect/*
+/tmux/plugins/*
 /wegorc
 
 /cortex

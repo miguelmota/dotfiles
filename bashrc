@@ -288,6 +288,10 @@ if [ -d "$HOME/.rvm/bin" ]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# older
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f /usr/share/doc/fzf/examples/completion.bash ] && source /usr/share/doc/fzf/examples/completion.bash
+# newer
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 

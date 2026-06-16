@@ -486,9 +486,11 @@ alias calc='calculator_cli'
 alias annotate_file='satty --filename'
 alias pdf_annotate_app='xournalpp'
 alias pc='pwd | copy'
+alias branch='git branch --show-current'
 alias branch_copy='git branch --show-current | copy'
 alias bcopy='branch_copy'
 alias brc='branch_copy'
+alias external_icon_copy='echo ↗ | copy'
 
 if [ -f ~/.aliases.local ]; then
   . ~/.aliases.local
